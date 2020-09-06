@@ -18,14 +18,13 @@
     * Return Type is a tuple in the form of `(shortest_path, the_time_of_shortest_path)`. `shortest path` is an 1D int array, and `the_time_of_shortest_path` is a double type number.
 """
 
-a = [[0]] # True
-b = [[1, 0], [1, 0]] # True
-c = [[0, 5, -1, -1], [5, 0, -1, -1], [-1, -1, 0, 6], [-1, -1, 6, 0]] # False
-d = [[0, 5, -1], [5, 0, -1], [-1, -1, 0]] # False
-e = [] # False Empty
-f = [0] # False 1D
-g = [[1, 0], [1]] # False Bizarre
-test = [[0, 1, 2, 8], [1, 0, 3, 4], [2, 3, 0, 6], [8, 4, 6, 0]]
+
+
+"""
+#################
+### APIs FUNC ###
+#################
+"""
 # Main algo.
 # Separate to later algo.
 def shortest_path(matrix, start=None, end=None):
@@ -64,6 +63,12 @@ def shortest_path(matrix, start=None, end=None):
     # Case 3: Contains both start and end
     print("Shortest with with both start and end points.")
     return shortest_path_with_se(matrix, start, end)
+
+"""
+#################
+### CORE ALGO ###
+#################
+"""
 
 # Find out the shortest path that visit all the points with no start nor end by shortest_path_with_se, and the total time
 def shortest_path_no_se(matrix):
@@ -198,10 +203,11 @@ def shortest_path_with_se(matrix, start, end):
     return lst, min_val
 
 """
-###################
-### IMPLEMENTED ###
-###################
+###############
+### HELPERS ###
+###############
 """
+
 # Takes in 2-D array such that cannot be empty. Also, it validates that it is a regularized matrix.
 def validate_matrix(matrix):
     # return true if the input mat has another layer inside
