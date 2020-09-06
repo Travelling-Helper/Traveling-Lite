@@ -15,5 +15,5 @@ Purpose: This File serves as the main searching algorithm of this project.
 ### API
 1. $shortest_path(matrix, start=None, end=None)
   - $matrix$ is a 2D array which serves as a sqaure matrix.
-  - $start$ and <end> are both int type, serves as the starting and ending point.
+  - $start$ and [end] are both int type, serves as the starting and ending point.
   - Return Type is tuple as (<1D array>, int).
