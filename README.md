@@ -14,6 +14,6 @@
     
 ## APIs
 1. `shortest_path(matrix, start=None, end=None)`
-*Tabspace* i. `matrix` is a 2D array which serves as a sqaure matrix.
-*Tabspace* ii. `start` and `end` are both int type, serving as the start and end point.
-*Tabspace* iii. Return Type is a tuple in the form of `(shortest_path, the_time_of_shortest_path)`. `shortest path` is an 1D int array, and `the_time_of_shortest_path` is a double type number.
+   `matrix` is a 2D array which serves as a sqaure matrix.
+   `start` and `end` are both int type, serving as the start and end point.
+   Return Type is a tuple in the form of `(shortest_path, the_time_of_shortest_path)`. `shortest path` is an 1D int array, and `the_time_of_shortest_path` is a double type number.
