@@ -8,9 +8,9 @@
 ## IMPORTANT NOTES:
 1. Direction: From row to colum, each entry means the shortest time to travel from ith place to jth place.
 2. Assumption:
-*Tabspace* i. All points are connected.
-*Tabspace* ii. Each point can travel to other points within an exisited time span.
-*Tabspace* iii. We do not consider each point will be visited again based on time graph (Even if in reality there exists `B` on the track from `A` to `C`, note as `A-B-C`, but `time(A-C)` is less than `time(A-B) + time(B-C)`.)
+- All points are connected.
+- Each point can travel to other points within an exisited time span.
+- We do not consider each point will be visited again based on time graph (Even if in reality there exists `B` on the track from `A` to `C`, note as `A-B-C`, but `time(A-C)` is less than `time(A-B) + time(B-C)`.)
     
 ## APIs
 1. `shortest_path(matrix, start=None, end=None)`
