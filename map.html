@@ -1,46 +1,55 @@
-<!--Sep.9 2020, V0.1-->
+<!--
+@author Surong Huang
+@date Sep. 9 2020
+@version version 0.1
+-->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head>
-<h1><b>高德地图</b></h1>
-    <title> 高德地图</title>
-  </head>
-  
-  <body>
-<!--新建一个容器-->
-<div id="wrapper"></div>
+<!--DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title> Map Query</title>
+    </head>
 
+    <body>
+        <!--Init A Wrapper-->
+        <div id="wrapper"></div>
 
-<div id="like_button_container"></div>
+        <!-What is the usage of the line below? commented by Yuqi hu->
+        <div id="like_button_container"></div>
 
+        <!--CSS FOR WRAPPER AND HTML PAGE-->
+        <style>
+            #wrapper{
+                margin: 0;
+                padding: 0;
+                width:100%;
+                height:100%
+            }
+            html, body{
+                height: 100%;
+                padding: 0;
+                margin: 0;
+                padding: 0;
+            }
+        </style>
 
-<!--设置宽和高-->
-<style>
-	#wrapper{
-		width: 500px;
-		height: 500px;
-	}
-</style>
+        <!--IMPORT JS-->
+        <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.8&key=8828beb3bcff3f74ce7af47eb1cd954e"></script>
 
-<!--引入js-->
-<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.8&key=8828beb3bcff3f74ce7af47eb1cd954e"></script> 
-<!--* 这里需要刚才申请的Key-->
-<script>
-	//初始化地图插件
-	window.onload = function(){
-		var map = new AMap.Map('wrapper');
-	}
-</script>
+        <!-- 这里需要刚才申请的 Key-->
+        <script>
+            //初始化地图插件
+            window.onload = function(){
+                var map = new AMap.Map('wrapper');
+            }
+        </script>
 
+        <!-- 加载 React-->
+        <!-- 注意: 部署时，将 "development.js" 替换为 "production.min.js"-->
+        <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 
-  <!-- 加载 React。-->
-  <!-- 注意: 部署时，将 "development.js" 替换为 "production.min.js"。-->
-  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
-
-  <!-- 加载我们的 React 组件。-->
-  <script src="like_button.js"></script>
-  
-  
-  </body>
- </html>
+        <!-- 加载我们的 React 组件-->
+        <script src="like_button.js"></script>
+    </body>
+</html>
