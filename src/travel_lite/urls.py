@@ -18,5 +18,6 @@ from django.conf.urls import url
 from django.contrib import admin
 
 urlpatterns = [
+    url(r'^robots.txt', "mpath.views.robots"), # Yuqi Hu --> robots.txt
     url(r'^admin/', admin.site.urls),
 ]
