@@ -143,7 +143,7 @@ class one_path_algo:
         lst.reverse()
         return lst, min_val
 
-    # Find out the shortest path that visit all the points with both start and end, and the total time
+    # Find out the shortest path that visit all the points with both start and end, and the total time by DFS with pruning
     def shortest_path_with_se(matrix, start, end):
         start_is_end_flag = (start == end)
 
@@ -170,20 +170,24 @@ class one_path_algo:
                     lst.append(cur)
             return lst
 
+        cur_min_dist = float('inf')
         while len(dict) != 0:
-            cur_path = list(dict.keys())[0]
+            cur_path = list(dict.keys()).pop()
             if len(cur_path) == len(matrix):
                 finish.update({cur_path : dict.pop(cur_path)})
+                for i in finish:
+                    if finish[i] < cur_min_dist:
+                        cur_min_dist = finish[i]
             else:
                 cur_value = dict.pop(cur_path)
-                cur_vertex = eval(cur_path[-1:])
-                if cur_vertex != end:
-                    next_list = next_vertices(cur_path)
-                    for i in next_list:
-                        new_path = cur_path + str(i)
-                        new_value = cur_value + matrix[cur_vertex][i]
-                        dict.update({new_path : new_value})
-
+                if cur_value <= cur_min_dist:
+                    cur_vertex = eval(cur_path[-1:])
+                    if cur_vertex != end:
+                        next_list = next_vertices(cur_path)
+                        for i in next_list:
+                            new_path = cur_path + str(i)
+                            new_value = cur_value + matrix[cur_vertex][i]
+                            dict.update({new_path : new_value})
 
         shortest_path, min_val = argmin(finish)
 
