@@ -1,7 +1,7 @@
 """
 @author Yuqi Hu
 @date Sep. 11th 2020
-@version 1.2
+@version 1.3.0
 @purpose This File serves as the main searching algorithm of this project.
 ## IMPORTANT NOTES:
 * Direction: From row to colum, each entry means the shortest time to travel from ith place to jth place.
@@ -25,9 +25,218 @@ class one_path_algo:
     #################
     """
 
-    # Main algo.
-    # Separate to later algo.
+    # API funcs.
     def shortest_path(matrix, start=None, end=None):
+
+        """
+        ###############
+        ### HELPERS ###
+        ###############
+        """
+
+        # Takes in 2-D array such that cannot be empty. Also, it validates that it is a regularized matrix.
+        def validate_matrix(matrix):
+            # Return true if the input mat has another layer inside
+            """
+            Doc Test:
+            a = [] # False Empty
+            b = [0] # False 1D
+            c = [[0]] # True
+            d = [[1, 0], [1]] # False Bizarre
+            e = [[1, 0], [1, 0]] # True
+            """
+            def has_layer(mat):
+                try:
+                    mat[0]
+                    return True
+                except:
+                    return False
+
+            row_num = len(matrix)
+
+            if row_num > 9:
+                print("Input matrix is too large.")
+                return False
+
+            if row_num == 0 :
+                print("Input matrix is empty.")
+                return False
+
+            if not has_layer(matrix[0]):
+                print("Input matrix is just 1D, expected 2D.")
+                return False
+
+            for i in range(row_num):
+                if len(matrix[i]) != row_num:
+                    print("Input matrix is not an square matrix, bizarre.")
+                    return False
+
+            return True
+
+        # Takes in a 1-D diction, and return the argument that makes the value minimized the value, and output the smallest value
+        def argmin(d):
+            if not d: return None
+            min_val = min(d.values())
+            return [k for k in d if d[k] == min_val][0], min_val
+
+        """
+        #################
+        ### CORE ALGO ###
+        #################
+        """
+
+        # Find out the shortest path that visit all the points with no start nor end by shortest_path_with_se, and the total time
+        def shortest_path_no_se(matrix):
+            dict = {}
+            for i in range(len(matrix)):
+                for j in range(len(matrix)):
+                    temp_tuple = shortest_path_with_se(matrix, i, j)
+                    dict.update({temp_tuple[1] : temp_tuple[0]})
+            min_val = min(dict)
+            return dict[min_val], min_val
+
+        # Find out the shortest path that visit all the points with only a start point, and the total time by DFS with pruning
+        def shortest_path_only_start(matrix, start):
+            dict = {str(start) : 0}
+            finish = {}
+            lst = []
+
+            def next_vertices(cur_path):
+                lst = []
+                for cur in range(0, len(matrix)):
+                    if str(cur) not in cur_path:
+                        lst.append(cur)
+                return lst
+
+            cur_path_min = [float('inf')]
+            while len(dict) != 0:
+                cur_path = list(dict.keys()).pop()
+                if len(cur_path) == len(matrix):
+                    finish.update({cur_path : dict.pop(cur_path)})
+                    _, min_value = argmin(finish)
+                    if min_value < cur_path_min[0]:
+                        cur_path_min[0] = min_value
+                else:
+                    cur_value = dict.pop(cur_path)
+                    if cur_value <= cur_path_min[0]:
+                        cur_vertex = eval(cur_path[-1:])
+                        next_list = next_vertices(cur_path)
+                        for i in next_list:
+                            new_path = cur_path + str(i)
+                            new_value = cur_value + matrix[cur_vertex][i]
+                            dict.update({new_path : new_value})
+
+            shortest_path, min_val = argmin(finish)
+
+            for i in shortest_path:
+                lst.append(eval(i))
+
+            return lst, min_val
+
+        # Find out the shortest path that visit all the points with only an end point, and the total time by DFS with pruning
+        def shortest_path_only_end(matrix, end):
+            dict = {str(end) : 0}
+            finish = {}
+            lst = []
+
+            def next_vertices(cur_path):
+                lst = []
+                for cur in range(0, len(matrix)):
+                    if str(cur) not in cur_path:
+                        lst.append(cur)
+                return lst
+
+            cur_path_min = [float('inf')]
+            while len(dict) != 0:
+                cur_path = list(dict.keys()).pop()
+                if len(cur_path) == len(matrix):
+                    finish.update({cur_path : dict.pop(cur_path)})
+                    _, min_value = argmin(finish)
+                    if min_value < cur_path_min[0]:
+                        cur_path_min[0] = min_value
+                else:
+                    cur_value = dict.pop(cur_path)
+                    if cur_value <= cur_path_min[0]:
+                        cur_vertex = eval(cur_path[-1:])
+                        next_list = next_vertices(cur_path)
+                        for i in next_list:
+                            new_path = cur_path + str(i)
+                            new_value = cur_value + matrix[i][cur_vertex]
+                            dict.update({new_path : new_value})
+
+            shortest_path, min_val= argmin(finish)
+            for i in shortest_path:
+                lst.append(eval(i))
+            lst.reverse()
+            return lst, min_val
+
+        # Find out the shortest path that visit all the points with both start and end, and the total time by DFS with pruning
+        def shortest_path_with_se(matrix, start, end):
+            start_is_end_flag = (start == end)
+
+            copy_matrix = matrix
+            if start_is_end_flag:
+                copy_matrix = []
+                for i in matrix:
+                    copy_matrix.append(i.copy())
+                for i in range(len(copy_matrix)):
+                    copy_matrix[i].append(copy_matrix[i][start])
+                end_to_all_row = copy_matrix[start].copy()
+                copy_matrix.append(end_to_all_row)
+                end = len(copy_matrix) - 1
+            matrix = copy_matrix
+
+            dict = {str(start) : 0}
+            finish = {}
+            lst = []
+
+            def next_vertices(cur_path):
+                lst = []
+                for cur in range(0, len(matrix)):
+                    if str(cur) not in cur_path:
+                        lst.append(cur)
+                return lst
+
+            cur_min_dist = float('inf')
+            while len(dict) != 0:
+                cur_path = list(dict.keys()).pop()
+                if len(cur_path) == len(matrix):
+                    finish.update({cur_path : dict.pop(cur_path)})
+                    for i in finish:
+                        if finish[i] < cur_min_dist:
+                            cur_min_dist = finish[i]
+                else:
+                    cur_value = dict.pop(cur_path)
+                    if cur_value <= cur_min_dist:
+                        cur_vertex = eval(cur_path[-1:])
+                        if cur_vertex != end:
+                            next_list = next_vertices(cur_path)
+                            for i in next_list:
+                                new_path = cur_path + str(i)
+                                new_value = cur_value + matrix[cur_vertex][i]
+                                dict.update({new_path : new_value})
+
+            shortest_path, min_val = argmin(finish)
+
+            if start_is_end_flag:
+                for i in shortest_path:
+                    temp_value = eval(i)
+                    if temp_value == len(matrix) - 1:
+                        lst.append(start)
+                    else:
+                        lst.append(temp_value)
+            else:
+                for i in shortest_path:
+                    lst.append(eval(i))
+
+            return lst, min_val
+
+        """
+        #######################
+        ### SEPARATION FUNC ###
+        #######################
+        """
+
         if not validate_matrix(matrix):
             return [], None # No solution
 
@@ -36,7 +245,7 @@ class one_path_algo:
             print("Shortest with no start nor end point.")
             return shortest_path_no_se(matrix)
 
-        # Checks if start or end point is valid, return false if it is not valid, true if it is valid
+        # Checks If start or end point is valid, return false if it is not valid, true if it is valid
         def start_end_validation(start, end):
             if not start == None and (start < 0 or start >= len(matrix)):
                 print("Invalid start point.")
@@ -64,206 +273,3 @@ class one_path_algo:
         # Case 3: Contains both start and end
         print("Shortest with with both start and end points.")
         return shortest_path_with_se(matrix, start, end)
-
-    """
-    #################
-    ### CORE ALGO ###
-    #################
-    """
-
-    # Find out the shortest path that visit all the points with no start nor end by shortest_path_with_se, and the total time
-    def shortest_path_no_se(matrix):
-        dict = {}
-        for i in range(len(matrix)):
-            for j in range(len(matrix)):
-                temp_tuple = shortest_path_with_se(matrix, i, j)
-                dict.update({temp_tuple[1] : temp_tuple[0]})
-        min_val = min(dict)
-        return dict[min_val], min_val
-
-    # Find out the shortest path that visit all the points with only a start point by DFS with pruning, and the total time
-    def shortest_path_only_start(matrix, start):
-        dict = {str(start) : 0}
-        finish = {}
-        lst = []
-
-        def next_vertices(cur_path):
-            lst = []
-            for cur in range(0, len(matrix)):
-                if str(cur) not in cur_path:
-                    lst.append(cur)
-            return lst
-
-        cur_path_min = [float('inf')]
-        while len(dict) != 0:
-            cur_path = list(dict.keys()).pop()
-            if len(cur_path) == len(matrix):
-                finish.update({cur_path : dict.pop(cur_path)})
-                _, min_value = argmin(finish)
-                if min_value < cur_path_min[0]:
-                    cur_path_min[0] = min_value
-            else:
-                cur_value = dict.pop(cur_path)
-                if cur_value <= cur_path_min[0]:
-                    cur_vertex = eval(cur_path[-1:])
-                    next_list = next_vertices(cur_path)
-                    for i in next_list:
-                        new_path = cur_path + str(i)
-                        new_value = cur_value + matrix[cur_vertex][i]
-                        dict.update({new_path : new_value})
-
-        shortest_path, min_val = argmin(finish)
-
-        for i in shortest_path:
-            lst.append(eval(i))
-
-        return lst, min_val
-
-    # Find out the shortest path that visit all the points with only an end point by DFS with pruning, and the total time
-    def shortest_path_only_end(matrix, end):
-        dict = {str(end) : 0}
-        finish = {}
-        lst = []
-
-        def next_vertices(cur_path):
-            lst = []
-            for cur in range(0, len(matrix)):
-                if str(cur) not in cur_path:
-                    lst.append(cur)
-            return lst
-
-        cur_path_min = [float('inf')]
-        while len(dict) != 0:
-            cur_path = list(dict.keys()).pop()
-            if len(cur_path) == len(matrix):
-                finish.update({cur_path : dict.pop(cur_path)})
-                _, min_value = argmin(finish)
-                if min_value < cur_path_min[0]:
-                    cur_path_min[0] = min_value
-            else:
-                cur_value = dict.pop(cur_path)
-                if cur_value <= cur_path_min[0]:
-                    cur_vertex = eval(cur_path[-1:])
-                    next_list = next_vertices(cur_path)
-                    for i in next_list:
-                        new_path = cur_path + str(i)
-                        new_value = cur_value + matrix[i][cur_vertex]
-                        dict.update({new_path : new_value})
-
-        shortest_path, min_val= argmin(finish)
-        for i in shortest_path:
-            lst.append(eval(i))
-        lst.reverse()
-        return lst, min_val
-
-    # Find out the shortest path that visit all the points with both start and end, and the total time by DFS with pruning
-    def shortest_path_with_se(matrix, start, end):
-        start_is_end_flag = (start == end)
-
-        copy_matrix = matrix
-        if start_is_end_flag:
-            copy_matrix = []
-            for i in matrix:
-                copy_matrix.append(i.copy())
-            for i in range(len(copy_matrix)):
-                copy_matrix[i].append(copy_matrix[i][start])
-            end_to_all_row = copy_matrix[start].copy()
-            copy_matrix.append(end_to_all_row)
-            end = len(copy_matrix) - 1
-        matrix = copy_matrix
-
-        dict = {str(start) : 0}
-        finish = {}
-        lst = []
-
-        def next_vertices(cur_path):
-            lst = []
-            for cur in range(0, len(matrix)):
-                if str(cur) not in cur_path:
-                    lst.append(cur)
-            return lst
-
-        cur_min_dist = float('inf')
-        while len(dict) != 0:
-            cur_path = list(dict.keys()).pop()
-            if len(cur_path) == len(matrix):
-                finish.update({cur_path : dict.pop(cur_path)})
-                for i in finish:
-                    if finish[i] < cur_min_dist:
-                        cur_min_dist = finish[i]
-            else:
-                cur_value = dict.pop(cur_path)
-                if cur_value <= cur_min_dist:
-                    cur_vertex = eval(cur_path[-1:])
-                    if cur_vertex != end:
-                        next_list = next_vertices(cur_path)
-                        for i in next_list:
-                            new_path = cur_path + str(i)
-                            new_value = cur_value + matrix[cur_vertex][i]
-                            dict.update({new_path : new_value})
-
-        shortest_path, min_val = argmin(finish)
-
-        if start_is_end_flag:
-            for i in shortest_path:
-                temp_value = eval(i)
-                if temp_value == len(matrix) - 1:
-                    lst.append(start)
-                else:
-                    lst.append(temp_value)
-        else:
-            for i in shortest_path:
-                lst.append(eval(i))
-
-        return lst, min_val
-
-    """
-    ###############
-    ### HELPERS ###
-    ###############
-    """
-
-    # Takes in 2-D array such that cannot be empty. Also, it validates that it is a regularized matrix.
-    def validate_matrix(matrix):
-        # return true if the input mat has another layer inside
-        """
-        Doc Test:
-        a = [] # False Empty
-        b = [0] # False 1D
-        c = [[0]] # True
-        d = [[1, 0], [1]] # False Bizarre
-        e = [[1, 0], [1, 0]] # True
-        """
-        def has_layer(mat):
-            try:
-                mat[0]
-                return True
-            except:
-                return False
-
-        row_num = len(matrix)
-
-        if row_num > 9:
-            print("Input matrix is too large.")
-            return False
-
-        if row_num == 0 :
-            print("Input matrix is empty.")
-            return False
-
-        if not has_layer(matrix[0]):
-            print("Input matrix is just 1D, expected 2D.")
-            return False
-
-        for i in range(row_num):
-            if len(matrix[i]) != row_num:
-                print("Input matrix is not an square matrix, bizarre.")
-                return False
-
-        return True
-
-    # Takes in a 1-D diction, and return the argument that makes the value minimized the value, and output the smallest value
-    def argmin(d):
-        if not d: return None
-        min_val = min(d.values())
-        return [k for k in d if d[k] == min_val][0], min_val
