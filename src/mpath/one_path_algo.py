@@ -1,7 +1,7 @@
 """
 @author Yuqi Hu
 @date Sep. 11th 2020
-@version 1.1
+@version 1.2
 @purpose This File serves as the main searching algorithm of this project.
 ## IMPORTANT NOTES:
 * Direction: From row to colum, each entry means the shortest time to travel from ith place to jth place.
@@ -17,17 +17,19 @@
 """
 
 
+
 class one_path_algo:
     """
     #################
     ### APIs FUNC ###
     #################
     """
+
     # Main algo.
     # Separate to later algo.
     def shortest_path(matrix, start=None, end=None):
         if not validate_matrix(matrix):
-            return [] # No solution
+            return [], None # No solution
 
         # Case 1: No start and no end
         if start == None and end == None:
@@ -44,8 +46,9 @@ class one_path_algo:
                 return False
             else:
                 return True
+
         if not start_end_validation(start, end):
-            return []
+            return [], None
 
         # Case 2: Has start Xor end
         if end == None or start == None:
@@ -78,7 +81,7 @@ class one_path_algo:
         min_val = min(dict)
         return dict[min_val], min_val
 
-    # Find out the shortest path that visit all the points with only a start point by BFS, and the total time
+    # Find out the shortest path that visit all the points with only a start point by DFS with pruning, and the total time
     def shortest_path_only_start(matrix, start):
         dict = {str(start) : 0}
         finish = {}
@@ -91,18 +94,23 @@ class one_path_algo:
                     lst.append(cur)
             return lst
 
+        cur_path_min = [float('inf')]
         while len(dict) != 0:
-            cur_path = list(dict.keys())[0]
+            cur_path = list(dict.keys()).pop()
             if len(cur_path) == len(matrix):
                 finish.update({cur_path : dict.pop(cur_path)})
+                _, min_value = argmin(finish)
+                if min_value < cur_path_min[0]:
+                    cur_path_min[0] = min_value
             else:
                 cur_value = dict.pop(cur_path)
-                cur_vertex = eval(cur_path[-1:])
-                next_list = next_vertices(cur_path)
-                for i in next_list:
-                    new_path = cur_path + str(i)
-                    new_value = cur_value + matrix[cur_vertex][i]
-                    dict.update({new_path : new_value})
+                if cur_value <= cur_path_min[0]:
+                    cur_vertex = eval(cur_path[-1:])
+                    next_list = next_vertices(cur_path)
+                    for i in next_list:
+                        new_path = cur_path + str(i)
+                        new_value = cur_value + matrix[cur_vertex][i]
+                        dict.update({new_path : new_value})
 
         shortest_path, min_val = argmin(finish)
 
@@ -111,7 +119,7 @@ class one_path_algo:
 
         return lst, min_val
 
-    # Find out the shortest path that visit all the points with only an end point by BFS, and the total time
+    # Find out the shortest path that visit all the points with only an end point by DFS with pruning, and the total time
     def shortest_path_only_end(matrix, end):
         dict = {str(end) : 0}
         finish = {}
@@ -124,18 +132,23 @@ class one_path_algo:
                     lst.append(cur)
             return lst
 
+        cur_path_min = [float('inf')]
         while len(dict) != 0:
-            cur_path = list(dict.keys())[0]
+            cur_path = list(dict.keys()).pop()
             if len(cur_path) == len(matrix):
                 finish.update({cur_path : dict.pop(cur_path)})
+                _, min_value = argmin(finish)
+                if min_value < cur_path_min[0]:
+                    cur_path_min[0] = min_value
             else:
                 cur_value = dict.pop(cur_path)
-                cur_vertex = eval(cur_path[-1:])
-                next_list = next_vertices(cur_path)
-                for i in next_list:
-                    new_path = cur_path + str(i)
-                    new_value = cur_value + matrix[i][cur_vertex]
-                    dict.update({new_path : new_value})
+                if cur_value <= cur_path_min[0]:
+                    cur_vertex = eval(cur_path[-1:])
+                    next_list = next_vertices(cur_path)
+                    for i in next_list:
+                        new_path = cur_path + str(i)
+                        new_value = cur_value + matrix[i][cur_vertex]
+                        dict.update({new_path : new_value})
 
         shortest_path, min_val= argmin(finish)
         for i in shortest_path:
@@ -229,6 +242,10 @@ class one_path_algo:
                 return False
 
         row_num = len(matrix)
+
+        if row_num > 9:
+            print("Input matrix is too large.")
+            return False
 
         if row_num == 0 :
             print("Input matrix is empty.")
