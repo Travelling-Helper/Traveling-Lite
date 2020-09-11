@@ -1,7 +1,7 @@
 """
 @author Yuqi Hu
-@date Sep. 9th 2020
-@version 1.0
+@date Sep. 11th 2020
+@version 1.1
 @purpose This File serves as the main searching algorithm of this project.
 ## IMPORTANT NOTES:
 * Direction: From row to colum, each entry means the shortest time to travel from ith place to jth place.
