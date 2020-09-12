@@ -15,9 +15,10 @@ Including another URLconf
     3. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import url
+from django.urls import path, include
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^robots.txt', "mpath.views.robots"), # Yuqi Hu --> robots.txt
-    url(r'^admin/', admin.site.urls),
+    path('robots.txt', "mpath.views.robots"), # Yuqi Hu --> robots.txt
+    path('admin/', admin.site.urls),
 ]
