@@ -1,55 +1,113 @@
 <!--
-@author Surong Huang
-@date Sep. 9 2020
-@version version 0.1
+@author Surong Huang, Yichen Han
+@date Sep. 12 2020
+@version version 0.2
 -->
 
-<!--DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"-->
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title> Map Query</title>
-    </head>
+<!DOCTYPE html>
+<html>
 
-    <body>
-        <!--Init A Wrapper-->
-        <div id="wrapper"></div>
+<head>
+    <meta charset="utf-8">
+    <title>Map Query</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
 
-        <!-What is the usage of the line below? commented by Yuqi hu->
-        <div id="like_button_container"></div>
 
-        <!--CSS FOR WRAPPER AND HTML PAGE-->
-        <style>
-            #wrapper{
-                margin: 0;
-                padding: 0;
-                width:100%;
-                height:100%;
-            }
-            html, body{
-                height: 100%;
-                width:100%;
-                margin: 0;
-                padding: 0;
-            }
-        </style>
 
-        <!--IMPORT JS-->
-        <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.8&key=8828beb3bcff3f74ce7af47eb1cd954e"></script>
+<!--=================================================================-->
 
-        <!-- 这里需要刚才申请的 Key-->
-        <script>
-            //初始化地图插件
-            window.onload = function(){
-                var map = new AMap.Map('wrapper');
-            }
-        </script>
 
-        <!-- 加载 React-->
-        <!-- 注意: 部署时，将 "development.js" 替换为 "production.min.js"-->
-        <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-        <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 
-        <!-- 加载我们的 React 组件-->
-        <script src="like_button.js"></script>
-    </body>
+<body>
+
+<!--SEARCH BOX SCRIPT-->
+<script>
+    var rowNum = 1;
+    // 新建搜索框函数
+    function Add_Row() {
+        if (rowNum == 9) return;
+        var newRow = document.createElement("div");
+        newRow.innerHTML = '<div class = "container" id="searchModule">\n' +
+            '    <input type="text" placeholder="请输入途经点" value="" style="margin-bottom: 10px">\n' +
+            '    <button onclick="Del_Row(this)"><i>删除地点</i></button>\n' +
+            '</div>';
+        document.getElementById("searchModule").appendChild(newRow);
+        rowNum++;
+    }
+    // 删除搜索框函数
+    function Del_Row(row) {
+        if (rowNum == 1) return;
+        //if (row.getElementsByTagName("button")) return;
+        var tag=$(row).parent();
+        //if (tag.getElementById("add")) return;
+        if (tag.length===0){
+            $(row).parent().remove();
+        }else {
+            tag.remove();
+        }
+        rowNum--;
+    }
+</script>
+
+
+
+
+
+<!--MAP-->
+<!--Init A Wrapper-->
+<div id="wrapper"></div>
+
+<!--CSS FOR WRAPPER AND HTML PAGE-->
+<style>
+    #wrapper{
+        margin: 0;
+        padding: 0;
+        width:100%;
+        height:100%;
+    }
+    html, body{
+        height: 100%;
+        width:100%;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<!--IMPORT JS-->
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.8&key=8828beb3bcff3f74ce7af47eb1cd954e"></script>
+<!--* 这里需要刚才申请的Key-->
+<script>
+    //初始化地图插件
+    window.onload = function(){
+        var map = new AMap.Map('wrapper');
+    }
+</script>
+
+<!-- 加载 React。-->
+<!-- 注意: 部署时，将 "development.js" 替换为 "production.min.js"。-->
+<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+<!-- 加载 React 组件。-->
+<script src="like_button.js"></script>
+
+
+
+
+
+<!--SEARCH BOX DIV-->
+<div style="position: absolute; top: 10px; left: 10px">
+    <!--搜索和添加地点按钮-->
+    <input type="button" value="搜索">
+    <button id = "addPlace2"
+            onclick = "Add_Row()">添加地点</button>
+
+    <!--第一个搜索框-->
+    <div class = "container" id="searchModule">
+        <input type="text" placeholder="请输入起始点" value="" style="margin-bottom: 10px">
+    </div>
+</div>
+
+</body>
 </html>
