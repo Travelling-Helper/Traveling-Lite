@@ -15,9 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from maps import views
+from maps import views as map_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('maps/', include('maps.urls')),
-    path('robots.txt', views.robots)
+    path('robots.txt', map_views.robots)
 ]
