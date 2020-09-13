@@ -13,14 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.shortcuts import redirect
 from maps import views as map_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('maps/', include('maps.urls')),
-    path('robots.txt', map_views.robots)
+    path('robots.txt', map_views.robots),
+    # Error 404 Page
+    re_path('.*/', map_views.err_404),
 ]
