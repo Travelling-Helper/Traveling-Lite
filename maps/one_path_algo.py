@@ -25,7 +25,7 @@ class one_path_algo:
     #################
     """
 
-    # API funcs.
+    # API func.
     def shortest_path(matrix, start=None, end=None):
 
         """
