@@ -1,103 +1,231 @@
 <!--
 @author Surong Huang, Yichen Han
-@date Sep. 12 2020
-@version version 0.2
+@date Sep. 16 2020
+@version version 0.3
 -->
 
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="zh-CN">
 
 <head>
     <meta charset="utf-8">
-    <title>Map Query</title>
-    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>输入框选择POI点</title>
+    <style>
+        html,
+        body,
+        /* 0：Map */
+        #container {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            font-size: 13px;
+        }
+
+        /* 1：Search Box */
+        #pickerBox {
+            position: absolute;
+            z-index: 9999;
+            top: 50px;
+            left: 30px;
+            width: 300px;
+        }
+        #pickerInput {
+            width: 200px;
+            padding: 5px 5px;
+        }
+        #poiInfo {
+            background: #fff;
+        }
+        .amap_lib_placeSearch .poibox.highlight {
+            background-color: #CAE1FF;
+        }
+        .amap_lib_placeSearch .poi-more {
+            display: none!important;
+        }
+
+        /* 3：Search Button */
+        #searchButton {
+            position: absolute;
+            z-index: 9999;
+            top: 50px;
+            left: 250px;
+            height: 30px;
+            width: 100px;
+        }
+
+        /* 4：Position Boxes 九个地址栏 */
+        #poiContainer1 {
+            position: absolute;z-index: 9999;top: 50px;right: 10px;height: 40px;width:500px;background: #CAE1FF;
+        }
+        #poiContainer2 {
+            position: absolute;z-index: 9999;top: 100px;right: 10px;height: 40px;width:500px;background: #CAE1FF;
+        }
+        #poiContainer3 {
+            position: absolute;z-index: 9999;top: 150px;right: 10px;height: 40px;width:500px;background: #CAE1FF;
+        }
+        #poiContainer4 {
+            position: absolute;z-index: 9999;top: 200px;right: 10px;height: 40px;width:500px;background: #CAE1FF;
+        }
+        #poiContainer5 {
+            position: absolute;z-index: 9999;top: 250px;right: 10px;height: 40px;width:500px;background: #CAE1FF;
+        }
+        #poiContainer6 {
+            position: absolute;z-index: 9999;top: 300px;right: 10px;height: 40px;width:500px;background: #CAE1FF;
+        }
+        #poiContainer7 {
+            position: absolute;z-index: 9999;top: 350px;right: 10px;height: 40px;width:500px;background: #CAE1FF;
+        }
+        #poiContainer8 {
+            position: absolute;z-index: 9999;top: 400px;right: 10px;height: 40px;width:500px;background: #CAE1FF;
+        }
+        #poiContainer9 {
+            position: absolute;z-index: 9999;top: 450px;right: 10px;height: 40px;width:500px;background: #CAE1FF;
+        }
+
+        /*5：九个删除按钮*/
+        #deleteButton1 {
+            position: absolute;z-index: 9999;top: 50px;right: 20px;
+        }
+
+        /*6：搜索按钮*/
+    </style>
 </head>
 
 
 
-<!--=================================================================-->
-
-
-
 <body>
+<!-- 地图容器 -->
+<div id="container" class="map" tabindex="0"></div>
 
-<!--SEARCH BOX SCRIPT-->
-<script>
-    var rowNum = 1;
-    // 新建搜索框函数
-    function Add_Row() {
-        if (rowNum == 9) return;
-        var newRow = document.createElement("div");
-        newRow.innerHTML = '<div class = "container" id="searchModule">\n' +
-            '    <input type="text" placeholder="请输入途经点" value="" style="margin-bottom: 10px">\n' +
-            '    <button onclick="Del_Row(this)"><i>删除地点</i></button>\n' +
-            '</div>';
-        document.getElementById("searchModule").appendChild(newRow);
-        rowNum++;
-    }
-    // 删除搜索框函数
-    function Del_Row(row) {
-        if (rowNum == 1) return;
-        //if (row.getElementsByTagName("button")) return;
-        var tag=$(row).parent();
-        //if (tag.getElementById("add")) return;
-        if (tag.length===0){
-            $(row).parent().remove();
-        }else {
-            tag.remove();
-        }
-        rowNum--;
-    }
-</script>
-
-
-
-
-
-<!--MAP-->
-<!--Init A Wrapper-->
-<div id="wrapper"></div>
-
-<!--CSS FOR WRAPPER AND HTML PAGE-->
-<style>
-    #wrapper{
-        margin: 0;
-        padding: 0;
-        width:100%;
-        height:100%;
-    }
-    html, body{
-        height: 100%;
-        width:100%;
-        margin: 0;
-        padding: 0;
-    }
-</style>
-
-<!--IMPORT JS-->
-<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.8&key=8828beb3bcff3f74ce7af47eb1cd954e">
-</script>
-
-<!--* 这里需要刚才申请的Key-->
-<script>
-    //初始化地图插件
-    window.onload = function(){
-        var map = new AMap.Map('wrapper');
-    }
-</script>
-
-<!--SEARCH BOX DIV-->
-<div style="position: absolute; top: 10px; left: 10px">
-    <!--搜索和添加地点按钮-->
-    <input type="button" value="搜索">
-    <button id = "addPlace2"
-            onclick = "Add_Row()">添加地点</button>
-
-    <!--第一个搜索框-->
-    <div class = "container" id="searchModule">
-        <input type="text" placeholder="请输入起始点" value="" style="margin-bottom: 10px">
-    </div>
+<!-- 搜索框容器 -->
+<div id="pickerBox">
+    <input id="pickerInput" placeholder="输入关键字选取地点" />
+    <div id="poiInfo"></div>
 </div>
 
+<!-- 添加按钮容器 -->
+<button id="searchButton" onclick="addPoi()"><i>添加该地点</i></button>
+
+<!-- 九个地址栏容器 -->
+<div><i id="poiContainer1">地址1：</i></div>
+<div><i id="poiContainer2">地址2：</i></div>
+<div><i id="poiContainer3">地址3：</i></div>
+<div><i id="poiContainer4">地址4：</i></div>
+<div><i id="poiContainer5">地址5：</i></div>
+<div><i id="poiContainer6">地址6：</i></div>
+<div><i id="poiContainer7">地址7：</i></div>
+<div><i id="poiContainer8">地址8：</i></div>
+<div><i id="poiContainer9">地址9：</i></div>
+
+<!-- 九个删除按钮容器 -->
+<button id="deleteButton1" ><i>删除</i></button>
+
+<!-- 搜索按钮容器 -->
+
+
+<!-- 调用 JS API -->
+<script type="text/javascript" src='//webapi.amap.com/maps?v=2.0&key=4e8abd261bb57fbaeffc6756e3e7f8c3'></script>
+<!-- UI组件库 -->
+<script src="//webapi.amap.com/ui/1.1/main.js?v=1.1.1"></script>
+
+
+<!-- Javascript -->
+<script type="text/javascript">
+    var currentIdx = 1; // 1 <= currentIdx <= 9
+    var currentPoi = ""; // current position information
+    var positions = ""; // concatenated string of positions to RETURN
+
+    // Constructor of Position Information Boxes
+    function createPoi (index) {
+        this.index = index;
+        this.info = null;
+    }
+    // Construct Position Information Box Objects
+    var poiInfo1 = new createPoi(1);
+    var poiInfo2 = new createPoi(2);
+    var poiInfo3 = new createPoi(3);
+    var poiInfo4 = new createPoi(4);
+    var poiInfo5 = new createPoi(5);
+    var poiInfo6 = new createPoi(6);
+    var poiInfo7 = new createPoi(7);
+    var poiInfo8 = new createPoi(8);
+    var poiInfo9 = new createPoi(9);
+
+    // 生成地图
+    var map = new AMap.Map('container', {
+        zoom: 10
+    });
+
+    AMapUI.loadUI(['misc/PoiPicker'], function(PoiPicker) {
+
+        var poiPicker = new PoiPicker({
+            //city:'北京',
+            input: 'pickerInput'
+        });
+
+        //初始化poiPicker
+        poiPickerReady(poiPicker);
+    });
+
+
+    function poiPickerReady(poiPicker) {
+
+        window.poiPicker = poiPicker;
+
+        var marker = new AMap.Marker();
+
+        var infoWindow = new AMap.InfoWindow({
+            offset: new AMap.Pixel(0, -20)
+        });
+
+        //选取了某个POI
+        poiPicker.on('poiPicked', function(poiResult) {
+
+            var source = poiResult.source,
+                poi = poiResult.item,
+                // POI information
+                info = {
+                    id: poi.id,
+                    name: poi.name,
+                    location: poi.location.toString(),
+                    address: poi.address
+                };
+
+            marker.setMap(map);
+            marker.setPosition(poi.location); // 图钉
+            infoWindow.setMap(map);
+            infoWindow.setPosition(poi.location); // POI信息框
+
+            // 打印信息
+            infoWindow.setContent('POI信息: <pre>' + JSON.stringify(info, null, 2) + '</pre>');
+            infoWindow.open(map, marker.getPosition());
+
+            // current POI info
+            currentPoi = JSON.stringify(info, null);
+        });
+
+        //搜索推荐
+        poiPicker.onCityReady(function() {
+            //poiPicker.suggest('美食');
+        });
+    }
+
+
+    // 点击添加地点后录入当前POI
+    function addPoi() {
+        document.getElementById("poiContainer" + currentIdx).innerText += currentPoi;
+        currentIdx++;
+    }
+
+
+    document.getElementById("positionsReturn").value = positions;
+</script>
+
+
+<form action="./tested" method="post" id="login">{% csrf_token %}
+    <input type="text" id="positionsReturn" value="">
+</form>
 </body>
+
 </html>
