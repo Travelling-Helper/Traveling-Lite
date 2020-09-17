@@ -130,7 +130,7 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
 <button id="deleteButton1" ><i>删除</i></button>
 
 <!-- 搜索按钮容器 -->
-<button id="searchButton"><i>搜索最短路径</i></button>
+<button id="searchButton" onclick="search()"><i>搜索最短路径</i></button>
 
 
 <!-- 调用 JS API -->
@@ -224,17 +224,24 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
     // 点击添加地点后录入当前POI
     function addPoi() {
         document.getElementById("poiContainer" + currentIdx).innerText += currentPoi;
+        positions += currentPoi;
         currentIdx++;
     }
 
 
-    document.getElementById("positionsReturn").value = positions;
+    // 点击搜索按钮向后台传参
+    function search() {
+        document.getElementById("positionsToReturn").value = positions;
+        var form = document.getElementById("pois");
+        alert(positions);
+        form.submit();
+    }
 </script>
 
-
-<form action="./tested" method="post" id="login">{% csrf_token %}
-    <input type="text" id="positionsReturn" value="">
+<form action="tested.html" method="post" id="pois">{% csrf_token %}
+    <input type="text" id="positionsToReturn" name="positionsToReturn" value="">
 </form>
+
 </body>
 
 </html>
