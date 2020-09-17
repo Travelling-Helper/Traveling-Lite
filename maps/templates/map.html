@@ -12,9 +12,9 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
     <title>输入框选择POI点</title>
     <style>
+        /* 0：Map */
         html,
         body,
-        /* 0：Map */
         #container {
             width: 100%;
             height: 100%;
@@ -44,8 +44,8 @@
             display: none!important;
         }
 
-        /* 3：Search Button */
-        #searchButton {
+        /* 3：Add Position Button */
+        #addButton {
             position: absolute;
             z-index: 9999;
             top: 50px;
@@ -89,6 +89,12 @@
         }
 
         /*6：搜索按钮*/
+        #searchButton {
+            position: absolute;
+            z-index: 9999;
+            top: 50px;
+            right: 520px;
+        }
     </style>
 </head>
 
@@ -105,7 +111,7 @@
 </div>
 
 <!-- 添加按钮容器 -->
-<button id="searchButton" onclick="addPoi()"><i>添加该地点</i></button>
+<button id="addButton" onclick="addPoi()"><i>添加该地点</i></button>
 
 <!-- 九个地址栏容器 -->
 <div><i id="poiContainer1">地址1：</i></div>
@@ -122,6 +128,7 @@
 <button id="deleteButton1" ><i>删除</i></button>
 
 <!-- 搜索按钮容器 -->
+<button id="searchButton"><i>搜索最短路径</i></button>
 
 
 <!-- 调用 JS API -->
