@@ -1,5 +1,14 @@
+<!--
+@author Surong Huang, Yichen Han
+@date Sep. 16 2020
+@version version 0.3
+
+JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
+-->
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
@@ -121,15 +130,11 @@
 <button id="deleteButton1" ><i>删除</i></button>
 
 <!-- 搜索按钮容器 -->
-<button id="searchButton" onclick="search()"><i>搜索</i>
-    <form action="./tested" method="post" id="login">{% csrf_token %}
-        <input type="text" id="positionsReturn" value="">
-    </form>
-</button>
+<button id="searchButton"><i>搜索最短路径</i></button>
 
 
 <!-- 调用 JS API -->
-<script type="text/javascript" src='//webapi.amap.com/maps?v=2.0&key=4e8abd261bb57fbaeffc6756e3e7f8c3'></script>
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.8&key=4e8abd261bb57fbaeffc6756e3e7f8c3"></script>
 <!-- UI组件库 -->
 <script src="//webapi.amap.com/ui/1.1/main.js?v=1.1.1"></script>
 
@@ -222,12 +227,14 @@
         currentIdx++;
     }
 
-    // Return
-    function search() {
-        document.getElementById("positionsReturn").value = positions;
-    }
+
+    document.getElementById("positionsReturn").value = positions;
 </script>
 
+
+<form action="./tested" method="post" id="login">{% csrf_token %}
+    <input type="text" id="positionsReturn" value="">
+</form>
 </body>
 
 </html>
