@@ -249,7 +249,7 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
     // 点击添加地点后录入当前POI
     function addPoi () {
         // Null Case
-        if (totalPoiNum >= 9) {alert("太多了溢出来了"); return;}
+        if (totalPoiNum >= 9) {alert("请勿超过九个点！"); return;}
 
         // Regular Case: js
         var newNode = new createNode();
@@ -264,8 +264,6 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
     }
 
     function deletePoi (idxToDelete) {
-        //alertPoi();
-
         // Null Case: no poi info
         if (idxToDelete > totalPoiNum) {return;}
 
@@ -274,14 +272,12 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
         var currentNode = dummyFirstNode;
         for (var index = 1; index <= idxToDelete; index++) {
             currentNode = currentNode.nextNode;
-            //alert(currentNode.info);
         }
         currentNode.prevNode.nextNode = currentNode.nextNode;
-        // alert("delete");
         if (currentNode.nextNode != null) {
             currentNode.nextNode.prevNode = currentNode.prevNode;
         }
-
+        // update HTML
         connectPois();
 
         // Update last node
@@ -289,16 +285,10 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
         while (lastNode.nextNode != null) {
             lastNode = lastNode.nextNode;
         }
-
-        //alertPoi();
-
-        // Regular Case: html
-        //connectPois();
     }
 
 
     function connectPois () {
-        // alert("connect");
         // Clear
         for (var index=1; index<10; index++) {
             document.getElementById("poiContainer" + index).innerText = "";
@@ -306,7 +296,6 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
         var currentNode = dummyFirstNode;
         var index = 1;
         while (index <= totalPoiNum) {
-            // alert(index);
             currentNode = currentNode.nextNode;
             document.getElementById("poiContainer" + index).innerText = currentNode.info;
             index++;
@@ -321,26 +310,22 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
     // 点击搜索按钮向后台传参
     function search() {
         positionsInfo = "";
-        //alert(totalPoiNum);
-        //alert(dummyFirstNode.nextNode.info);
         // Null Case: 0/1 poi
         if (totalPoiNum < 2) {alert("请输入至少两个地点！"); return;}
 
         // Regular Case: concatenate infos
         var currentNode = dummyFirstNode;
-        var index = 1;
         while (currentNode.nextNode != null) {
             currentNode = currentNode.nextNode;
             positionsInfo += currentNode.info;
-            //alert(positionsInfo);
         }
         document.getElementById("positionsToReturn").value = positionsInfo;
         var form = document.getElementById("pois");
-        //alert(positionsInfo);
         form.submit();
     }
 
 
+    // 测试用的函数
     function alertPoi() {
         var currentNode = dummyFirstNode;
         while (currentNode.nextNode != null) {
