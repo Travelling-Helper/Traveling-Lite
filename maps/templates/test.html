@@ -1,7 +1,7 @@
 <!--
-@author Surong Huang, Yichen Han
-@date Sep. 16 2020
-@version version 0.3
+@author Yichen Han, Surong Huang
+@date Sep. 22 2020
+@version version 1.0
 
 JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
 -->
@@ -121,25 +121,33 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
             top: 50px;
             right: 520px;
         }
+
+        /*7：清空按钮*/
+        #clearButton {
+            position: absolute;
+            z-index: 9999;
+            top: 20px;
+            right: 20px;
+        }
     </style>
 </head>
 
 
 
 <body>
-<!-- 地图容器 -->
+<!-- 1 地图容器 -->
 <div id="container" class="map" tabindex="0"></div>
 
-<!-- 搜索框容器 -->
+<!-- 2 搜索框容器 -->
 <div id="pickerBox">
     <input id="pickerInput" placeholder="输入关键字选取地点" />
     <div id="poiInfo"></div>
 </div>
 
-<!-- 添加按钮容器 -->
+<!-- 3 添加按钮容器 -->
 <button id="addButton" onclick="addPoi()"><i>添加该地点</i></button>
 
-<!-- 九个地址栏容器 -->
+<!-- 4 九个地址栏容器 -->
 <div><i id="poiContainer1"></i></div>
 <div><i id="poiContainer2"></i></div>
 <div><i id="poiContainer3"></i></div>
@@ -150,7 +158,7 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
 <div><i id="poiContainer8"></i></div>
 <div><i id="poiContainer9"></i></div>
 
-<!-- 九个删除按钮容器 -->
+<!-- 5 九个删除按钮容器 -->
 <button id="deleteButton1" onclick="deletePoi(1)"><i>删除</i></button>
 <button id="deleteButton2" onclick="deletePoi(2)"><i>删除</i></button>
 <button id="deleteButton3" onclick="deletePoi(3)"><i>删除</i></button>
@@ -161,8 +169,11 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
 <button id="deleteButton8" onclick="deletePoi(8)"><i>删除</i></button>
 <button id="deleteButton9" onclick="deletePoi(9)"><i>删除</i></button>
 
-<!-- 搜索按钮容器 -->
+<!-- 6 搜索按钮容器 -->
 <button id="searchButton" onclick="search()"><i>搜索最短路径</i></button>
+
+<!-- 7 清空地点 -->
+<button id="clearButton" onclick="clearPois()"><i>清空所有地点</i></button>
 
 
 
@@ -177,11 +188,13 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
 <script type="text/javascript">
     var totalPoiNum = 0; // 0 to 9
     var currentPoiInfo = ""; // current position information
+    var currentPoiInfoDisplay = "";
     var positionsInfo = ""; // concatenated string of positions to RETURN
 
     // Constructor of Position Information Boxes
     function createNode () {
         this.info = null;
+        this.infoDisplay = null;
         this.nextNode = null;
         this.prevNode = null;
     }
@@ -237,6 +250,9 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
 
             // current POI info
             currentPoiInfo = JSON.stringify(info, null);
+            var name = info.name;
+            var address = info.address;
+            currentPoiInfoDisplay = name + ", " + address;
         });
 
         //搜索推荐
@@ -251,9 +267,20 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
         // Null Case
         if (totalPoiNum >= 9) {alert("请勿超过九个点！"); return;}
 
+        // Null Case: 重复地点
+        var currentNode = dummyFirstNode;
+        for (var index = 1; index <= totalPoiNum; index++) {
+            currentNode = currentNode.nextNode;
+            if (currentNode.infoDisplay == currentPoiInfoDisplay) {
+                alert ("请勿输入相同地点！");
+                return;
+            }
+        }
+
         // Regular Case: js
         var newNode = new createNode();
         newNode.info = currentPoiInfo;
+        newNode.infoDisplay = currentPoiInfoDisplay;
         newNode.prevNode = lastNode;
         lastNode.nextNode = newNode;
         lastNode = newNode;
@@ -288,6 +315,7 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
     }
 
 
+    // 把地点内容放进html
     function connectPois () {
         // Clear
         for (var index=1; index<10; index++) {
@@ -297,7 +325,7 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
         var index = 1;
         while (index <= totalPoiNum) {
             currentNode = currentNode.nextNode;
-            document.getElementById("poiContainer" + index).innerText = currentNode.info;
+            document.getElementById("poiContainer" + index).innerText = currentNode.infoDisplay;
             index++;
         }
         while (index <= 9) {
@@ -307,7 +335,7 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
     }
 
 
-    // 点击搜索按钮向后台传参
+    // 6：点击搜索按钮向后台传参
     function search() {
         positionsInfo = "";
         // Null Case: 0/1 poi
@@ -322,6 +350,15 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
         document.getElementById("positionsToReturn").value = positionsInfo;
         var form = document.getElementById("pois");
         form.submit();
+    }
+
+
+    // 7：清空所有地点
+    function clearPois() {
+        totalPoiNum = 0;
+        dummyFirstNode.nextNode = null;
+        lastNode = dummyFirstNode;
+        connectPois();
     }
 
 
