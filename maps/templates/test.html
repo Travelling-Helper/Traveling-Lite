@@ -1,7 +1,7 @@
 <!--
 @author Yichen Han, Surong Huang
-@date Sep. 22 2020
-@version version 1.0
+@date Sep. 30 2020
+@version version 1.2
 
 JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
 -->
@@ -16,7 +16,7 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
     <style>
         html,
         body,
-            /* 0：Map */
+            /* 1: Map */
         #container {
             width: 100%;
             height: 100%;
@@ -24,7 +24,7 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
             font-size: 13px;
         }
 
-        /* 1：Search Box */
+        /* 2: Search Box */
         #pickerBox {
             position: absolute;
             z-index: 9999;
@@ -45,44 +45,52 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
         .amap_lib_placeSearch .poi-more {
             display: none!important;
         }
+        /* 2.5: Clear Search Box */
+        #clearSearchBox {
+            position: absolute;
+            z-index: 9999;
+            top: 50px;
+            left: 243px;
+            height: 30px;
+=        }
 
-        /* 3：Add Position Button */
+        /* 3: Add Position Button */
         #addButton {
             position: absolute;
             z-index: 9999;
             top: 50px;
-            left: 250px;
+            left: 290px;
             height: 30px;
             width: 100px;
         }
 
         /* 4：Position Boxes 九个地址栏 */
         #poiContainer1 {
-            position: absolute;z-index: 9999;top: 50px;right: 10px;height: 40px;width:500px;background: #CAE1FF;
+            position: absolute;z-index: 9999;top: 50px;right: 65px;height: 40px;width:300px;background: #CAE1FF;
         }
         #poiContainer2 {
-            position: absolute;z-index: 9999;top: 100px;right: 10px;height: 40px;width:500px;background: #CAE1FF;
+            position: absolute;z-index: 9999;top: 100px;right: 65px;height: 40px;width:300px;background: #CAE1FF;
         }
         #poiContainer3 {
-            position: absolute;z-index: 9999;top: 150px;right: 10px;height: 40px;width:500px;background: #CAE1FF;
+            position: absolute;z-index: 9999;top: 150px;right: 65px;height: 40px;width:300px;background: #CAE1FF;
         }
         #poiContainer4 {
-            position: absolute;z-index: 9999;top: 200px;right: 10px;height: 40px;width:500px;background: #CAE1FF;
+            position: absolute;z-index: 9999;top: 200px;right: 65px;height: 40px;width:300px;background: #CAE1FF;
         }
         #poiContainer5 {
-            position: absolute;z-index: 9999;top: 250px;right: 10px;height: 40px;width:500px;background: #CAE1FF;
+            position: absolute;z-index: 9999;top: 250px;right: 65px;height: 40px;width:300px;background: #CAE1FF;
         }
         #poiContainer6 {
-            position: absolute;z-index: 9999;top: 300px;right: 10px;height: 40px;width:500px;background: #CAE1FF;
+            position: absolute;z-index: 9999;top: 300px;right: 65px;height: 40px;width:300px;background: #CAE1FF;
         }
         #poiContainer7 {
-            position: absolute;z-index: 9999;top: 350px;right: 10px;height: 40px;width:500px;background: #CAE1FF;
+            position: absolute;z-index: 9999;top: 350px;right: 65px;height: 40px;width:300px;background: #CAE1FF;
         }
         #poiContainer8 {
-            position: absolute;z-index: 9999;top: 400px;right: 10px;height: 40px;width:500px;background: #CAE1FF;
+            position: absolute;z-index: 9999;top: 400px;right: 65px;height: 40px;width:300px;background: #CAE1FF;
         }
         #poiContainer9 {
-            position: absolute;z-index: 9999;top: 450px;right: 10px;height: 40px;width:500px;background: #CAE1FF;
+            position: absolute;z-index: 9999;top: 450px;right: 65px;height: 40px;width:300px;background: #CAE1FF;
         }
 
         /*5：九个删除按钮*/
@@ -119,7 +127,13 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
             position: absolute;
             z-index: 9999;
             top: 50px;
-            right: 520px;
+            right: 370px;
+        }
+        #searchButtonCluster {
+            position: absolute;
+            z-index: 9999;
+            top: 80px;
+            right: 370px;
         }
 
         /*7：清空按钮*/
@@ -140,9 +154,11 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
 
 <!-- 2 搜索框容器 -->
 <div id="pickerBox">
-    <input id="pickerInput" placeholder="输入关键字选取地点" />
+    <input id="pickerInput" placeholder="输入关键字选取地点" value=""/>
     <div id="poiInfo"></div>
 </div>
+<!-- 2.5 清空搜索框 -->
+<button id="clearSearchBox" onclick="clearSearchBox()"><i>清空</i></button>
 
 <!-- 3 添加按钮容器 -->
 <button id="addButton" onclick="addPoi()"><i>添加该地点</i></button>
@@ -171,6 +187,8 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
 
 <!-- 6 搜索按钮容器 -->
 <button id="searchButton" onclick="search()"><i>搜索最短路径</i></button>
+<!-- 6.5 聚类搜索路径-->
+<button id="searchButtonCluster" onclick=""><i></i>聚类搜索路径</button>
 
 <!-- 7 清空地点 -->
 <button id="clearButton" onclick="clearPois()"><i>清空所有地点</i></button>
@@ -235,7 +253,7 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
                 info = {
                     id: poi.id,
                     name: poi.name,
-                    location: poi.location.toString(),
+                    location: poi.location,
                     address: poi.address
                 };
 
@@ -245,7 +263,7 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
             infoWindow.setPosition(poi.location); // POI信息框
 
             // 打印信息
-            infoWindow.setContent('POI信息: <pre>' + JSON.stringify(info, null, 2) + '</pre>');
+            //infoWindow.setContent('POI信息: <pre>' + JSON.stringify(info, null, 2) + '</pre>');
             infoWindow.open(map, marker.getPosition());
 
             // current POI info
@@ -253,12 +271,20 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
             var name = info.name;
             var address = info.address;
             currentPoiInfoDisplay = name + ", " + address;
+            document.getElementById("pickerInput").value = name; // fill poi name to search box
+
+            map.setZoomAndCenter(14, info.location); // reset map center & scale
         });
 
         //搜索推荐
         poiPicker.onCityReady(function() {
             //poiPicker.suggest('美食');
         });
+    }
+
+    // 2.5: clearSearchBox
+    function clearSearchBox() {
+        document.getElementById("pickerInput").value = "";
     }
 
 
