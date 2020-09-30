@@ -253,9 +253,14 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
                 info = {
                     id: poi.id,
                     name: poi.name,
-                    location: poi.location,
+                    location: poi.location.toString(),
                     address: poi.address
                 };
+                info2 = {
+                    name: poi.name,
+                    location: poi.location,
+                    address: poi.address
+                }
 
             marker.setMap(map);
             marker.setPosition(poi.location); // 图钉
@@ -268,12 +273,12 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
 
             // current POI info
             currentPoiInfo = JSON.stringify(info, null);
-            var name = info.name;
-            var address = info.address;
+            var name = info2.name;
+            var address = info2.address;
             currentPoiInfoDisplay = name + ", " + address;
             document.getElementById("pickerInput").value = name; // fill poi name to search box
 
-            map.setZoomAndCenter(14, info.location); // reset map center & scale
+            map.setZoomAndCenter(14, info2.location); // reset map center & scale
         });
 
         //搜索推荐
