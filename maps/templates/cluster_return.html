@@ -1,10 +1,13 @@
 <!--
-@author Yichen Han, Surong Huang
-@date Sep. 30 2020
-@version version 1.2
+@author Yichen Han, Surong Huang, Yuqi Hu
+@date Oct. 1 2020
+@version version 2.0
 
 JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
 -->
+<!- 👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇导入静态文件👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇->
+{% load static %}
+<!- 👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆导入静态文件👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆->
 
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -143,6 +146,24 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
             top: 20px;
             right: 20px;
         }
+
+/* 👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇*/
+        /*8 CLuster Button*/
+        #try123 {
+            position: absolute;
+            z-index: 9999;
+            top: 200px;
+            right: 200px;
+        }
+
+        /*9：搜索按钮*/
+        #setFitView {
+            position: absolute;
+            z-index: 9999;
+            top: 220px;
+            right: 220px;
+        }
+/* 👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆*/
     </style>
 </head>
 
@@ -193,6 +214,10 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
 <!-- 7 清空地点 -->
 <button id="clearButton" onclick="clearPois()"><i>清空所有地点</i></button>
 
+<!-👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇聚类增加函+自适应按钮&相应函数👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇->
+<button id="try123" onclick="cluster_test()"><i>聚类增加</i></button>
+<button id="setFitView" class="btn" onclick="fit_view_quick()"><i>地图自适应显示</i></button>
+<!-👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆聚类增加函+自适应按钮&相应函数👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆->
 
 
 <!-- 调用 JS API -->
@@ -401,12 +426,90 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
             alert(currentNode.info);
         }
     }
-</script>
 
+// 👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇
+
+    var center = null;
+    var centerText = null;
+    var setFitViewBtn = null;
+    var pic1 = "{% static 'img/map_icon/1.png' %}"
+    var pic2 = "{% static 'img/map_icon/2.png' %}"
+    var pic3 = "{% static 'img/map_icon/3.png' %}"
+    var pic4 = "{% static 'img/map_icon/4.png' %}"
+    var pic5 = "{% static 'img/map_icon/5.png' %}"
+    var pic6 = "{% static 'img/map_icon/6.png' %}"
+    var pic7 = "{% static 'img/map_icon/7.png' %}"
+    var pic8 = "{% static 'img/map_icon/8.png' %}"
+    var pic9 = "{% static 'img/map_icon/9.png' %}"
+
+    function cluster_test() {
+        map.clearMap();  // 清除地图覆盖物
+
+        var markers = [{
+            icon: pic1,
+            position: [116.205467, 39.907761]
+        }, {
+            icon: pic2,
+            position: [116.368904, 40.913423]
+        }, {
+            icon: pic3,
+            position: [116.305467, 41.807761]
+        }, {
+            icon: pic4,
+            position: [116.305467, 42.807761]
+        }, {
+            icon: pic5,
+            position: [116.305467, 43.807761]
+        }, {
+            icon: pic6,
+            position: [116.305467, 44.807761]
+        }, {
+            icon: pic7,
+            position: [116.305467, 45.807761]
+        }, {
+            icon: pic8,
+            position: [116.305467, 46.807761]
+        }, {
+            icon: pic9,
+            position: [116.205467, 47.907761]
+        }];
+
+        // 添加一些分布不均的点到地图上,地图上添加n个点标记，作为参照
+        markers.forEach(function(marker) {
+            new AMap.Marker({
+                map: map,
+                icon: marker.icon,
+                position: [marker.position[0], marker.position[1]],
+                offset: new AMap.Pixel(-13, -30)
+            });
+        });
+
+        center = map.getCenter();
+        centerText = '当前中心点坐标：' + center.getLng() + ',' + center.getLat();
+        document.getElementById('centerCoord').innerHTML = centerText;
+        document.getElementById('tips').innerHTML = '成功添加三个点标记，其中有两个在当前地图视野外！';
+
+        setFitViewBtn = document.getElementById('setFitView');
+
+    }
+
+    // 添加事件监听, 使地图自适应显示到合适的范围
+    function fit_view_quick() {
+        // 第一个参数为空，表明用图上所有覆盖物 setFitview
+        // 第二个参数为false, 非立即执行
+        // 第三个参数设置上左下右的空白
+        map.setFitView(null, false, [150, 60, 100, 60]);
+        var newCenter = map.getCenter();
+        document.getElementById('centerCoord').innerHTML = '当前中心点坐标：' + newCenter.toString();
+        document.getElementById('tips').innerHTML = '通过setFitView，地图自适应显示到合适的范围内,点标记已全部显示在视野中！';
+    };
+// 👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆
+</script>
 
 <form action="tested" method="post" id="pois">{% csrf_token %}
     <input type="hidden" id="positionsToReturn" name="positionsToReturn" value="">
 </form>
+
 
 </body>
 
