@@ -38,14 +38,17 @@ def tested(request):
         else:
             paths = clustering.cluster.clustering(time_list, cluster)
             print(paths)
+            locs = [[lst_of_loc[i] for i in group] for group in paths.values()]
             return render(request, "tested.html", {
                 'positionsToReturn': request.POST.get('positionsToReturn'),
-                'Paths': paths
+                'Paths': paths,
+                'Locs': locs
             })
 
     return render(request, "tested.html", {
         'positionsToReturn': request.POST.get('positionsToReturn'),
         'Paths': paths[0],
+        'Locs': [lst_of_loc[i] for i in paths[0]],
         'Time': paths[1],
         'Guides': guides
     })
