@@ -18,6 +18,10 @@ def test(request):
     return render(request, "test.html", {
         'FUNC' : 0
     }) #测试
+
+def anything_to_string(something):
+    return str(something)
+
 def tested(request):
     FUNC_indicator = [0]
     if request.method == 'POST':
@@ -44,7 +48,6 @@ def tested(request):
             FUNC_indicator[0] = 2
             paths = clustering.cluster.clustering(time_list, cluster)
             print(paths)
-            # locs = [[lst_of_loc[i] for i in group] for group in paths.values()]
             try:
                 tempAstr = [x["location"] for x in lst_of_loc]
                 locs = []
@@ -64,8 +67,19 @@ def tested(request):
                 FUNC_indicator[0] = -1
                 print("高德地图POI信息不含location key OR 无法interpret预期为double类型的string。file: view.py line 46 or 52")
 
+            if FUNC_indicator[0] == 2:
+                try:
+                    path_str_key = {}
+                    for key in range(len(paths)):
+                        path_str_key.update({anything_to_string(key) : paths[key]})
+                    paths = anything_to_string(path_str_key)
+                    paths = paths.replace("'", "\"")
+                    print(paths)
+                except:
+                    FUNC_indicator[0] = -1
+                    print("Clustering函数报错 file: view.py line 68-72")
 
-            return render(request, "tested.html", {
+            return render(request, "test.html", {
                 'positionsToReturn': request.POST.get('positionsToReturn'),
                 'Paths': paths,
                 'Locs': locs,
