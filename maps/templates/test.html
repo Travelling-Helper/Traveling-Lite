@@ -166,7 +166,7 @@ Test Web = http://150.158.153.253:8080/maps/test
 <button id="clearSearchBox" onclick="clearSearchBox()"><i>清空</i></button>
 
 <!-- 3 添加按钮容器 -->
-<button id="addButton" onclick="addPoi()"><i>添加该地点</i></button>
+<button id="addButton" onclick="addPoi()"><i>添加该地点 {{ FUNC }}</i></button>
 
 <!-- 4 九个地址栏容器 -->
 <div><i id="poiContainer1"></i></div>
@@ -421,6 +421,23 @@ Test Web = http://150.158.153.253:8080/maps/test
             alert(currentNode.info);
         }
     }
+
+    function testOnly() {
+        var func_INFO = {{ FUNC }};
+        if (func_INFO == 0) {
+            alert("Successful!!! This should be removed after TESTING");
+        } else if (func_INFO == -1) {
+            alert("Error!!! This should be removed after TESTING");
+        } else if (func_INFO == 1) {
+            alert("Call shortest_path display!!! This should be removed after TESTING");
+        } else if (func_INFO == 2) {
+            alert("Call clustering display!!! This should be removed after TESTING");
+        } else {
+            alert("ERRORING IN FUNC INFO This should be removed after TESTING");
+        }
+    }
+
+    window.onload = testOnly();
 </script>
 
 
