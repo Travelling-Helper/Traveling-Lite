@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from maps import TimeMap, one_path_algo
+from maps import TimeMap, one_path_algo, clustering
 # Create your views here.
 
 # Robots.txt for crawler engines
@@ -27,11 +27,22 @@ def tested(request):
         a = TimeMap.TimeMap()
         time_list, guide_list = a.timeList(axes)
         print(time_list)
-        paths = one_path_algo.one_path_algo.shortest_path(time_list)
-        guides = []
-        for i in range(len(paths[0]) - 1):
-            guides.append(guide_list[paths[0][i]][paths[0][i+1]])
-        print(paths)
+        cluster = request.POST.get('cluster')
+        cluster = eval(cluster)
+        if cluster == 0:
+            paths = one_path_algo.one_path_algo.shortest_path(time_list)
+            guides = []
+            for i in range(len(paths[0]) - 1):
+                guides.append(guide_list[paths[0][i]][paths[0][i + 1]])
+            print(paths)
+        else:
+            paths = clustering.cluster.clustering(time_list, cluster)
+            print(paths)
+            return render(request, "tested.html", {
+                'positionsToReturn': request.POST.get('positionsToReturn'),
+                'Paths': paths
+            })
+
     return render(request, "tested.html", {
         'positionsToReturn': request.POST.get('positionsToReturn'),
         'Paths': paths[0],
