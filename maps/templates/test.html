@@ -4,10 +4,15 @@
 @version version 1.2
 
 JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
+Test Web = http://150.158.153.253:8080/maps/test
 -->
 
 <!DOCTYPE html>
 <html lang="zh-CN">
+
+<!- 👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇导入静态文件👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇->
+{% load static %}
+<!- 👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆导入静态文件👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆->
 
 <head>
     <meta charset="utf-8">
@@ -188,7 +193,7 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
 <!-- 6 搜索按钮容器 -->
 <button id="searchButton" onclick="search()"><i>搜索最短路径</i></button>
 <!-- 6.5 聚类搜索路径-->
-<button id="searchButtonCluster" onclick=""><i></i>聚类搜索路径</button>
+<button id="searchButtonCluster" onclick="alertCluster()"><i></i>聚类搜索路径</button>
 
 <!-- 7 清空地点 -->
 <button id="clearButton" onclick="clearPois()"><i>清空所有地点</i></button>
@@ -208,6 +213,7 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
     var currentPoiInfo = ""; // current position information
     var currentPoiInfoDisplay = "";
     var positionsInfo = ""; // concatenated string of positions to RETURN
+    var cluster = 0; // 0 = shorted path, >0 = cluster
 
     // Constructor of Position Information Boxes
     function createNode () {
@@ -379,8 +385,22 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
             positionsInfo += currentNode.info;
         }
         document.getElementById("positionsToReturn").value = positionsInfo;
+        document.getElementById("cluster").value = cluster;
         var form = document.getElementById("pois");
         form.submit();
+    }
+
+    // 6.5: Search Cluster
+    function alertCluster() {
+        cluster = prompt("请输入分组的个数：");
+        // cluster > 0, cluster <= totalPoiNum
+        if (cluster > 0 && cluster <= totalPoiNum) {
+            search();
+        }
+        else {
+            alert("请输入大于零且不大于地点总数的整数！")
+            alertCluster();
+        }
     }
 
 
@@ -406,6 +426,7 @@ JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
 
 <form action="tested" method="post" id="pois">{% csrf_token %}
     <input type="hidden" id="positionsToReturn" name="positionsToReturn" value="">
+    <input type="hidden" id="cluster" name="cluster" value="">
 </form>
 
 </body>
