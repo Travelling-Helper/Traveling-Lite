@@ -15,7 +15,7 @@ def gaodeMap(request):
     })
 
 def test(request):
-    return render(request, "test.html", {
+    return render(request, "path_return.html", {
         'FUNC' : 0
     }) #测试
 
@@ -62,10 +62,10 @@ def tested(request):
                         break
                 if error_for_clustering:
                     FUNC_indicator[0] = -1
-                    print("高德地图location数值对长度不为2。file: view.py line 47-56")
+                    print("高德地图location数值对长度不为2。file: view.py line 57")
             except:
                 FUNC_indicator[0] = -1
-                print("高德地图POI信息不含location key OR 无法interpret预期为double类型的string。file: view.py line 46 or 52")
+                print("高德地图POI信息不含location key OR 无法interpret预期为double类型的string。file: view.py line 52 or 58")
 
             if FUNC_indicator[0] == 2:
                 try:
@@ -86,10 +86,29 @@ def tested(request):
                 'FUNC': FUNC_indicator[0]
             })
 
-    return render(request, "tested.html", {
+    try:
+        tempAstr = [x["location"] for x in lst_of_loc]
+        locs = []
+        error_for_shortest = False
+        for str in tempAstr:
+            str_lst_temp = str.split(',')
+            if len(str_lst_temp) == 2:
+                int_lst_temp = [eval(str_lst_temp[0]), eval(str_lst_temp[1])]
+                locs.append(int_lst_temp)
+            else:
+                error_for_shortest = True
+                break
+        if error_for_shortest:
+            FUNC_indicator[0] = -1
+            print("高德地图location数值对长度不为2。file: view.py line 95")
+    except:
+        FUNC_indicator[0] = -1
+        print("高德地图POI信息不含location key OR 无法interpret预期为double类型的string。file: view.py line 90 or 96")
+
+    return render(request, "test.html", {
         'positionsToReturn': request.POST.get('positionsToReturn'),
         'Paths': paths[0],
-        'Locs': [lst_of_loc[i] for i in paths[0]],
+        'Locs': locs, # [lst_of_loc[i] for i in paths[0]],
         'Time': paths[1],
         'Guides': guides,
         'FUNC' : FUNC_indicator[0]

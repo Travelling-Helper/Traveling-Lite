@@ -1,7 +1,7 @@
 <!--
-@author Yichen Han, Surong Huang
-@date Sep. 30 2020
-@version version 1.2
+@author Yichen Han, Surong Huang, Yuqi Hu
+@date Oct. 17 2020
+@version version 3.0
 
 JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
 Test Web = http://150.158.153.253:8080/maps/test
@@ -9,10 +9,10 @@ Test Web = http://150.158.153.253:8080/maps/test
 
 <!DOCTYPE html>
 <html lang="zh-CN">
-
-<!- 👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇导入静态文件👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇->
+  
 {% load static %}
-<!- 👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆导入静态文件👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆->
+
+<title>我滴规规🛸</title>
 
 <head>
     <meta charset="utf-8">
@@ -204,6 +204,9 @@ Test Web = http://150.158.153.253:8080/maps/test
 <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.8&key=4e8abd261bb57fbaeffc6756e3e7f8c3"></script>
 <!-- UI组件库 -->
 <script src="//webapi.amap.com/ui/1.1/main.js?v=1.1.1"></script>
+<!-- 路线显示 -->
+<script src="https://webapi.amap.com/maps?v=1.4.15&key=4e8abd261bb57fbaeffc6756e3e7f8c3&plugin=AMap.Driving"></script>
+
 
 
 
@@ -429,7 +432,7 @@ Test Web = http://150.158.153.253:8080/maps/test
         } else if (func_INFO == -1) {
             alert("Error!!! This should be removed after TESTING");
         } else if (func_INFO == 1) {
-            alert("Call shortest_path display!!! This should be removed after TESTING");
+            shortestPathDisplay();
         } else if (func_INFO == 2) {
             clusteringDisplay();
         } else {
@@ -439,6 +442,7 @@ Test Web = http://150.158.153.253:8080/maps/test
 
     window.onload = separationDisplay();
 
+    //  👇 CLUSTER 👇 CLUSTER 👇 CLUSTER 👇 CLUSTER 👇 CLUSTER 👇 CLUSTER 👇 CLUSTER 👇 CLUSTER 👇 CLUSTER
     var center = null;
     var centerText = null;
     var setFitViewBtn = null;
@@ -503,7 +507,106 @@ Test Web = http://150.158.153.253:8080/maps/test
         document.getElementById('centerCoord').innerHTML = '当前中心点坐标：' + newCenter.toString();
         document.getElementById('tips').innerHTML = '通过setFitView，地图自适应显示到合适的范围内,点标记已全部显示在视野中！';
     };
+    //  👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER
+    // 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST
+    function shortestPathDisplay(){
+        alert("WEHRE AM I?");
+        var location_lst = eval('{{ Locs }}'); // TEST CASE: [[90.427281, 30.865042], [110.427281, 30.865042], [80.379028, 30.865042], [80.379028, 39.903719], [79.379028, 39.903719], [79.379028, 40.903719]]
+        var order_lst = eval('{{ Paths }}'); // TEST CASE: [0, 1, 2, 3, 4, 5];
 
+        var drivingOption = {
+            policy: AMap.DrivingPolicy.LEAST_TIME, // 其它policy参数请参考 https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingPolicy
+            ferry: 1, // 是否可以使用轮渡
+            province: '京', // 车牌省份的汉字缩写
+        }
+
+        // 构造路线导航类
+        var driving = new AMap.Driving(drivingOption)
+
+        var pre_order_lst = [];
+        for (var order_lst_i = 0; order_lst_i < order_lst.length - 1; order_lst_i++) {
+            pre_order_lst.push([location_lst[order_lst[order_lst_i]][0], location_lst[order_lst[order_lst_i]][1], location_lst[order_lst[order_lst_i + 1]][0], location_lst[order_lst[order_lst_i + 1]][1]]);
+        }
+
+        function return_index(json_result) {
+            var result_tuple = [json_result.origin.lng, json_result.origin.lat, json_result.destination.lng, json_result.destination.lat];
+            var order_x = 0;
+            for (var order_i = 0; order_i < pre_order_lst.length; order_i++) {
+                if (pre_order_lst[order_i][0] == result_tuple[0] && pre_order_lst[order_i][1] == result_tuple[1] && pre_order_lst[order_i][2] == result_tuple[2] && pre_order_lst[order_i][3] == result_tuple[3]) {
+                    order_x = order_i;
+                    break;
+                }
+            }
+            return order_x
+        }
+
+        for (var order_i = 1; order_i < order_lst.length; order_i++) {
+            // 根据起终点经纬度规划驾车导航路线
+            var func_status = function(status, result) {
+                // result即是对应的驾车导航信息，相关数据结构文档请参考 https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingResult
+                if (status === 'complete') {
+                    if (result.routes && result.routes.length) {
+                        // 绘制第一条路线，也可以按需求绘制其它几条路线
+                        var color_number = return_index(result);
+                        drawRoute(result.routes[0], color_number);
+                        log.success('绘制驾车路线完成');
+                    }
+                } else {
+                    log.error('获取驾车数据失败：' + result)
+                }
+            }
+            driving.search(new AMap.LngLat(location_lst[order_lst[order_i-1]][0], location_lst[order_lst[order_i-1]][1]), new AMap.LngLat(location_lst[order_lst[order_i]][0], location_lst[order_lst[order_i]][1]), func_status);
+        }
+
+        function drawRoute (route, color_num) {
+            var path_color_lst = [['#ef4136', '#f7acbc'], ['#2b4490', '#33a3dc'], ['#f58220', '#fab27b'], ['#84bf96', '#cde6c7'], ['#ef5b9c', '#feeeed'], ['#33a3dc', '#90d7ec'], ['#ffd400', '#fcf16e'], ['#8552a1', '#afb4db'], ['#005831', '#45b97c']];
+
+            // 解析DrivingRoute对象，构造成AMap.Polyline的path参数需要的格式
+            // DrivingResult对象结构参考文档 https://lbs.amap.com/api/javascript-api/reference/route-search#m_DriveRoute
+            function parseRouteToPath(route) {
+                var path = []
+                for (var i = 0, l = route.steps.length; i < l; i++) {
+                    var step = route.steps[i]
+                    for (var j = 0, n = step.path.length; j < n; j++) {
+                      path.push(step.path[j])
+                    }
+                }
+                return path
+            }
+
+            var path = parseRouteToPath(route)
+
+            var icon_start_http = 'https://webapi.amap.com/theme/v1.3/markers/' + (color_num + 1) + '.png';
+            var icon_end_http = 'https://webapi.amap.com/theme/v1.3/markers/' + (color_num + 2) + '.png';
+
+            var startMarker = new AMap.Marker({
+                position: path[0],
+                icon: icon_start_http, // 'https://webapi.amap.com/theme/v1.3/markers/n/start.png',
+                map: map
+            })
+
+            var endMarker = new AMap.Marker({
+                position: path[path.length - 1],
+                icon: icon_end_http, // https://webapi.amap.com/theme/v1.3/markers/n/end.png',
+                map: map
+            })
+
+            var routeLine = new AMap.Polyline({
+                path: path,
+                isOutline: true,
+                outlineColor: path_color_lst[color_num][1],
+                borderWeight: 2,
+                strokeWeight: 5,
+                strokeColor: path_color_lst[color_num][0],
+                lineJoin: 'round'
+            })
+
+            routeLine.setMap(map)
+            // 调整视野达到最佳显示区域
+            map.setFitView([ startMarker, endMarker, routeLine ])
+        }
+    }
+    // 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST
 </script>
 
 
