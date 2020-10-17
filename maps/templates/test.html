@@ -9,7 +9,7 @@ Test Web = http://150.158.153.253:8080/maps/test
 
 <!DOCTYPE html>
 <html lang="zh-CN">
-  
+
 {% load static %}
 
 <title>我滴规规🛸</title>
@@ -510,7 +510,6 @@ Test Web = http://150.158.153.253:8080/maps/test
     //  👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER
     // 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST
     function shortestPathDisplay(){
-        alert("WEHRE AM I?");
         var location_lst = eval('{{ Locs }}'); // TEST CASE: [[90.427281, 30.865042], [110.427281, 30.865042], [80.379028, 30.865042], [80.379028, 39.903719], [79.379028, 39.903719], [79.379028, 40.903719]]
         var order_lst = eval('{{ Paths }}'); // TEST CASE: [0, 1, 2, 3, 4, 5];
 

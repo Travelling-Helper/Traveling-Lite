@@ -15,7 +15,7 @@ def gaodeMap(request):
     })
 
 def test(request):
-    return render(request, "path_return.html", {
+    return render(request, "test.html", {
         'FUNC' : 0
     }) #测试
 
