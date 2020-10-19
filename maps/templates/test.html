@@ -1,10 +1,13 @@
 <!--
 @author Yichen Han, Surong Huang, Yuqi Hu
-@date Oct. 17 2020
-@version version 3.0
+@date Oct. 19 2020
+@version version 3.1
 
 JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
 Test Web = http://150.158.153.253:8080/maps/test
+
+Reference:
+https://lbs.amap.com/api/javascript-api/example/map/map-english
 -->
 
 <!DOCTYPE html>
@@ -18,6 +21,17 @@ Test Web = http://150.158.153.253:8080/maps/test
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
     <title>输入框选择POI点</title>
+    <!-- 中英文切换 -->
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+    <!-- 使用 KEY 调用 JS API -->
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.8&key=4e8abd261bb57fbaeffc6756e3e7f8c3"></script>
+    <!-- UI组件库 -->
+    <script src="//webapi.amap.com/ui/1.1/main.js?v=1.1.1"></script>
+    <!-- 路线显示 -->
+    <script src="https://webapi.amap.com/maps?v=1.4.15&key=4e8abd261bb57fbaeffc6756e3e7f8c3&plugin=AMap.Driving"></script>
+    <!-- 中英文对照 -->
+    <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
+
     <style>
         html,
         body,
@@ -156,13 +170,22 @@ Test Web = http://150.158.153.253:8080/maps/test
 <body>
 <!-- 1 地图容器 -->
 <div id="container" class="map" tabindex="0"></div>
+<!-- 1.1 选择地图语言 -->
+<div class="input-card" style="width:15rem">
+    <h4>底图语言切换</h4>
+    <div id="lang">
+        <div class="input-item"><input id="zh_cn" name="language" type="radio"  checked="checked"><span class="input-text">中文地图</span></div>
+        <div class="input-item"><input id="zh_en" name="language" type="radio"><span class="input-text">中文-English 对照</span></div>
+        <div class="input-item"><input id="en" name="language" type="radio"><span class="input-text">English Map</span></div>
+    </div>
+</div>
 
 <!-- 2 搜索框容器 -->
 <div id="pickerBox">
     <input id="pickerInput" placeholder="输入关键字选取地点" value=""/>
     <div id="poiInfo"></div>
 </div>
-<!-- 2.5 清空搜索框 -->
+<!-- 2.1 清空搜索框 -->
 <button id="clearSearchBox" onclick="clearSearchBox()"><i>清空</i></button>
 
 <!-- 3 添加按钮容器 -->
@@ -200,12 +223,7 @@ Test Web = http://150.158.153.253:8080/maps/test
 
 
 
-<!-- 调用 JS API -->
-<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.8&key=4e8abd261bb57fbaeffc6756e3e7f8c3"></script>
-<!-- UI组件库 -->
-<script src="//webapi.amap.com/ui/1.1/main.js?v=1.1.1"></script>
-<!-- 路线显示 -->
-<script src="https://webapi.amap.com/maps?v=1.4.15&key=4e8abd261bb57fbaeffc6756e3e7f8c3&plugin=AMap.Driving"></script>
+
 
 
 
@@ -229,10 +247,25 @@ Test Web = http://150.158.153.253:8080/maps/test
     var dummyFirstNode = new createNode();
     var lastNode = dummyFirstNode;
 
-    // 生成地图
+    // 1 生成地图
     var map = new AMap.Map('container', {
-        zoom: 10
+        zoom: 10,
+        lang: "zh_cn",
+        resizeEnable: true
     });
+
+    // 1.1 切换语言
+    var radios = document.querySelectorAll("#lang input");
+    radios.forEach(function(ratio) {
+        ratio.onclick = setLang;
+    });
+    function setLang() {
+        map.setLang(this.id);
+    }
+
+    // 1.2 调整大小
+
+
     AMapUI.loadUI(['misc/PoiPicker'], function(PoiPicker) {
 
         var poiPicker = new PoiPicker({
