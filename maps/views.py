@@ -52,17 +52,31 @@ def tested(request):
             # Only start but not end
             elif cluster == -1:
                 FUNC_indicator[0] = 1
+                paths = one_path_algo.one_path_algo.shortest_path(time_list, start=start_index)
+                guides = []
+                for i in range(len(paths[0]) - 1):
+                    guides.append(guide_list[paths[0][i]][paths[0][i + 1]])
+                print(paths)
             # Not start but end
             elif cluster == -2:
                 FUNC_indicator[0] = 1
-
+                paths = one_path_algo.one_path_algo.shortest_path(time_list, end=end_index)
+                guides = []
+                for i in range(len(paths[0]) - 1):
+                    guides.append(guide_list[paths[0][i]][paths[0][i + 1]])
+                print(paths)
             # Both start and end
             elif cluster == -3:
                 FUNC_indicator[0] = 1
+                paths = one_path_algo.one_path_algo.shortest_path(time_list, start=start_index, end=end_index)
+                guides = []
+                for i in range(len(paths[0]) - 1):
+                    guides.append(guide_list[paths[0][i]][paths[0][i + 1]])
+                print(paths)
             # Server Error
             else:
                 FUNC_indicator[0] = -1
-                print("Shortest Path cluster 值错误")
+                print("SP S&E Error, file: view.py line 43-75")
 
 
         else:
@@ -83,10 +97,10 @@ def tested(request):
                         break
                 if error_for_clustering:
                     FUNC_indicator[0] = -1
-                    print("高德地图location数值对长度不为2。file: view.py line 57")
+                    print("高德地图location数值对长度不为2。file: view.py line 92")
             except:
                 FUNC_indicator[0] = -1
-                print("高德地图POI信息不含location key OR 无法interpret预期为double类型的string。file: view.py line 52 or 58")
+                print("高德地图POI信息不含location key OR 无法interpret预期为double类型的string。file: view.py line 92 or 98")
 
             if FUNC_indicator[0] == 2:
                 try:
@@ -98,7 +112,7 @@ def tested(request):
                     print(paths)
                 except:
                     FUNC_indicator[0] = -1
-                    print("Clustering函数报错 file: view.py line 68-72")
+                    print("Clustering函数报错 file: view.py line 107-112")
 
             return render(request, "test.html", {
                 'positionsToReturn': request.POST.get('positionsToReturn'),
@@ -121,10 +135,10 @@ def tested(request):
                 break
         if error_for_shortest:
             FUNC_indicator[0] = -1
-            print("高德地图location数值对长度不为2。file: view.py line 95")
+            print("高德地图location数值对长度不为2。file: view.py line 130")
     except:
         FUNC_indicator[0] = -1
-        print("高德地图POI信息不含location key OR 无法interpret预期为double类型的string。file: view.py line 90 or 96")
+        print("高德地图POI信息不含location key OR 无法interpret预期为double类型的string。file: view.py line 125 or 132")
 
     return render(request, "test.html", {
         'positionsToReturn': request.POST.get('positionsToReturn'),
