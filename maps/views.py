@@ -37,13 +37,34 @@ def tested(request):
         print(time_list)
         cluster = request.POST.get('cluster')
         cluster = eval(cluster)
-        if cluster == 0:
-            FUNC_indicator[0] = 1
-            paths = one_path_algo.one_path_algo.shortest_path(time_list)
-            guides = []
-            for i in range(len(paths[0]) - 1):
-                guides.append(guide_list[paths[0][i]][paths[0][i + 1]])
-            print(paths)
+
+        start_index = request.POST.get('start_index')
+        end_index = request.POST.get('end_index')
+        if cluster <= 0:
+            # No start nor end
+            if cluster == 0:
+                FUNC_indicator[0] = 1
+                paths = one_path_algo.one_path_algo.shortest_path(time_list)
+                guides = []
+                for i in range(len(paths[0]) - 1):
+                    guides.append(guide_list[paths[0][i]][paths[0][i + 1]])
+                print(paths)
+            # Only start but not end
+            elif cluster == -1:
+                FUNC_indicator[0] = 1
+            # Not start but end
+            elif cluster == -2:
+                FUNC_indicator[0] = 1
+
+            # Both start and end
+            elif cluster == -3:
+                FUNC_indicator[0] = 1
+            # Server Error
+            else:
+                FUNC_indicator[0] = -1
+                print("Shortest Path cluster 值错误")
+
+
         else:
             FUNC_indicator[0] = 2
             paths = clustering.cluster.clustering(time_list, cluster)

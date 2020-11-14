@@ -71,7 +71,7 @@ https://lbs.amap.com/api/javascript-api/example/map/map-english
             top: 50px;
             left: 243px;
             height: 30px;
-=        }
+        }
 
         /* 3: Add Position Button */
         #addButton {
@@ -422,6 +422,10 @@ https://lbs.amap.com/api/javascript-api/example/map/map-english
         }
         document.getElementById("positionsToReturn").value = positionsInfo;
         document.getElementById("cluster").value = cluster;
+        // ❓ ❓ ❓ Your code here to make start&end index ❓ ❓ ❓
+        document.getElementById("start_index").value = start_index_var;
+        document.getElementById("end_index").value = end_index_var;
+        
         var form = document.getElementById("pois");
         form.submit();
     }
@@ -645,6 +649,9 @@ https://lbs.amap.com/api/javascript-api/example/map/map-english
 <form action="tested" method="post" id="pois">{% csrf_token %}
     <input type="hidden" id="positionsToReturn" name="positionsToReturn" value="">
     <input type="hidden" id="cluster" name="cluster" value="">
+    <%-- ❓ ❓ ❓ Your code here to make start&end index ❓ ❓ ❓ --%>
+    <input type="hidden" id="start_index" name="start_index" value="">
+    <input type="hidden" id="end_index" name="end_index" value="">
 </form>
 
 </body>
