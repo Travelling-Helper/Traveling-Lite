@@ -5,6 +5,7 @@
 
 JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
 Test Web = http://150.158.153.253:8080/maps/test
+         = "python manage.py runserver" + http://127.0.0.1:8000/maps/test
 
 Reference:
 https://lbs.amap.com/api/javascript-api/example/map/map-english
@@ -263,9 +264,6 @@ https://lbs.amap.com/api/javascript-api/example/map/map-english
         map.setLang(this.id);
     }
 
-    // 1.2 调整大小
-
-
     AMapUI.loadUI(['misc/PoiPicker'], function(PoiPicker) {
 
         var poiPicker = new PoiPicker({
@@ -329,7 +327,7 @@ https://lbs.amap.com/api/javascript-api/example/map/map-english
         });
     }
 
-    // 2.5: clearSearchBox
+    // 2.1: clearSearchBox
     function clearSearchBox() {
         document.getElementById("pickerInput").value = "";
     }
@@ -545,6 +543,7 @@ https://lbs.amap.com/api/javascript-api/example/map/map-english
         document.getElementById('tips').innerHTML = '通过setFitView，地图自适应显示到合适的范围内,点标记已全部显示在视野中！';
     };
     //  👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER
+
     // 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST
     function shortestPathDisplay(){
         var location_lst = eval('{{ Locs }}'); // TEST CASE: [[90.427281, 30.865042], [110.427281, 30.865042], [80.379028, 30.865042], [80.379028, 39.903719], [79.379028, 39.903719], [79.379028, 40.903719]]
