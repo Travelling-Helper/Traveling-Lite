@@ -9,6 +9,33 @@ Test Web = http://150.158.153.253:8080/maps/test
 
 Reference:
 https://lbs.amap.com/api/javascript-api/example/map/map-english
+
+Note:
+    .H = helper function
+
+Structure:
+  < HEAD >
+    1 style
+  < BODY >
+    2 containers
+    3 javascript
+      3.1 variables
+      3.2 functions
+          3.2.0 constructor of linked list
+          3.2.1 construct map
+                3.2.1.0 map
+                3.2.1.1 language
+          3.2.2 search, add, remove a poi
+                3.2.2.0 search
+                3.2.2.1 add
+                3.2.2.2 remove
+                3.2.2.H clear search box
+                3.2.2.H copy poi infos from list to containers
+          3.2.3 search all pois
+                3.2.3.1 route
+                3.2.3.2 cluster
+          3.2.4 clear all pois
+          3.2.X test functions
 -->
 
 <!DOCTYPE html>
@@ -33,32 +60,17 @@ https://lbs.amap.com/api/javascript-api/example/map/map-english
     <!-- 中英文对照 -->
     <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
 
+    <!-- PART 1 STYLE-->
     <style>
         html,
         body,
             /* 1: Map */
-        #container {
-            width: 100%;
-            height: 100%;
-            margin: 0px;
-            font-size: 13px;
-        }
+        #container { width: 100%; height: 100%; margin: 0px; font-size: 13px; }
 
         /* 2: Search Box */
-        #pickerBox {
-            position: absolute;
-            z-index: 9999;
-            top: 50px;
-            left: 30px;
-            width: 300px;
-        }
-        #pickerInput {
-            width: 200px;
-            padding: 5px 5px;
-        }
-        #poiInfo {
-            background: #fff;
-        }
+        #pickerBox { position: absolute; top: 50px; left: 30px; width: 300px; }
+        #pickerInput { width: 200px; padding: 5px 5px; }
+        #poiInfo { background: #fff; }
         .amap_lib_placeSearch .poibox.highlight {
             background-color: #CAE1FF;
         }
@@ -66,109 +78,51 @@ https://lbs.amap.com/api/javascript-api/example/map/map-english
             display: none!important;
         }
         /* 2.5: Clear Search Box */
-        #clearSearchBox {
-            position: absolute;
-            z-index: 9999;
-            top: 50px;
-            left: 243px;
-            height: 30px;
-        }
+        #clearSearchBox { position: absolute; top: 50px; left: 243px; height: 30px; }
 
         /* 3: Add Position Button */
-        #addButton {
-            position: absolute;
-            z-index: 9999;
-            top: 50px;
-            left: 290px;
-            height: 30px;
-            width: 100px;
-        }
+        #addButton { position: absolute; top: 50px; left: 290px; height: 30px; width: 100px; }
 
         /* 4：Position Boxes 九个地址栏 */
-        #poiContainer1 {
-            position: absolute;z-index: 9999;top: 50px;right: 65px;height: 40px;width:300px;background: #CAE1FF;
-        }
-        #poiContainer2 {
-            position: absolute;z-index: 9999;top: 100px;right: 65px;height: 40px;width:300px;background: #CAE1FF;
-        }
-        #poiContainer3 {
-            position: absolute;z-index: 9999;top: 150px;right: 65px;height: 40px;width:300px;background: #CAE1FF;
-        }
-        #poiContainer4 {
-            position: absolute;z-index: 9999;top: 200px;right: 65px;height: 40px;width:300px;background: #CAE1FF;
-        }
-        #poiContainer5 {
-            position: absolute;z-index: 9999;top: 250px;right: 65px;height: 40px;width:300px;background: #CAE1FF;
-        }
-        #poiContainer6 {
-            position: absolute;z-index: 9999;top: 300px;right: 65px;height: 40px;width:300px;background: #CAE1FF;
-        }
-        #poiContainer7 {
-            position: absolute;z-index: 9999;top: 350px;right: 65px;height: 40px;width:300px;background: #CAE1FF;
-        }
-        #poiContainer8 {
-            position: absolute;z-index: 9999;top: 400px;right: 65px;height: 40px;width:300px;background: #CAE1FF;
-        }
-        #poiContainer9 {
-            position: absolute;z-index: 9999;top: 450px;right: 65px;height: 40px;width:300px;background: #CAE1FF;
-        }
+        #poiContainer1 { position: absolute; top: 50px;  right: 65px; height: 50px; width:300px; background: #CAE1FF; }
+        #poiContainer2 { position: absolute; top: 100px; right: 65px; height: 50px; width:300px; background: #CAE1FF; }
+        #poiContainer3 { position: absolute; top: 150px; right: 65px; height: 50px; width:300px; background: #CAE1FF; }
+        #poiContainer4 { position: absolute; top: 200px; right: 65px; height: 50px; width:300px; background: #CAE1FF; }
+        #poiContainer5 { position: absolute; top: 250px; right: 65px; height: 50px; width:300px; background: #CAE1FF; }
+        #poiContainer6 { position: absolute; top: 300px; right: 65px; height: 50px; width:300px; background: #CAE1FF; }
+        #poiContainer7 { position: absolute; top: 350px; right: 65px; height: 50px; width:300px; background: #CAE1FF; }
+        #poiContainer8 { position: absolute; top: 400px; right: 65px; height: 50px; width:300px; background: #CAE1FF; }
+        #poiContainer9 { position: absolute; top: 450px; right: 65px; height: 50px; width:300px; background: #CAE1FF; }
 
         /*5：九个删除按钮*/
-        #deleteButton1 {
-            position: absolute;z-index: 9999;top: 50px;right: 20px;
-        }
-        #deleteButton2 {
-            position: absolute;z-index: 9999;top: 100px;right: 20px;
-        }
-        #deleteButton3 {
-            position: absolute;z-index: 9999;top: 150px;right: 20px;
-        }
-        #deleteButton4 {
-            position: absolute;z-index: 9999;top: 200px;right: 20px;
-        }
-        #deleteButton5 {
-            position: absolute;z-index: 9999;top: 250px;right: 20px;
-        }
-        #deleteButton6 {
-            position: absolute;z-index: 9999;top: 300px;right: 20px;
-        }
-        #deleteButton7 {
-            position: absolute;z-index: 9999;top: 350px;right: 20px;
-        }
-        #deleteButton8 {
-            position: absolute;z-index: 9999;top: 400px;right: 20px;
-        }
-        #deleteButton9 {
-            position: absolute;z-index: 9999;top: 450px;right: 20px;
-        }
+        #deleteButton1 { position: absolute; top: 50px;  right: 20px; }
+        #deleteButton2 { position: absolute; top: 100px; right: 20px; }
+        #deleteButton3 { position: absolute; top: 150px; right: 20px; }
+        #deleteButton4 { position: absolute; top: 200px; right: 20px; }
+        #deleteButton5 { position: absolute; top: 250px; right: 20px; }
+        #deleteButton6 { position: absolute; top: 300px; right: 20px; }
+        #deleteButton7 { position: absolute; top: 350px; right: 20px; }
+        #deleteButton8 { position: absolute; top: 400px; right: 20px; }
+        #deleteButton9 { position: absolute; top: 450px; right: 20px; }
 
         /*6：搜索按钮*/
-        #searchButton {
-            position: absolute;
-            z-index: 9999;
-            top: 50px;
-            right: 370px;
-        }
-        #searchButtonCluster {
-            position: absolute;
-            z-index: 9999;
-            top: 80px;
-            right: 370px;
-        }
+        #searchButton { position: absolute; z-index: 9999; top: 50px; right: 370px; }
+        #searchButtonCluster { position: absolute; top: 80px; right: 370px; }
 
         /*7：清空按钮*/
-        #clearButton {
-            position: absolute;
-            z-index: 9999;
-            top: 20px;
-            right: 20px;
-        }
+        #clearButton { position: absolute; top: 20px; right: 20px; }
     </style>
 </head>
 
 
 
+
+
+
+
+
 <body>
+<!--PART 2 CONTAINERS-->
 <!-- 1 地图容器 -->
 <div id="container" class="map" tabindex="0"></div>
 <!-- 1.1 选择地图语言 -->
@@ -193,15 +147,15 @@ https://lbs.amap.com/api/javascript-api/example/map/map-english
 <button id="addButton" onclick="addPoi()"><i>添加该地点</i></button>
 
 <!-- 4 九个地址栏容器 -->
-<div><i id="poiContainer1"></i></div>
-<div><i id="poiContainer2"></i></div>
-<div><i id="poiContainer3"></i></div>
-<div><i id="poiContainer4"></i></div>
-<div><i id="poiContainer5"></i></div>
-<div><i id="poiContainer6"></i></div>
-<div><i id="poiContainer7"></i></div>
-<div><i id="poiContainer8"></i></div>
-<div><i id="poiContainer9"></i></div>
+<div><i id="poiContainer1" hidden></i></div>
+<div><i id="poiContainer2" hidden></i></div>
+<div><i id="poiContainer3" hidden></i></div>
+<div><i id="poiContainer4" hidden></i></div>
+<div><i id="poiContainer5" hidden></i></div>
+<div><i id="poiContainer6" hidden></i></div>
+<div><i id="poiContainer7" hidden></i></div>
+<div><i id="poiContainer8" hidden></i></div>
+<div><i id="poiContainer9" hidden></i></div>
 
 <!-- 5 九个删除按钮容器 -->
 <button id="deleteButton1" onclick="deletePoi(1)"><i>删除</i></button>
@@ -223,21 +177,38 @@ https://lbs.amap.com/api/javascript-api/example/map/map-english
 <button id="clearButton" onclick="clearPois()"><i>清空所有地点</i></button>
 
 
+</select>
 
 
 
 
 
 
-<!-- Javascript -->
+
+
+<!-- PART 3 FUNCTIONS (JS) -->
 <script type="text/javascript">
-    var totalPoiNum = 0; // 0 to 9
-    var currentPoiInfo = ""; // current position information
-    var currentPoiInfoDisplay = "";
-    var positionsInfo = ""; // concatenated string of positions to RETURN
-    var cluster = 0; // 0 = shorted path, >0 = cluster
 
-    // Constructor of Position Information Boxes
+    /* 3.1 VARIABLES */
+    var totalPoiNum = 0;            // Total # of Positions Have Added (0 to 9)
+    var currentPoiInfo = "";        // Current Position Information
+    var currentPoiInfoDisplay = ""; // Current Position Information (Shortened)
+    var positionsInfo = "";         // Concatenated String of Positions to RETURN
+    var cluster = 0;                /* >0: Cluster
+                                        0: No Start + No End
+                                       -1:    Start + No End
+                                       -2: No Start +    End
+                                       -3:    Start +    End */
+    var start_index_var = 0;        // Index of Start Position (0 for DNE)
+    var end_index_var = 0;          // Index of End   Position (0 for DNE)
+
+
+
+
+
+    /* 3.2 FUNCTIONS */
+
+    /* 3.2.0 Constructor of Position Information Boxes */
     function createNode () {
         this.info = null;
         this.infoDisplay = null;
@@ -248,14 +219,18 @@ https://lbs.amap.com/api/javascript-api/example/map/map-english
     var dummyFirstNode = new createNode();
     var lastNode = dummyFirstNode;
 
-    // 1 生成地图
+
+
+    /* 3.2.1 Basic Map Construction */
+    // 3.2.1.0 生成地图
     var map = new AMap.Map('container', {
         zoom: 10,
         lang: "zh_cn",
         resizeEnable: true
     });
 
-    // 1.1 切换语言
+
+    // 3.2.1.1 切换语言
     var radios = document.querySelectorAll("#lang input");
     radios.forEach(function(ratio) {
         ratio.onclick = setLang;
@@ -264,6 +239,10 @@ https://lbs.amap.com/api/javascript-api/example/map/map-english
         map.setLang(this.id);
     }
 
+
+
+    /* 3.2.2 Search & Add & Remove Positions */
+    // 3.2.2.0 Search a position
     AMapUI.loadUI(['misc/PoiPicker'], function(PoiPicker) {
 
         var poiPicker = new PoiPicker({
@@ -296,11 +275,11 @@ https://lbs.amap.com/api/javascript-api/example/map/map-english
                     location: poi.location.toString(),
                     address: poi.address
                 };
-                info2 = {
-                    name: poi.name,
-                    location: poi.location,
-                    address: poi.address
-                }
+            info2 = {
+                name: poi.name,
+                location: poi.location,
+                address: poi.address
+            }
 
             marker.setMap(map);
             marker.setPosition(poi.location); // 图钉
@@ -327,13 +306,8 @@ https://lbs.amap.com/api/javascript-api/example/map/map-english
         });
     }
 
-    // 2.1: clearSearchBox
-    function clearSearchBox() {
-        document.getElementById("pickerInput").value = "";
-    }
 
-
-    // 点击添加地点后录入当前POI
+    // 3.2.2.1 Add a position
     function addPoi () {
         // Null Case
         if (totalPoiNum >= 9) {alert("请勿超过九个点！"); return;}
@@ -361,6 +335,8 @@ https://lbs.amap.com/api/javascript-api/example/map/map-english
         connectPois();
     }
 
+
+    // 3.2.2.2 Delete a position
     function deletePoi (idxToDelete) {
         // Null Case: no poi info
         if (idxToDelete > totalPoiNum) {return;}
@@ -386,27 +362,42 @@ https://lbs.amap.com/api/javascript-api/example/map/map-english
     }
 
 
-    // 把地点内容放进html
+    // 3.2.2.H Clear search box
+    function clearSearchBox() {
+        document.getElementById("pickerInput").value = "";
+    }
+
+
+    // 3.2.2.H Put poi info in linked node to poiContainer1~9 by traverse
     function connectPois () {
-        // Clear
+        // clear poiContainer1~9
         for (var index=1; index<10; index++) {
             document.getElementById("poiContainer" + index).innerText = "";
         }
+        // start copy poi infos
         var currentNode = dummyFirstNode;
         var index = 1;
+        // section 1: poiContainers with info
         while (index <= totalPoiNum) {
             currentNode = currentNode.nextNode;
-            document.getElementById("poiContainer" + index).innerText = currentNode.infoDisplay;
+            document.getElementById("poiContainer" + index).innerText = currentNode.infoDisplay; // poi info
+            document.getElementById("poiContainer" + index).removeAttribute("hidden"); // not hidden
             index++;
         }
+        // section 2: poiContainers without info
         while (index <= 9) {
-            document.getElementById("poiContainer" + index).innerText = "";
+            document.getElementById("poiContainer" + index).innerText = ""; // no poi info
+            document.getElementById("poiContainer" + index).setAttribute("hidden", true); // not hidden
             index++;
         }
     }
 
 
-    // 6：点击搜索按钮向后台传参
+
+
+    /* 3.2.3 Search All Pois */
+
+    // 3.2.3.1 Search quickest route
     function search() {
         positionsInfo = "";
         // Null Case: 0/1 poi
@@ -423,12 +414,13 @@ https://lbs.amap.com/api/javascript-api/example/map/map-english
         // ❓ ❓ ❓ Your code here to make start&end index ❓ ❓ ❓
         document.getElementById("start_index").value = start_index_var;
         document.getElementById("end_index").value = end_index_var;
-        
+
         var form = document.getElementById("pois");
         form.submit();
     }
 
-    // 6.5: Search Cluster
+
+    // 3.2.3.2 Search Cluster
     function alertCluster() {
         cluster = prompt("请输入分组的个数：");
         // cluster > 0, cluster <= totalPoiNum
@@ -442,7 +434,10 @@ https://lbs.amap.com/api/javascript-api/example/map/map-english
     }
 
 
-    // 7：清空所有地点
+
+
+
+    /* 3.2.4 清空所有地点 */
     function clearPois() {
         totalPoiNum = 0;
         dummyFirstNode.nextNode = null;
@@ -451,7 +446,10 @@ https://lbs.amap.com/api/javascript-api/example/map/map-english
     }
 
 
-    // 测试用的函数
+
+
+
+    /* 3.2.X 测试用的函数 */
     function alertPoi() {
         var currentNode = dummyFirstNode;
         while (currentNode.nextNode != null) {
@@ -603,7 +601,7 @@ https://lbs.amap.com/api/javascript-api/example/map/map-english
                 for (var i = 0, l = route.steps.length; i < l; i++) {
                     var step = route.steps[i]
                     for (var j = 0, n = step.path.length; j < n; j++) {
-                      path.push(step.path[j])
+                        path.push(step.path[j])
                     }
                 }
                 return path
