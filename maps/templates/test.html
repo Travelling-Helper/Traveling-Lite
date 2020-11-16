@@ -1,7 +1,7 @@
 <!--
 @author Yichen Han, Surong Huang, Yuqi Hu
-@date Oct. 19 2020
-@version version 3.1
+@date Nov. 16 2020
+@version version 4.2
 
 JS API key = 4e8abd261bb57fbaeffc6756e3e7f8c3
 Test Web = http://150.158.153.253:8080/maps/test
@@ -16,8 +16,10 @@ Note:
 Structure:
   < HEAD >
     1 style
+      (NEW: START RADIO)
   < BODY >
     2 containers
+      (NEW: START RADIO)
     3 javascript
       3.1 variables
       3.2 functions
@@ -31,8 +33,9 @@ Structure:
                 3.2.2.2 remove
                 3.2.2.H clear search box
                 3.2.2.H copy poi infos from list to containers
+                3.2.2.H Update start & end poi check box when a poi is deleted (NEW)
           3.2.3 search all pois
-                3.2.3.1 route
+                3.2.3.1 route (NEW: UPDATE START POI INDEX)
                 3.2.3.2 cluster
           3.2.4 clear all pois
           3.2.X test functions
@@ -59,6 +62,8 @@ Structure:
     <script src="https://webapi.amap.com/maps?v=1.4.15&key=4e8abd261bb57fbaeffc6756e3e7f8c3&plugin=AMap.Driving"></script>
     <!-- 中英文对照 -->
     <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
+    <!-- JQUERY-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
     <!-- PART 1 STYLE-->
     <style>
@@ -84,15 +89,15 @@ Structure:
         #addButton { position: absolute; top: 50px; left: 290px; height: 30px; width: 100px; }
 
         /* 4：Position Boxes 九个地址栏 */
-        #poiContainer1 { position: absolute; top: 50px;  right: 65px; height: 50px; width:300px; background: #CAE1FF; }
-        #poiContainer2 { position: absolute; top: 100px; right: 65px; height: 50px; width:300px; background: #CAE1FF; }
-        #poiContainer3 { position: absolute; top: 150px; right: 65px; height: 50px; width:300px; background: #CAE1FF; }
-        #poiContainer4 { position: absolute; top: 200px; right: 65px; height: 50px; width:300px; background: #CAE1FF; }
-        #poiContainer5 { position: absolute; top: 250px; right: 65px; height: 50px; width:300px; background: #CAE1FF; }
-        #poiContainer6 { position: absolute; top: 300px; right: 65px; height: 50px; width:300px; background: #CAE1FF; }
-        #poiContainer7 { position: absolute; top: 350px; right: 65px; height: 50px; width:300px; background: #CAE1FF; }
-        #poiContainer8 { position: absolute; top: 400px; right: 65px; height: 50px; width:300px; background: #CAE1FF; }
-        #poiContainer9 { position: absolute; top: 450px; right: 65px; height: 50px; width:300px; background: #CAE1FF; }
+        #poiContainer1 { position: absolute; top: 50px;  right: 150px; height: 50px; width:200px; background: #CAE1FF; }
+        #poiContainer2 { position: absolute; top: 100px; right: 150px; height: 50px; width:200px; background: #CAE1FF; }
+        #poiContainer3 { position: absolute; top: 150px; right: 150px; height: 50px; width:200px; background: #CAE1FF; }
+        #poiContainer4 { position: absolute; top: 200px; right: 150px; height: 50px; width:200px; background: #CAE1FF; }
+        #poiContainer5 { position: absolute; top: 250px; right: 150px; height: 50px; width:200px; background: #CAE1FF; }
+        #poiContainer6 { position: absolute; top: 300px; right: 150px; height: 50px; width:200px; background: #CAE1FF; }
+        #poiContainer7 { position: absolute; top: 350px; right: 150px; height: 50px; width:200px; background: #CAE1FF; }
+        #poiContainer8 { position: absolute; top: 400px; right: 150px; height: 50px; width:200px; background: #CAE1FF; }
+        #poiContainer9 { position: absolute; top: 450px; right: 150px; height: 50px; width:200px; background: #CAE1FF; }
 
         /*5：九个删除按钮*/
         #deleteButton1 { position: absolute; top: 50px;  right: 20px; }
@@ -110,7 +115,21 @@ Structure:
         #searchButtonCluster { position: absolute; top: 80px; right: 370px; }
 
         /*7：清空按钮*/
-        #clearButton { position: absolute; top: 20px; right: 20px; }
+        #clearButton { position: absolute; top: 20px; right: 270px}
+
+        /* 8 起点Radio */
+        #startPoi0 { position: absolute; top: 20px;  right: 100px}
+        #startPoi1 { position: absolute; top: 50px;  right: 100px}
+        #startPoi2 { position: absolute; top: 100px; right: 100px}
+        #startPoi3 { position: absolute; top: 150px; right: 100px}
+        #startPoi4 { position: absolute; top: 200px; right: 100px}
+        #startPoi5 { position: absolute; top: 250px; right: 100px}
+        #startPoi6 { position: absolute; top: 300px; right: 100px}
+        #startPoi7 { position: absolute; top: 350px; right: 100px}
+        #startPoi8 { position: absolute; top: 400px; right: 100px}
+        #startPoi9 { position: absolute; top: 450px; right: 100px}
+
+        /* 9 终点Radio */
     </style>
 </head>
 
@@ -176,8 +195,20 @@ Structure:
 <!-- 7 清空地点 -->
 <button id="clearButton" onclick="clearPois()"><i>清空所有地点</i></button>
 
-
-</select>
+<!--8 Start Poi-->
+<div>
+    <input type="radio" id="startPoi0" name="startPoi" value=0 checked>
+    <input type="radio" id="startPoi1" name="startPoi" value=1 hidden>
+    <input type="radio" id="startPoi2" name="startPoi" value=2 hidden>
+    <input type="radio" id="startPoi3" name="startPoi" value=3 hidden>
+    <input type="radio" id="startPoi4" name="startPoi" value=4 hidden>
+    <input type="radio" id="startPoi5" name="startPoi" value=5 hidden>
+    <input type="radio" id="startPoi6" name="startPoi" value=6 hidden>
+    <input type="radio" id="startPoi7" name="startPoi" value=7 hidden>
+    <input type="radio" id="startPoi8" name="startPoi" value=8 hidden>
+    <input type="radio" id="startPoi9" name="startPoi" value=9 hidden>
+</div>
+<!--</select>-->
 
 
 
@@ -294,7 +325,7 @@ Structure:
             currentPoiInfo = JSON.stringify(info, null);
             var name = info2.name;
             var address = info2.address;
-            currentPoiInfoDisplay = name + ", " + address;
+            currentPoiInfoDisplay = name;
             document.getElementById("pickerInput").value = name; // fill poi name to search box
 
             map.setZoomAndCenter(14, info2.location); // reset map center & scale
@@ -311,6 +342,7 @@ Structure:
     function addPoi () {
         // Null Case
         if (totalPoiNum >= 9) {alert("请勿超过九个点！"); return;}
+        if (currentPoiInfo == "") {return;}
 
         // Null Case: 重复地点
         var currentNode = dummyFirstNode;
@@ -353,6 +385,7 @@ Structure:
         }
         // update HTML
         connectPois();
+        updateStartAndEnd(idxToDelete);
 
         // Update last node
         lastNode = dummyFirstNode;
@@ -383,6 +416,7 @@ Structure:
             document.getElementById("poiContainer" + index).innerText = currentNode.infoDisplay; // poi info
             document.getElementById("poiContainer" + index).removeAttribute("hidden"); // not hide blue box
             document.getElementById("deleteButton" + index).removeAttribute("hidden"); // not hide delete button
+            document.getElementById("startPoi"     + index).removeAttribute("hidden"); // not hide start poi radio
             index++;
         }
         // section 2: poiContainers without info
@@ -390,8 +424,28 @@ Structure:
             document.getElementById("poiContainer" + index).innerText = ""; // no poi info
             document.getElementById("poiContainer" + index).setAttribute("hidden", true); // hide blue box
             document.getElementById("deleteButton" + index).setAttribute("hidden", true); // hide delete button
+            document.getElementById("startPoi"     + index).setAttribute("hidden", true); // hind start poi radio
             index++;
         }
+    }
+
+
+
+    // 3.2.2.H Update start & end poi check box when a poi is deleted
+    function updateStartAndEnd (idxToDelete) {
+        var startPoiInt = $('input[name="startPoi"]:checked').val();
+
+        // case 1: no start poi: startPoiInt = 0
+        if (startPoiInt == 0) {return;}
+
+        // case 2: startPoiInt < idxToDelete
+        if (startPoiInt < idxToDelete) {return;}
+
+        // case 3: startPoiInt > idxToDelete
+        if (startPoiInt > idxToDelete) {document.getElementById("startPoi"+(startPoiInt-1)).checked = true;}
+
+        // case 4: startPoiInt = idxToDelete
+        if (startPoiInt == idxToDelete) {document.getElementById("startPoi0").checked = true;}
     }
 
 
@@ -414,6 +468,7 @@ Structure:
         document.getElementById("positionsToReturn").value = positionsInfo;
         document.getElementById("cluster").value = cluster;
         // ❓ ❓ ❓ Your code here to make start&end index ❓ ❓ ❓
+        start_index_var = $('input[name="startPoi"]:checked').val() - 1;
         document.getElementById("start_index").value = start_index_var;
         document.getElementById("end_index").value = end_index_var;
 
