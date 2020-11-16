@@ -158,15 +158,15 @@ Structure:
 <div><i id="poiContainer9" hidden></i></div>
 
 <!-- 5 九个删除按钮容器 -->
-<button id="deleteButton1" onclick="deletePoi(1)"><i>删除</i></button>
-<button id="deleteButton2" onclick="deletePoi(2)"><i>删除</i></button>
-<button id="deleteButton3" onclick="deletePoi(3)"><i>删除</i></button>
-<button id="deleteButton4" onclick="deletePoi(4)"><i>删除</i></button>
-<button id="deleteButton5" onclick="deletePoi(5)"><i>删除</i></button>
-<button id="deleteButton6" onclick="deletePoi(6)"><i>删除</i></button>
-<button id="deleteButton7" onclick="deletePoi(7)"><i>删除</i></button>
-<button id="deleteButton8" onclick="deletePoi(8)"><i>删除</i></button>
-<button id="deleteButton9" onclick="deletePoi(9)"><i>删除</i></button>
+<button id="deleteButton1" onclick="deletePoi(1)" hidden><i>删除</i></button>
+<button id="deleteButton2" onclick="deletePoi(2)" hidden><i>删除</i></button>
+<button id="deleteButton3" onclick="deletePoi(3)" hidden><i>删除</i></button>
+<button id="deleteButton4" onclick="deletePoi(4)" hidden><i>删除</i></button>
+<button id="deleteButton5" onclick="deletePoi(5)" hidden><i>删除</i></button>
+<button id="deleteButton6" onclick="deletePoi(6)" hidden><i>删除</i></button>
+<button id="deleteButton7" onclick="deletePoi(7)" hidden><i>删除</i></button>
+<button id="deleteButton8" onclick="deletePoi(8)" hidden><i>删除</i></button>
+<button id="deleteButton9" onclick="deletePoi(9)" hidden><i>删除</i></button>
 
 <!-- 6 搜索按钮容器 -->
 <button id="searchButton" onclick="search()"><i>搜索最短路径</i></button>
@@ -381,13 +381,15 @@ Structure:
         while (index <= totalPoiNum) {
             currentNode = currentNode.nextNode;
             document.getElementById("poiContainer" + index).innerText = currentNode.infoDisplay; // poi info
-            document.getElementById("poiContainer" + index).removeAttribute("hidden"); // not hidden
+            document.getElementById("poiContainer" + index).removeAttribute("hidden"); // not hide blue box
+            document.getElementById("deleteButton" + index).removeAttribute("hidden"); // not hide delete button
             index++;
         }
         // section 2: poiContainers without info
         while (index <= 9) {
             document.getElementById("poiContainer" + index).innerText = ""; // no poi info
-            document.getElementById("poiContainer" + index).setAttribute("hidden", true); // not hidden
+            document.getElementById("poiContainer" + index).setAttribute("hidden", true); // hide blue box
+            document.getElementById("deleteButton" + index).setAttribute("hidden", true); // hide delete button
             index++;
         }
     }
