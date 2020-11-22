@@ -586,15 +586,17 @@ Structure:
     function separationDisplay() {
         var func_INFO = {{ FUNC }};
         if (func_INFO == 0) {
-            alert("Successful!!! This should be removed after TESTING");
+            // alert("Successful!!! This should be removed after TESTING");
         } else if (func_INFO == -1) {
-            alert("Error!!! This should be removed after TESTING");
+            // alert("Error!!! This should be removed after TESTING");
+            alert("Errcode: a000001，请到该网站留言。");
         } else if (func_INFO == 1) {
             shortestPathDisplay();
         } else if (func_INFO == 2) {
             clusteringDisplay();
         } else {
-            alert("ERRORING IN FUNC INFO This should be removed after TESTING");
+            // alert("ERRORING IN FUNC INFO This should be removed after TESTING");
+            alert("Errcode: a000002，请到该网站留言。");
         }
     }
 
