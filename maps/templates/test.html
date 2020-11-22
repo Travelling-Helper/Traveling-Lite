@@ -675,6 +675,10 @@ Structure:
             pre_order_lst.push([location_lst[order_lst[order_lst_i]][0], location_lst[order_lst[order_lst_i]][1], location_lst[order_lst[order_lst_i + 1]][0], location_lst[order_lst[order_lst_i + 1]][1]]);
         }
 
+        // If the start is the end, then the icon is noted as a start icon, here are the conditions
+        var flagStartIsEnd = order_lst[0] == order_lst[order_lst.length - 1];
+        var order_length_total = order_lst.length;
+
         function return_index(json_result) {
             var result_tuple = [json_result.origin.lng, json_result.origin.lat, json_result.destination.lng, json_result.destination.lat];
             var order_x = 0;
@@ -725,6 +729,11 @@ Structure:
 
             var icon_start_http = 'https://webapi.amap.com/theme/v1.3/markers/' + (color_num + 1) + '.png';
             var icon_end_http = 'https://webapi.amap.com/theme/v1.3/markers/' + (color_num + 2) + '.png';
+
+            // If the start is the end, then the icon is noted as a start icon
+            if (flagStartIsEnd && order_length_total == color_num + 2){
+                icon_end_http = 'https://webapi.amap.com/theme/v1.3/markers/1.png';
+            }
 
             var startMarker = new AMap.Marker({
                 position: path[0],
