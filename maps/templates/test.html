@@ -16,24 +16,25 @@ Note:
 Structure:
   < HEAD >
     1 style
-      (NEW: START RADIO)
+      (NEW: START & END RADIO)
   < BODY >
     2 containers
-      (NEW: START RADIO)
+      (NEW: START & END RADIO)
     3 javascript
       3.1 variables
       3.2 functions
           3.2.0 constructor of linked list
           3.2.1 construct map
                 3.2.1.0 map
-                3.2.1.1 language
+              //3.2.1.1 language
           3.2.2 search, add, remove a poi
                 3.2.2.0 search
                 3.2.2.1 add
                 3.2.2.2 remove
                 3.2.2.H clear search box
                 3.2.2.H copy poi infos from list to containers
-                3.2.2.H Update start & end poi check box when a poi is deleted (NEW)
+                3.2.2.H Update start poi check box when a poi is deleted
+                3.2.2.H Update end poi check box when a poi is deleted
           3.2.3 search all pois
                 3.2.3.1 route (NEW: UPDATE START POI INDEX)
                 3.2.3.2 cluster
@@ -69,11 +70,19 @@ Structure:
     <style>
         html,
         body,
-            /* 1: Map */
+
+        /* 0: White Back Ground */
+        #backGround { position: absolute; top: 0px; right: 0px; height: 100%; width: 2000px; color: #FFFFFF; }
+
+        /* 1: Map */
         #container { width: 100%; height: 100%; margin: 0px; font-size: 13px; }
 
+        /*6：搜索按钮*/
+        #searchButton        { position: absolute; top: 25px; left: 30px; height: 33px; width: 97px; }
+        #searchButtonCluster { position: absolute; top: 25px; left: 135px; height: 33px; width: 97px; }
+
         /* 2: Search Box */
-        #pickerBox { position: absolute; top: 50px; left: 30px; width: 300px; }
+        #pickerBox { position: absolute; top: 60px; left: 30px; width: 300px; }
         #pickerInput { width: 200px; padding: 5px 5px; }
         #poiInfo { background: #fff; }
         .amap_lib_placeSearch .poibox.highlight {
@@ -82,69 +91,66 @@ Structure:
         .amap_lib_placeSearch .poi-more {
             display: none!important;
         }
-        /* 2.5: Clear Search Box */
-        #clearSearchBox { position: absolute; top: 50px; left: 243px; height: 30px; }
 
-        /* 3: Add Position Button */
+        /* 2.5: Clear Search Box */
+        #clearSearchBox { position: absolute; top: 60px; left: 230px; height: 33px; }
+
+        /*7：Clear All Pois */
+        #clearButton { position: absolute; top: 60px; left: 280px; height: 33px; }
+
+        /* 3: Add Position Button (REMOVED) */
         #addButton { position: absolute; top: 50px; left: 290px; height: 30px; width: 100px; }
 
         /* 4：Position Boxes 九个地址栏 */
-        #poiContainer1 { position: absolute; top: 80px;  right: 175px; height: 40px; width:175px; background: #CAE1FF; }
-        #poiContainer2 { position: absolute; top: 170px; right: 150px; height: 40px; width:200px; background: #CAE1FF; }
-        #poiContainer3 { position: absolute; top: 210px; right: 150px; height: 40px; width:200px; background: #CAE1FF; }
-        #poiContainer4 { position: absolute; top: 250px; right: 150px; height: 40px; width:200px; background: #CAE1FF; }
-        #poiContainer5 { position: absolute; top: 290px; right: 150px; height: 40px; width:200px; background: #CAE1FF; }
-        #poiContainer6 { position: absolute; top: 330px; right: 150px; height: 40px; width:200px; background: #CAE1FF; }
-        #poiContainer7 { position: absolute; top: 370px; right: 150px; height: 40px; width:200px; background: #CAE1FF; }
-        #poiContainer8 { position: absolute; top: 410px; right: 150px; height: 40px; width:200px; background: #CAE1FF; }
-        #poiContainer9 { position: absolute; top: 450px; right: 150px; height: 40px; width:200px; background: #CAE1FF; }
+        #poiContainer1 { position: absolute; top: 150px; left: 30px; height: 40px; width:175px; background: #CAE1FF; }
+        #poiContainer2 { position: absolute; top: 190px; left: 30px; height: 40px; width:175px; background: #CAE1FF; }
+        #poiContainer3 { position: absolute; top: 230px; left: 30px; height: 40px; width:175px; background: #CAE1FF; }
+        #poiContainer4 { position: absolute; top: 270px; left: 30px; height: 40px; width:175px; background: #CAE1FF; }
+        #poiContainer5 { position: absolute; top: 310px; left: 30px; height: 40px; width:175px; background: #CAE1FF; }
+        #poiContainer6 { position: absolute; top: 350px; left: 30px; height: 40px; width:175px; background: #CAE1FF; }
+        #poiContainer7 { position: absolute; top: 390px; left: 30px; height: 40px; width:175px; background: #CAE1FF; }
+        #poiContainer8 { position: absolute; top: 430px; left: 30px; height: 40px; width:175px; background: #CAE1FF; }
+        #poiContainer9 { position: absolute; top: 470px; left: 30px; height: 40px; width:175px; background: #CAE1FF; }
 
         /*5：九个删除按钮*/
-        #deleteButton1 { position: absolute; top: 50px;  right: 20px; }
-        #deleteButton2 { position: absolute; top: 100px; right: 20px; }
-        #deleteButton3 { position: absolute; top: 150px; right: 20px; }
-        #deleteButton4 { position: absolute; top: 200px; right: 20px; }
-        #deleteButton5 { position: absolute; top: 250px; right: 20px; }
-        #deleteButton6 { position: absolute; top: 300px; right: 20px; }
-        #deleteButton7 { position: absolute; top: 350px; right: 20px; }
-        #deleteButton8 { position: absolute; top: 400px; right: 20px; }
-        #deleteButton9 { position: absolute; top: 450px; right: 20px; }
-
-        /*6：搜索按钮*/
-        #searchButton { position: absolute; z-index: 9999; top: 50px; right: 370px; }
-        #searchButtonCluster { position: absolute; top: 80px; right: 370px; }
-
-        /*7：清空按钮*/
-        #clearButton { position: absolute; top: 20px; right: 270px}
+        #deleteButton1 { position: absolute; top: 150px; left: 330px; }
+        #deleteButton2 { position: absolute; top: 190px; left: 330px; }
+        #deleteButton3 { position: absolute; top: 230px; left: 330px; }
+        #deleteButton4 { position: absolute; top: 270px; left: 330px; }
+        #deleteButton5 { position: absolute; top: 310px; left: 330px; }
+        #deleteButton6 { position: absolute; top: 350px; left: 330px; }
+        #deleteButton7 { position: absolute; top: 390px; left: 330px; }
+        #deleteButton8 { position: absolute; top: 400px; left: 330px; }
+        #deleteButton9 { position: absolute; top: 430px; left: 330px; }
 
         /* 8 起点Radio */
-        #startPoi0 { position: absolute; top: 50px;  right: 125px }
-        #startPoi1 { position: absolute; top: 80px;  right: 125px }
-        #startPoi2 { position: absolute; top: 100px; right: 125px }
-        #startPoi3 { position: absolute; top: 150px; right: 125px }
-        #startPoi4 { position: absolute; top: 200px; right: 125px }
-        #startPoi5 { position: absolute; top: 250px; right: 125px }
-        #startPoi6 { position: absolute; top: 300px; right: 125px }
-        #startPoi7 { position: absolute; top: 350px; right: 125px }
-        #startPoi8 { position: absolute; top: 400px; right: 125px }
-        #startPoi9 { position: absolute; top: 450px; right: 125px }
+        #startPoi0 { position: absolute; top: 120px; left: 243px }
+        #startPoi1 { position: absolute; top: 150px; left: 243px }
+        #startPoi2 { position: absolute; top: 190px; left: 243px }
+        #startPoi3 { position: absolute; top: 230px; left: 243px }
+        #startPoi4 { position: absolute; top: 270px; left: 243px }
+        #startPoi5 { position: absolute; top: 310px; left: 243px }
+        #startPoi6 { position: absolute; top: 350px; left: 243px }
+        #startPoi7 { position: absolute; top: 390px; left: 243px }
+        #startPoi8 { position: absolute; top: 430px; left: 243px }
+        #startPoi9 { position: absolute; top: 470px; left: 243px }
 
         /* 9 终点Radio */
-        #endPoi0 { position: absolute; top: 50px;  right: 75px }
-        #endPoi1 { position: absolute; top: 80px;  right: 75px }
-        #endPoi2 { position: absolute; top: 100px;  right: 75px }
-        #endPoi3 { position: absolute; top: 150px;  right: 75px }
-        #endPoi4 { position: absolute; top: 200px;  right: 75px }
-        #endPoi5 { position: absolute; top: 250px;  right: 75px }
-        #endPoi6 { position: absolute; top: 300px;  right: 75px }
-        #endPoi7 { position: absolute; top: 350px;  right: 75px }
-        #endPoi8 { position: absolute; top: 50px;  right: 75px }
-        #endPoi9 { position: absolute; top: 400px;  right: 75px }
+        #endPoi0 { position: absolute; top: 120px; left: 293px }
+        #endPoi1 { position: absolute; top: 150px; left: 293px }
+        #endPoi2 { position: absolute; top: 190px; left: 293px }
+        #endPoi3 { position: absolute; top: 230px; left: 293px }
+        #endPoi4 { position: absolute; top: 270px; left: 293px }
+        #endPoi5 { position: absolute; top: 310px; left: 293px }
+        #endPoi6 { position: absolute; top: 350px; left: 293px }
+        #endPoi7 { position: absolute; top: 390px; left: 293px }
+        #endPoi8 { position: absolute; top: 430px; left: 293px }
+        #endPoi9 { position: absolute; top: 470px; left: 293px }
 
-        #startText { position: absolute; top: 25px; right: 125px }
-        #endText   { position: absolute; top: 25px; right: 75px }
-        #startNull { position: absolute; top: 47px; right: 150px }
-        #endNull   { position: absolute; top: 47px; right: 100px }
+        #startText { position: absolute; top: 100px; left: 238px }
+        #endText   { position: absolute; top: 100px; left: 288px }
+        #startNull { position: absolute; top: 117px; left: 226px }
+        #endNull   { position: absolute; top: 117px; left: 276px }
     </style>
 </head>
 
@@ -157,17 +163,21 @@ Structure:
 
 <body>
 <!--PART 2 CONTAINERS-->
+
+<!-- 0 Left White Rectangle Background -->
+<div><i id="backGround"></i></div>
+
 <!-- 1 地图容器 -->
 <div id="container" class="map" tabindex="0"></div>
 <!-- 1.1 选择地图语言 -->
-<div class="input-card" style="width:15rem">
-    <h4>底图语言切换</h4>
-    <div id="lang">
-        <div class="input-item"><input id="zh_cn" name="language" type="radio"  checked="checked"><span class="input-text">中文地图</span></div>
-        <div class="input-item"><input id="zh_en" name="language" type="radio"><span class="input-text">中文-English 对照</span></div>
-        <div class="input-item"><input id="en" name="language" type="radio"><span class="input-text">English Map</span></div>
-    </div>
-</div>
+<!--<div class="input-card" style="width:15rem">-->
+<!--    <h4>底图语言切换</h4>-->
+<!--    <div id="lang">-->
+<!--        <div class="input-item"><input id="zh_cn" name="language" type="radio"  checked="checked"><span class="input-text">中文地图</span></div>-->
+<!--        <div class="input-item"><input id="zh_en" name="language" type="radio"><span class="input-text">中文-English 对照</span></div>-->
+<!--        <div class="input-item"><input id="en" name="language" type="radio"><span class="input-text">English Map</span></div>-->
+<!--    </div>-->
+<!--</div>-->
 
 <!-- 2 搜索框容器 -->
 <div id="pickerBox">
@@ -178,7 +188,7 @@ Structure:
 <button id="clearSearchBox" onclick="clearSearchBox()"><i>清空</i></button>
 
 <!-- 3 添加按钮容器 -->
-<button id="addButton" onclick="addPoi()"><i>添加该地点</i></button>
+<!--<button id="addButton" onclick="addPoi()"><i>添加该地点</i></button>-->
 
 <!-- 4 九个地址栏容器 -->
 <div><i id="poiContainer1" hidden></i></div>
@@ -205,7 +215,7 @@ Structure:
 <!-- 6 搜索按钮容器 -->
 <button id="searchButton" onclick="search()"><i>搜索最短路径</i></button>
 <!-- 6.5 聚类搜索路径-->
-<button id="searchButtonCluster" onclick="alertCluster()"><i>聚类（分组）</i></button>
+<button id="searchButtonCluster" onclick="alertCluster()"><i>将地点分组</i></button>
 
 <!-- 7 清空地点 -->
 <button id="clearButton" onclick="clearPois()"><i>清空所有地点</i></button>
@@ -297,7 +307,7 @@ Structure:
     });
 
 
-    // 3.2.1.1 切换语言
+    // 3.2.1.1 Switch Languages (REMOVED)
     var radios = document.querySelectorAll("#lang input");
     radios.forEach(function(ratio) {
         ratio.onclick = setLang;
@@ -365,6 +375,7 @@ Structure:
             document.getElementById("pickerInput").value = name; // fill poi name to search box
 
             map.setZoomAndCenter(14, info2.location); // reset map center & scale
+            addPoi();
         });
 
         //搜索推荐
@@ -498,10 +509,10 @@ Structure:
         if (endPoiInt < idxToDelete) {return;}
 
         // case 3: startPoiInt > idxToDelete
-        if (endPoiInt > idxToDelete) {document.getElementById("startPoi"+(endPoiInt-1)).checked = true;}
+        if (endPoiInt > idxToDelete) {document.getElementById("endPoi"+(endPoiInt-1)).checked = true;}
 
         // case 4: startPoiInt = idxToDelete
-        if (endPoiInt == idxToDelete) {document.getElementById("startPoi0").checked = true;}
+        if (endPoiInt == idxToDelete) {document.getElementById("endPoi0").checked = true;}
     }
 
 
