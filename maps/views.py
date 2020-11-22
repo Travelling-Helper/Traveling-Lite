@@ -40,6 +40,9 @@ def tested(request):
 
         start_index = request.POST.get('start_index')
         end_index = request.POST.get('end_index')
+        start_index = eval(start_index)
+        end_index = eval(end_index)
+        
         if cluster == 0:
             if start_index == -1 and end_index == -1:
                 cluster = 0
