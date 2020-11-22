@@ -71,11 +71,8 @@ Structure:
         html,
         body,
 
-        /* 0: White Back Ground */
-        #backGround { position: absolute; top: 0px; right: 0px; height: 100%; width: 2000px; color: #FFFFFF; }
-
         /* 1: Map */
-        #container { width: 100%; height: 100%; margin: 0px; font-size: 13px; }
+        #container { width: 100%; height: 100%; left: 375px; font-size: 13px; }
 
         /*6：搜索按钮*/
         #searchButton        { position: absolute; top: 25px; left: 30px; height: 33px; width: 97px; }
@@ -102,15 +99,15 @@ Structure:
         #addButton { position: absolute; top: 50px; left: 290px; height: 30px; width: 100px; }
 
         /* 4：Position Boxes 九个地址栏 */
-        #poiContainer1 { position: absolute; top: 150px; left: 30px; height: 40px; width:175px; background: #CAE1FF; }
-        #poiContainer2 { position: absolute; top: 190px; left: 30px; height: 40px; width:175px; background: #CAE1FF; }
-        #poiContainer3 { position: absolute; top: 230px; left: 30px; height: 40px; width:175px; background: #CAE1FF; }
-        #poiContainer4 { position: absolute; top: 270px; left: 30px; height: 40px; width:175px; background: #CAE1FF; }
-        #poiContainer5 { position: absolute; top: 310px; left: 30px; height: 40px; width:175px; background: #CAE1FF; }
-        #poiContainer6 { position: absolute; top: 350px; left: 30px; height: 40px; width:175px; background: #CAE1FF; }
-        #poiContainer7 { position: absolute; top: 390px; left: 30px; height: 40px; width:175px; background: #CAE1FF; }
-        #poiContainer8 { position: absolute; top: 430px; left: 30px; height: 40px; width:175px; background: #CAE1FF; }
-        #poiContainer9 { position: absolute; top: 470px; left: 30px; height: 40px; width:175px; background: #CAE1FF; }
+        #poiContainer1 { position: absolute; top: 150px; left: 30px; height: 40px; width:175px; background: #ffffff; }
+        #poiContainer2 { position: absolute; top: 190px; left: 30px; height: 40px; width:175px; background: #ffffff; }
+        #poiContainer3 { position: absolute; top: 230px; left: 30px; height: 40px; width:175px; background: #ffffff; }
+        #poiContainer4 { position: absolute; top: 270px; left: 30px; height: 40px; width:175px; background: #ffffff; }
+        #poiContainer5 { position: absolute; top: 310px; left: 30px; height: 40px; width:175px; background: #ffffff; }
+        #poiContainer6 { position: absolute; top: 350px; left: 30px; height: 40px; width:175px; background: #ffffff; }
+        #poiContainer7 { position: absolute; top: 390px; left: 30px; height: 40px; width:175px; background: #ffffff; }
+        #poiContainer8 { position: absolute; top: 430px; left: 30px; height: 40px; width:175px; background: #ffffff; }
+        #poiContainer9 { position: absolute; top: 470px; left: 30px; height: 40px; width:175px; background: #ffffff; }
 
         /*5：九个删除按钮*/
         #deleteButton1 { position: absolute; top: 150px; left: 330px; }
@@ -120,8 +117,8 @@ Structure:
         #deleteButton5 { position: absolute; top: 310px; left: 330px; }
         #deleteButton6 { position: absolute; top: 350px; left: 330px; }
         #deleteButton7 { position: absolute; top: 390px; left: 330px; }
-        #deleteButton8 { position: absolute; top: 400px; left: 330px; }
-        #deleteButton9 { position: absolute; top: 430px; left: 330px; }
+        #deleteButton8 { position: absolute; top: 430px; left: 330px; }
+        #deleteButton9 { position: absolute; top: 470px; left: 330px; }
 
         /* 8 起点Radio */
         #startPoi0 { position: absolute; top: 120px; left: 243px }
@@ -163,9 +160,6 @@ Structure:
 
 <body>
 <!--PART 2 CONTAINERS-->
-
-<!-- 0 Left White Rectangle Background -->
-<div><i id="backGround"></i></div>
 
 <!-- 1 地图容器 -->
 <div id="container" class="map" tabindex="0"></div>
