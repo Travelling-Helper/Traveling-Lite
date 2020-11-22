@@ -89,15 +89,15 @@ Structure:
         #addButton { position: absolute; top: 50px; left: 290px; height: 30px; width: 100px; }
 
         /* 4：Position Boxes 九个地址栏 */
-        #poiContainer1 { position: absolute; top: 50px;  right: 150px; height: 50px; width:200px; background: #CAE1FF; }
-        #poiContainer2 { position: absolute; top: 100px; right: 150px; height: 50px; width:200px; background: #CAE1FF; }
-        #poiContainer3 { position: absolute; top: 150px; right: 150px; height: 50px; width:200px; background: #CAE1FF; }
-        #poiContainer4 { position: absolute; top: 200px; right: 150px; height: 50px; width:200px; background: #CAE1FF; }
-        #poiContainer5 { position: absolute; top: 250px; right: 150px; height: 50px; width:200px; background: #CAE1FF; }
-        #poiContainer6 { position: absolute; top: 300px; right: 150px; height: 50px; width:200px; background: #CAE1FF; }
-        #poiContainer7 { position: absolute; top: 350px; right: 150px; height: 50px; width:200px; background: #CAE1FF; }
-        #poiContainer8 { position: absolute; top: 400px; right: 150px; height: 50px; width:200px; background: #CAE1FF; }
-        #poiContainer9 { position: absolute; top: 450px; right: 150px; height: 50px; width:200px; background: #CAE1FF; }
+        #poiContainer1 { position: absolute; top: 80px;  right: 175px; height: 40px; width:175px; background: #CAE1FF; }
+        #poiContainer2 { position: absolute; top: 170px; right: 150px; height: 40px; width:200px; background: #CAE1FF; }
+        #poiContainer3 { position: absolute; top: 210px; right: 150px; height: 40px; width:200px; background: #CAE1FF; }
+        #poiContainer4 { position: absolute; top: 250px; right: 150px; height: 40px; width:200px; background: #CAE1FF; }
+        #poiContainer5 { position: absolute; top: 290px; right: 150px; height: 40px; width:200px; background: #CAE1FF; }
+        #poiContainer6 { position: absolute; top: 330px; right: 150px; height: 40px; width:200px; background: #CAE1FF; }
+        #poiContainer7 { position: absolute; top: 370px; right: 150px; height: 40px; width:200px; background: #CAE1FF; }
+        #poiContainer8 { position: absolute; top: 410px; right: 150px; height: 40px; width:200px; background: #CAE1FF; }
+        #poiContainer9 { position: absolute; top: 450px; right: 150px; height: 40px; width:200px; background: #CAE1FF; }
 
         /*5：九个删除按钮*/
         #deleteButton1 { position: absolute; top: 50px;  right: 20px; }
@@ -118,18 +118,30 @@ Structure:
         #clearButton { position: absolute; top: 20px; right: 270px}
 
         /* 8 起点Radio */
-        #startPoi0 { position: absolute; top: 20px;  right: 100px}
-        #startPoi1 { position: absolute; top: 50px;  right: 100px}
-        #startPoi2 { position: absolute; top: 100px; right: 100px}
-        #startPoi3 { position: absolute; top: 150px; right: 100px}
-        #startPoi4 { position: absolute; top: 200px; right: 100px}
-        #startPoi5 { position: absolute; top: 250px; right: 100px}
-        #startPoi6 { position: absolute; top: 300px; right: 100px}
-        #startPoi7 { position: absolute; top: 350px; right: 100px}
-        #startPoi8 { position: absolute; top: 400px; right: 100px}
-        #startPoi9 { position: absolute; top: 450px; right: 100px}
+        #startPoi0 { position: absolute; top: 50px;  right: 125px}
+        #startPoi1 { position: absolute; top: 80px;  right: 125px}
+        #startPoi2 { position: absolute; top: 100px; right: 125px}
+        #startPoi3 { position: absolute; top: 150px; right: 125px}
+        #startPoi4 { position: absolute; top: 200px; right: 125px}
+        #startPoi5 { position: absolute; top: 250px; right: 125px}
+        #startPoi6 { position: absolute; top: 300px; right: 125px}
+        #startPoi7 { position: absolute; top: 350px; right: 125px}
+        #startPoi8 { position: absolute; top: 400px; right: 125px}
+        #startPoi9 { position: absolute; top: 450px; right: 125px}
 
         /* 9 终点Radio */
+        #endPoi0 { position: absolute; top: 50px;  right: 75px}
+        #endPoi1 { position: absolute; top: 80px;  right: 75px}
+        #endPoi2 { position: absolute; top: 100px;  right: 75px}
+        #endPoi3 { position: absolute; top: 150px;  right: 75px}
+        #endPoi4 { position: absolute; top: 200px;  right: 75px}
+        #endPoi5 { position: absolute; top: 250px;  right: 75px}
+        #endPoi6 { position: absolute; top: 300px;  right: 75px}
+        #endPoi7 { position: absolute; top: 350px;  right: 75px}
+        #endPoi8 { position: absolute; top: 50px;  right: 75px}
+        #endPoi9 { position: absolute; top: 400px;  right: 75px}
+
+        #startAndEndText { position: absolute; top: 25px; right: 50px}
     </style>
 </head>
 
@@ -195,7 +207,7 @@ Structure:
 <!-- 7 清空地点 -->
 <button id="clearButton" onclick="clearPois()"><i>清空所有地点</i></button>
 
-<!--8 Start Poi-->
+<!-- 8.1 Start Poi -->
 <div>
     <input type="radio" id="startPoi0" name="startPoi" value=0 checked>
     <input type="radio" id="startPoi1" name="startPoi" value=1 hidden>
@@ -208,7 +220,25 @@ Structure:
     <input type="radio" id="startPoi8" name="startPoi" value=8 hidden>
     <input type="radio" id="startPoi9" name="startPoi" value=9 hidden>
 </div>
-<!--</select>-->
+
+<!-- 8.2 End Poi Radio -->
+<div>
+    <input type="radio" id="endPoi0" name="endPoi" value=0 checked>
+    <input type="radio" id="endPoi1" name="endPoi" value=1 hidden>
+    <input type="radio" id="endPoi2" name="endPoi" value=2 hidden>
+    <input type="radio" id="endPoi3" name="endPoi" value=3 hidden>
+    <input type="radio" id="endPoi4" name="endPoi" value=4 hidden>
+    <input type="radio" id="endPoi5" name="endPoi" value=5 hidden>
+    <input type="radio" id="endPoi6" name="endPoi" value=6 hidden>
+    <input type="radio" id="endPoi7" name="endPoi" value=7 hidden>
+    <input type="radio" id="endPoi8" name="endPoi" value=8 hidden>
+    <input type="radio" id="endPoi9" name="endPoi" value=9 hidden>
+</div>
+
+<!-- 8.3 Start & End Text-->
+<div>
+    <i id="startAndEndText">起点     终点</i>
+</div>
 
 
 
@@ -385,7 +415,8 @@ Structure:
         }
         // update HTML
         connectPois();
-        updateStartAndEnd(idxToDelete);
+        updateStart(idxToDelete);
+        updateEnd(idxToDelete);
 
         // Update last node
         lastNode = dummyFirstNode;
@@ -417,6 +448,7 @@ Structure:
             document.getElementById("poiContainer" + index).removeAttribute("hidden"); // not hide blue box
             document.getElementById("deleteButton" + index).removeAttribute("hidden"); // not hide delete button
             document.getElementById("startPoi"     + index).removeAttribute("hidden"); // not hide start poi radio
+            document.getElementById("endPoi"       + index).removeAttribute("hidden"); // not hide end poi radio
             index++;
         }
         // section 2: poiContainers without info
@@ -425,14 +457,15 @@ Structure:
             document.getElementById("poiContainer" + index).setAttribute("hidden", true); // hide blue box
             document.getElementById("deleteButton" + index).setAttribute("hidden", true); // hide delete button
             document.getElementById("startPoi"     + index).setAttribute("hidden", true); // hind start poi radio
+            document.getElementById("endPoi"       + index).setAttribute("hidden", true); // hind end poi radio
             index++;
         }
     }
 
 
 
-    // 3.2.2.H Update start & end poi check box when a poi is deleted
-    function updateStartAndEnd (idxToDelete) {
+    // 3.2.2.H Update start poi check box when a poi is deleted
+    function updateStart (idxToDelete) {
         var startPoiInt = $('input[name="startPoi"]:checked').val();
 
         // case 1: no start poi: startPoiInt = 0
@@ -446,6 +479,23 @@ Structure:
 
         // case 4: startPoiInt = idxToDelete
         if (startPoiInt == idxToDelete) {document.getElementById("startPoi0").checked = true;}
+    }
+
+    // 3.2.2.H Update end poi check box when a poi is deleted
+    function updateEnd (idxToDelete) {
+        var endPoiInt = $('input[name="endPoi"]:checked').val();
+
+        // case 1: no start poi: startPoiInt = 0
+        if (endPoiInt == 0) {return;}
+
+        // case 2: startPoiInt < idxToDelete
+        if (endPoiInt < idxToDelete) {return;}
+
+        // case 3: startPoiInt > idxToDelete
+        if (endPoiInt > idxToDelete) {document.getElementById("startPoi"+(endPoiInt-1)).checked = true;}
+
+        // case 4: startPoiInt = idxToDelete
+        if (endPoiInt == idxToDelete) {document.getElementById("startPoi0").checked = true;}
     }
 
 
@@ -469,6 +519,7 @@ Structure:
         document.getElementById("cluster").value = cluster;
         // ❓ ❓ ❓ Your code here to make start&end index ❓ ❓ ❓
         start_index_var = $('input[name="startPoi"]:checked').val() - 1;
+        end_index_var = $('input[name="endPoi"]:checked').val() - 1;
         document.getElementById("start_index").value = start_index_var;
         document.getElementById("end_index").value = end_index_var;
 
