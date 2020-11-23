@@ -72,11 +72,11 @@ Structure:
         body,
 
         /* 1: Map */
-        #container { width: 100%; height: 100%; left: 375px; font-size: 13px; }
+        #container { width: 100%; height: 100%; left: 375px; font-size: 13px; user-select: none;}
 
         /*6：搜索按钮*/
-        #searchButton        { position: absolute; top: 25px; left: 30px; height: 33px; width: 97px; }
-        #searchButtonCluster { position: absolute; top: 25px; left: 135px; height: 33px; width: 97px; }
+        #searchButton        { position: absolute; top: 25px; left: 30px; height: 25px; width: 100px; background:#4994fc; border:none; color:#ffffff; }
+        #searchButtonCluster { position: absolute; top: 25px; left: 130px; height: 25px; width: 100px; background:#9d69ff; border:none; color:#ffffff; }
 
         /* 2: Search Box */
         #pickerBox { position: absolute; top: 60px; left: 30px; width: 300px; }
@@ -93,61 +93,61 @@ Structure:
         #clearSearchBox { position: absolute; top: 60px; left: 230px; height: 33px; }
 
         /*7：Clear All Pois */
-        #clearButton { position: absolute; top: 60px; left: 280px; height: 33px; }
+        #clearButton { position: absolute; top: 120px; left: 30px; height: 25px; border-bottom-style:solid; border-right-style:solid; background:#fadede; border-bottom-width:thin; border-bottom-color:#ffcccc; border-right-width:thin; border-right-color:#ffcccc; border-top-width:thin; border-top-color:#ffcccc; border-left-width:thin; border-left-color:#ffcccc;}
 
         /* 3: Add Position Button (REMOVED) */
         #addButton { position: absolute; top: 50px; left: 290px; height: 30px; width: 100px; }
 
         /* 4：Position Boxes 九个地址栏 */
-        #poiContainer1 { position: absolute; top: 150px; left: 30px; height: 40px; width:175px; background: #ffffff; }
-        #poiContainer2 { position: absolute; top: 190px; left: 30px; height: 40px; width:175px; background: #ffffff; }
-        #poiContainer3 { position: absolute; top: 230px; left: 30px; height: 40px; width:175px; background: #ffffff; }
-        #poiContainer4 { position: absolute; top: 270px; left: 30px; height: 40px; width:175px; background: #ffffff; }
-        #poiContainer5 { position: absolute; top: 310px; left: 30px; height: 40px; width:175px; background: #ffffff; }
-        #poiContainer6 { position: absolute; top: 350px; left: 30px; height: 40px; width:175px; background: #ffffff; }
-        #poiContainer7 { position: absolute; top: 390px; left: 30px; height: 40px; width:175px; background: #ffffff; }
-        #poiContainer8 { position: absolute; top: 430px; left: 30px; height: 40px; width:175px; background: #ffffff; }
-        #poiContainer9 { position: absolute; top: 470px; left: 30px; height: 40px; width:175px; background: #ffffff; }
+        #poiContainer1 { position: absolute; top: 150px; left: 30px; height: 30px; width:175px; background: #ffffff; border-style:none; border-bottom-style:solid; border-bottom-width:thin; border-bottom-color:#B0C4DE; line-height: 27px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        #poiContainer2 { position: absolute; top: 190px; left: 30px; height: 30px; width:175px; background: #ffffff; border-style:none; border-bottom-style:solid; border-bottom-width:thin; border-bottom-color:#B0C4DE; line-height: 27px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        #poiContainer3 { position: absolute; top: 230px; left: 30px; height: 30px; width:175px; background: #ffffff; border-style:none; border-bottom-style:solid; border-bottom-width:thin; border-bottom-color:#B0C4DE; line-height: 27px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        #poiContainer4 { position: absolute; top: 270px; left: 30px; height: 30px; width:175px; background: #ffffff; border-style:none; border-bottom-style:solid; border-bottom-width:thin; border-bottom-color:#B0C4DE; line-height: 27px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        #poiContainer5 { position: absolute; top: 310px; left: 30px; height: 30px; width:175px; background: #ffffff; border-style:none; border-bottom-style:solid; border-bottom-width:thin; border-bottom-color:#B0C4DE; line-height: 27px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        #poiContainer6 { position: absolute; top: 350px; left: 30px; height: 30px; width:175px; background: #ffffff; border-style:none; border-bottom-style:solid; border-bottom-width:thin; border-bottom-color:#B0C4DE; line-height: 27px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        #poiContainer7 { position: absolute; top: 390px; left: 30px; height: 30px; width:175px; background: #ffffff; border-style:none; border-bottom-style:solid; border-bottom-width:thin; border-bottom-color:#B0C4DE; line-height: 27px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        #poiContainer8 { position: absolute; top: 430px; left: 30px; height: 30px; width:175px; background: #ffffff; border-style:none; border-bottom-style:solid; border-bottom-width:thin; border-bottom-color:#B0C4DE; line-height: 27px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        #poiContainer9 { position: absolute; top: 470px; left: 30px; height: 30px; width:175px; background: #ffffff; border-style:none; border-bottom-style:solid; border-bottom-width:thin; border-bottom-color:#B0C4DE; line-height: 27px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         /*5：九个删除按钮*/
-        #deleteButton1 { position: absolute; top: 150px; left: 330px; }
-        #deleteButton2 { position: absolute; top: 190px; left: 330px; }
-        #deleteButton3 { position: absolute; top: 230px; left: 330px; }
-        #deleteButton4 { position: absolute; top: 270px; left: 330px; }
-        #deleteButton5 { position: absolute; top: 310px; left: 330px; }
-        #deleteButton6 { position: absolute; top: 350px; left: 330px; }
-        #deleteButton7 { position: absolute; top: 390px; left: 330px; }
-        #deleteButton8 { position: absolute; top: 430px; left: 330px; }
-        #deleteButton9 { position: absolute; top: 470px; left: 330px; }
+        #deleteButton1 { position: absolute; top: 150px; left: 330px; height: 30px; }
+        #deleteButton2 { position: absolute; top: 190px; left: 330px; height: 30px; }
+        #deleteButton3 { position: absolute; top: 230px; left: 330px; height: 30px; }
+        #deleteButton4 { position: absolute; top: 270px; left: 330px; height: 30px; }
+        #deleteButton5 { position: absolute; top: 310px; left: 330px; height: 30px; }
+        #deleteButton6 { position: absolute; top: 350px; left: 330px; height: 30px; }
+        #deleteButton7 { position: absolute; top: 390px; left: 330px; height: 30px; }
+        #deleteButton8 { position: absolute; top: 430px; left: 330px; height: 30px; }
+        #deleteButton9 { position: absolute; top: 470px; left: 330px; height: 30px; }
 
         /* 8 起点Radio */
-        #startPoi0 { position: absolute; top: 120px; left: 243px }
-        #startPoi1 { position: absolute; top: 150px; left: 243px }
-        #startPoi2 { position: absolute; top: 190px; left: 243px }
-        #startPoi3 { position: absolute; top: 230px; left: 243px }
-        #startPoi4 { position: absolute; top: 270px; left: 243px }
-        #startPoi5 { position: absolute; top: 310px; left: 243px }
-        #startPoi6 { position: absolute; top: 350px; left: 243px }
-        #startPoi7 { position: absolute; top: 390px; left: 243px }
-        #startPoi8 { position: absolute; top: 430px; left: 243px }
-        #startPoi9 { position: absolute; top: 470px; left: 243px }
+        #startPoi0 { position: absolute; top: 120px; left: 243px; height: 30px; }
+        #startPoi1 { position: absolute; top: 150px; left: 243px; height: 30px; }
+        #startPoi2 { position: absolute; top: 190px; left: 243px; height: 30px; }
+        #startPoi3 { position: absolute; top: 230px; left: 243px; height: 30px; }
+        #startPoi4 { position: absolute; top: 270px; left: 243px; height: 30px; }
+        #startPoi5 { position: absolute; top: 310px; left: 243px; height: 30px; }
+        #startPoi6 { position: absolute; top: 350px; left: 243px; height: 30px; }
+        #startPoi7 { position: absolute; top: 390px; left: 243px; height: 30px; }
+        #startPoi8 { position: absolute; top: 430px; left: 243px; height: 30px; }
+        #startPoi9 { position: absolute; top: 470px; left: 243px; height: 30px; }
 
         /* 9 终点Radio */
-        #endPoi0 { position: absolute; top: 120px; left: 293px }
-        #endPoi1 { position: absolute; top: 150px; left: 293px }
-        #endPoi2 { position: absolute; top: 190px; left: 293px }
-        #endPoi3 { position: absolute; top: 230px; left: 293px }
-        #endPoi4 { position: absolute; top: 270px; left: 293px }
-        #endPoi5 { position: absolute; top: 310px; left: 293px }
-        #endPoi6 { position: absolute; top: 350px; left: 293px }
-        #endPoi7 { position: absolute; top: 390px; left: 293px }
-        #endPoi8 { position: absolute; top: 430px; left: 293px }
-        #endPoi9 { position: absolute; top: 470px; left: 293px }
+        #endPoi0 { position: absolute; top: 120px; left: 293px; height: 30px; }
+        #endPoi1 { position: absolute; top: 150px; left: 293px; height: 30px; }
+        #endPoi2 { position: absolute; top: 190px; left: 293px; height: 30px; }
+        #endPoi3 { position: absolute; top: 230px; left: 293px; height: 30px; }
+        #endPoi4 { position: absolute; top: 270px; left: 293px; height: 30px; }
+        #endPoi5 { position: absolute; top: 310px; left: 293px; height: 30px; }
+        #endPoi6 { position: absolute; top: 350px; left: 293px; height: 30px; }
+        #endPoi7 { position: absolute; top: 390px; left: 293px; height: 30px; }
+        #endPoi8 { position: absolute; top: 430px; left: 293px; height: 30px; }
+        #endPoi9 { position: absolute; top: 470px; left: 293px; height: 30px; }
 
-        #startText { position: absolute; top: 100px; left: 238px }
-        #endText   { position: absolute; top: 100px; left: 288px }
-        #startNull { position: absolute; top: 117px; left: 226px }
-        #endNull   { position: absolute; top: 117px; left: 276px }
+        #startText { position: absolute; top: 100px; left: 236px; font-weight:bold }
+        #endText   { position: absolute; top: 100px; left: 287px; font-weight:bold }
+        #startNull { position: absolute; top: 119px; left: 226px; line-height: 30px; }
+        #endNull   { position: absolute; top: 119px; left: 276px; line-height: 30px; }
     </style>
 </head>
 
@@ -175,44 +175,44 @@ Structure:
 
 <!-- 2 搜索框容器 -->
 <div id="pickerBox">
-    <input id="pickerInput" placeholder="输入关键字选取地点" value=""/>
+    <input id="pickerInput" placeholder="输入关键字选取地点" value="" style="width:150pt;height:25pt"/>
     <div id="poiInfo"></div>
 </div>
 <!-- 2.1 清空搜索框 -->
-<button id="clearSearchBox" onclick="clearSearchBox()"><i>清空</i></button>
+<button id="clearSearchBox" onclick="clearSearchBox()" style="width:34px;height:34px;background-color:#e1f2f5;border:none;border-bottom-style:solid; border-right-style:solid; border-bottom-width:thin; border-bottom-color:#e6ffff; border-right-width:thin; border-right-color:#e6ffff; border-top-width:thin; border-top-color:#e6ffff; border-left-width:thin; border-left-color:#e6ffff;"><i style="font-style:normal;font-size:15pt;line-height:20px;">×</i></button>
 
 <!-- 3 添加按钮容器 -->
 <!--<button id="addButton" onclick="addPoi()"><i>添加该地点</i></button>-->
 
 <!-- 4 九个地址栏容器 -->
-<div><i id="poiContainer1" hidden></i></div>
-<div><i id="poiContainer2" hidden></i></div>
-<div><i id="poiContainer3" hidden></i></div>
-<div><i id="poiContainer4" hidden></i></div>
-<div><i id="poiContainer5" hidden></i></div>
-<div><i id="poiContainer6" hidden></i></div>
-<div><i id="poiContainer7" hidden></i></div>
-<div><i id="poiContainer8" hidden></i></div>
-<div><i id="poiContainer9" hidden></i></div>
+<div><i id="poiContainer1" hidden style="font-style:normal;"></i></div>
+<div><i id="poiContainer2" hidden style="font-style:normal;"></i></div>
+<div><i id="poiContainer3" hidden style="font-style:normal;"></i></div>
+<div><i id="poiContainer4" hidden style="font-style:normal;"></i></div>
+<div><i id="poiContainer5" hidden style="font-style:normal;"></i></div>
+<div><i id="poiContainer6" hidden style="font-style:normal;"></i></div>
+<div><i id="poiContainer7" hidden style="font-style:normal;"></i></div>
+<div><i id="poiContainer8" hidden style="font-style:normal;"></i></div>
+<div><i id="poiContainer9" hidden style="font-style:normal;"></i></div>
 
 <!-- 5 九个删除按钮容器 -->
-<button id="deleteButton1" onclick="deletePoi(1)" hidden><i>删除</i></button>
-<button id="deleteButton2" onclick="deletePoi(2)" hidden><i>删除</i></button>
-<button id="deleteButton3" onclick="deletePoi(3)" hidden><i>删除</i></button>
-<button id="deleteButton4" onclick="deletePoi(4)" hidden><i>删除</i></button>
-<button id="deleteButton5" onclick="deletePoi(5)" hidden><i>删除</i></button>
-<button id="deleteButton6" onclick="deletePoi(6)" hidden><i>删除</i></button>
-<button id="deleteButton7" onclick="deletePoi(7)" hidden><i>删除</i></button>
-<button id="deleteButton8" onclick="deletePoi(8)" hidden><i>删除</i></button>
-<button id="deleteButton9" onclick="deletePoi(9)" hidden><i>删除</i></button>
+<button id="deleteButton1" onclick="deletePoi(1)" hidden style="background-color: #ffffff; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
+<button id="deleteButton2" onclick="deletePoi(2)" hidden style="background-color: #ffffff; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
+<button id="deleteButton3" onclick="deletePoi(3)" hidden style="background-color: #ffffff; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
+<button id="deleteButton4" onclick="deletePoi(4)" hidden style="background-color: #ffffff; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
+<button id="deleteButton5" onclick="deletePoi(5)" hidden style="background-color: #ffffff; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
+<button id="deleteButton6" onclick="deletePoi(6)" hidden style="background-color: #ffffff; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
+<button id="deleteButton7" onclick="deletePoi(7)" hidden style="background-color: #ffffff; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
+<button id="deleteButton8" onclick="deletePoi(8)" hidden style="background-color: #ffffff; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
+<button id="deleteButton9" onclick="deletePoi(9)" hidden style="background-color: #ffffff; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
 
 <!-- 6 搜索按钮容器 -->
-<button id="searchButton" onclick="search()"><i>搜索最短路径</i></button>
+<button id="searchButton" onclick="search()"><i style="font-style:normal;">&#128269;&nbsp;省时路径</i></button>
 <!-- 6.5 聚类搜索路径-->
-<button id="searchButtonCluster" onclick="alertCluster()"><i>将地点分组</i></button>
+<button id="searchButtonCluster" onclick="alertCluster()"><i style="font-style:normal;">&#128269;&nbsp;地点分组</i></button>
 
 <!-- 7 清空地点 -->
-<button id="clearButton" onclick="clearPois()"><i>清空所有地点</i></button>
+<button id="clearButton" onclick="clearPois()"><i style="font-style:normal;">重置</i></button>
 
 <!-- 8.1 Start Poi -->
 <div>
@@ -244,10 +244,10 @@ Structure:
 
 <!-- 8.3 Start & End Text-->
 <div>
-    <i id="startText">起点</i>
-    <i id="endText"  >终点</i>
-    <i id="startNull">无</i>
-    <i id="endNull"  >无</i>
+    <i id="startText" style="font-style:normal;">起点</i>
+    <i id="endText" style="font-style:normal;">终点</i>
+    <i id="startNull" style="font-style:normal;">无</i>
+    <i id="endNull" style="font-style:normal;">无</i>
 </div>
 
 
@@ -776,7 +776,7 @@ Structure:
 <form action="tested" method="post" id="pois">{% csrf_token %}
     <input type="hidden" id="positionsToReturn" name="positionsToReturn" value="">
     <input type="hidden" id="cluster" name="cluster" value="">
-    <%-- ❓ ❓ ❓ Your code here to make start&end index ❓ ❓ ❓ --%>
+    <!-- ❓ ❓ ❓ Code here to make start&end index ❓ ❓ ❓ -->
     <input type="hidden" id="start_index" name="start_index" value="">
     <input type="hidden" id="end_index" name="end_index" value="">
 </form>

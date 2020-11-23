@@ -23,6 +23,11 @@ def anything_to_string(something):
     return str(something)
 
 def tested(request):
+    paths = [None, None]
+    locs = None
+    guides = None
+    guides = None
+    
     FUNC_indicator = [0]
     if request.method == 'POST':
         long_str = request.POST.get('positionsToReturn')
@@ -42,7 +47,7 @@ def tested(request):
         end_index = request.POST.get('end_index')
         start_index = eval(start_index)
         end_index = eval(end_index)
-        
+
         if cluster == 0:
             if start_index == -1 and end_index == -1:
                 cluster = 0
