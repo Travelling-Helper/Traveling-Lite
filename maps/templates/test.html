@@ -189,6 +189,27 @@ Structure:
         #showButtonLeft {position: fixed; top: 35%; left: 0px; height:30%; width:20px; outline:none;}
 
         #start_end_div { background:none; display:block; outline:none;}
+
+        #clusterNumber { display:block; outline:none; position:absolute; left:254px; top:122px; border:none; width: 35px; background: #f5f3d7;}
+        #inputforNumhint1 {
+            backround:none;
+            position:absolute;
+            outline:none;
+            border:none;
+            left:180px;
+            top:123px;
+            font-weight:bold;
+        }
+        #inputforNumhint2 {
+          backround:none;
+          position:absolute;
+          outline:none;
+          border:none;
+          left:300px;
+          top:123px;
+          font-weight:bold;
+        }
+        #clusterNumberDiv {background:none; display:none; outline:none;}
     </style>
 </head>
 
@@ -295,6 +316,12 @@ Structure:
     <i id="startNull" style="font-style:normal;">无</i>
     <i id="endNull" style="font-style:normal;">无</i>
 </div>
+</div>
+
+<div id="clusterNumberDiv">
+    <input id="clusterNumber" type="number" min="1" max="9" step="1" value="1" onBlur="regexCheckForNum()"></input>
+    <i id="inputforNumhint1" style="font-style:normal;" disabled>将地点分为</i>
+    <i id="inputforNumhint2" style="font-style:normal;" disabled>组</i>
 </div>
 </div>
 
@@ -490,6 +517,9 @@ Structure:
         while (lastNode.nextNode != null) {
             lastNode = lastNode.nextNode;
         }
+
+        // Update cluternumber
+        updateClusterNum(eval(document.getElementById("clusterNumber").value));
     }
 
 
@@ -597,18 +627,14 @@ Structure:
 
     // 3.2.3.2 Search Cluster
     function alertCluster() {
-        if (totalPoiNum != 0) {
-            cluster = prompt("请输入分组的个数：");
+        if (totalPoiNum >= 2) {
+            cluster = eval(document.getElementById("clusterNumber").value);
             // cluster > 0, cluster <= totalPoiNum
-            if (cluster > 0 && cluster <= totalPoiNum) {
-                cluster = '' + cluster;
-                cluster = cluster.substring(0, 1);
-                cluster = eval(cluster);
+            if (cluster <= totalPoiNum && cluster > 0) {
                 search();
             }
             else {
                 alert("请输入大于零且不大于地点总数的整数！")
-                alertCluster();
             }
         } else {
             alert("请输入至少两个地点后查询～");
@@ -627,6 +653,7 @@ Structure:
         connectPois();
         document.getElementById("startPoi0").checked = true;
         document.getElementById("endPoi0").checked = true;
+        document.getElementById("clusterNumber").value = 1;
         clearSearchBox();
     }
 
@@ -864,13 +891,31 @@ Structure:
     function nextMode() {
         cur_mode = (cur_mode + 1) % 2;
         if (cur_mode == 0) {
-          document.getElementById("searchButtonCluster").style.display = "block";
-          document.getElementById("searchButton").style.display = "none";
-          document.getElementById("start_end_div").style.display = "block";
+            document.getElementById("searchButtonCluster").style.display = "block";
+            document.getElementById("searchButton").style.display = "none";
+            document.getElementById("start_end_div").style.display = "block";
+            document.getElementById("clusterNumberDiv").style.display = "none";
         } else if (cur_mode == 1) {
-          document.getElementById("searchButtonCluster").style.display = "none";
-          document.getElementById("searchButton").style.display = "block";
-          document.getElementById("start_end_div").style.display = "none";
+            document.getElementById("searchButtonCluster").style.display = "none";
+            document.getElementById("searchButton").style.display = "block";
+            document.getElementById("start_end_div").style.display = "none";
+            document.getElementById("clusterNumberDiv").style.display = "block";
+        }
+    }
+
+    function regexCheckForNum() {
+        var judging = typeof(eval(document.getElementById("clusterNumber").value)) != "number" ||
+        eval(document.getElementById("clusterNumber").value) <= 0 ||
+        (totalPoiNum == 0 && eval(document.getElementById("clusterNumber").value) != 1) ||
+        (totalPoiNum >= 1 && eval(document.getElementById("clusterNumber").value) > totalPoiNum);
+        if (judging) {
+            document.getElementById("clusterNumber").value = 1;
+        }
+    }
+
+    function updateClusterNum(curNum) {
+        if (curNum > totalPoiNum) {
+            document.getElementById("clusterNumber").value = 1;
         }
     }
 </script>
