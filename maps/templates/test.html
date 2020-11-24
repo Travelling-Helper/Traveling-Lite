@@ -220,9 +220,9 @@ Structure:
 <button id="deleteButton9" onclick="deletePoi(9)" hidden style="background: none; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
 
 <!-- 6 搜索按钮容器 -->
-<button id="searchButton" onclick="search()"><i style="font-style:normal;">&#128269;&nbsp;省时路径</i></button>
+<button id="searchButton" onclick="search()"><i style="font-style:normal;font-size:8pt">&#128269;&nbsp;省时路径</i></button>
 <!-- 6.5 聚类搜索路径-->
-<button id="searchButtonCluster" onclick="alertCluster()"><i style="font-style:normal;">&#128269;&nbsp;地点分组</i></button>
+<button id="searchButtonCluster" onclick="alertCluster()"><i style="font-style:normal;font-size:8pt">&#128269;&nbsp;地点分组</i></button>
 
 <!-- 7 清空地点 -->
 <button id="clearButton" onclick="clearPois()"><i style="font-style:normal;">重置</i></button>
@@ -586,6 +586,8 @@ Structure:
         dummyFirstNode.nextNode = null;
         lastNode = dummyFirstNode;
         connectPois();
+        document.getElementById("startPoi0").checked = true;
+        document.getElementById("endPoi0").checked = true;
     }
 
 
