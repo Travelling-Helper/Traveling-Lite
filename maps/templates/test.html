@@ -72,15 +72,21 @@ Structure:
         body,
 
         /* 1: Map */
-        #container { width: 100%; height: 100%; font-size: 13px; user-select: none;}
+        #container { width: 100%; height: 100%; font-size: 13px; user-select: none; outline:none;}
 
         /*6：搜索按钮*/
-        #searchButton        { position: absolute; top: 25px; left: 30px; height: 25px; width: 100px; background:#4994fc; border:none; color:#ffffff; }
-        #searchButtonCluster { position: absolute; top: 25px; left: 130px; height: 25px; width: 100px; background:#9d69ff; border:none; color:#ffffff; }
+        #searchButton        { outline:none; position: absolute; top: 25px; left: 30px; height: 25px; width: 100px; background:#4994fc; border:none; color:#ffffff; }
+        #searchButtonCluster { outline:none; position: absolute; top: 25px; left: 30px; height: 25px; width: 100px; background:#9d69ff; border:none; color:#ffffff; }
 
         /* 2: Search Box */
-        #pickerBox { position: absolute; top: 60px; left: 30px; width: 300px; }
-        #pickerInput { width: 200px; padding: 5px 5px; }
+        #pickerBox { position: absolute; top: 60px; left: 30px; width: 300px;}
+        #pickerInput { width: 200px;
+          padding: 5px 5px;
+          background:#f5f3d7;
+          height:35px;
+          border:none;
+          outline:none;
+      }
         #poiInfo { background: #fff; }
         .amap_lib_placeSearch .poibox.highlight {
             background-color: #CAE1FF;
@@ -90,13 +96,55 @@ Structure:
         }
 
         /* 2.5: Clear Search Box */
-        #clearSearchBox { position: absolute; top: 60px; left: 230px; height: 33px; width: 50px; }
+        #clearSearchBox { position: absolute;
+          top: 60px;
+          left: 230px;
+          width:34px;
+          height:33px;
+          border:none;
+          background-color:#f5f3d7;
+          outline:none;
+        }
+
+        #goSearchButton { position: absolute;
+          top: 60px;
+          left: 264px;
+          height: 33px;
+          width: 53px;
+          outline:none;
+          background-color:#e8e8c5;
+          border:none;
+          /* border-bottom-style:solid;
+          border-right-style:solid;
+          border-bottom-width:thin;
+          border-bottom-color:#e6ffff;
+          border-right-width:thin;
+          border-right-color:#e6ffff;
+          border-top-width:thin;
+          border-top-color:#e6ffff;
+          border-left-width:thin;
+          border-left-color:#e6ffff; */
+        }
 
         /*7：Clear All Pois */
-        #clearButton { position: absolute; top: 120px; left: 30px; height: 25px; border-bottom-style:solid; border-right-style:solid; background:#fadede; border-bottom-width:thin; border-bottom-color:#ffcccc; border-right-width:thin; border-right-color:#ffcccc; border-top-width:thin; border-top-color:#ffcccc; border-left-width:thin; border-left-color:#ffcccc;}
+        #clearButton { position: absolute; top: 120px; left: 30px; height: 25px;
+          /* border-bottom-style:solid;
+          border-right-style:solid;
+          border-bottom-width:thin;
+          border-bottom-color:#ffcccc;
+          border-right-width:thin;
+          border-right-color:#ffcccc;
+          border-top-width:thin;
+          border-top-color:#ffcccc;
+          border-left-width:thin;
+          border-left-color:#ffcccc; */
+          background:#fadede;
+          border:none;
+          outline:none;
+        }
 
         /* 3: Add Position Button (REMOVED) */
-        #addButton { position: absolute; top: 50px; left: 290px; height: 30px; width: 100px; }
+        #addButton { position: absolute; top: 50px; left: 290px; height: 30px; width: 100px; outline:none;}
 
         /* 4：Position Boxes 九个地址栏 */
         #poiContainer1 { position: absolute; top: 150px; left: 30px; height: 30px; width:175px; background: none; border-style:none; border-bottom-style:solid; border-bottom-width:thin; border-bottom-color:#B0C4DE; line-height: 27px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -110,55 +158,57 @@ Structure:
         #poiContainer9 { position: absolute; top: 470px; left: 30px; height: 30px; width:175px; background: none; border-style:none; border-bottom-style:solid; border-bottom-width:thin; border-bottom-color:#B0C4DE; line-height: 27px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         /*5：九个删除按钮*/
-        #deleteButton1 { position: absolute; top: 150px; left: 330px; height: 30px; }
-        #deleteButton2 { position: absolute; top: 190px; left: 330px; height: 30px; }
-        #deleteButton3 { position: absolute; top: 230px; left: 330px; height: 30px; }
-        #deleteButton4 { position: absolute; top: 270px; left: 330px; height: 30px; }
-        #deleteButton5 { position: absolute; top: 310px; left: 330px; height: 30px; }
-        #deleteButton6 { position: absolute; top: 350px; left: 330px; height: 30px; }
-        #deleteButton7 { position: absolute; top: 390px; left: 330px; height: 30px; }
-        #deleteButton8 { position: absolute; top: 430px; left: 330px; height: 30px; }
-        #deleteButton9 { position: absolute; top: 470px; left: 330px; height: 30px; }
+        #deleteButton1 { position: absolute; top: 150px; left: 330px; height: 30px; outline:none;}
+        #deleteButton2 { position: absolute; top: 190px; left: 330px; height: 30px; outline:none;}
+        #deleteButton3 { position: absolute; top: 230px; left: 330px; height: 30px; outline:none;}
+        #deleteButton4 { position: absolute; top: 270px; left: 330px; height: 30px; outline:none;}
+        #deleteButton5 { position: absolute; top: 310px; left: 330px; height: 30px; outline:none;}
+        #deleteButton6 { position: absolute; top: 350px; left: 330px; height: 30px; outline:none;}
+        #deleteButton7 { position: absolute; top: 390px; left: 330px; height: 30px; outline:none;}
+        #deleteButton8 { position: absolute; top: 430px; left: 330px; height: 30px; outline:none;}
+        #deleteButton9 { position: absolute; top: 470px; left: 330px; height: 30px; outline:none;}
 
         /* 8 起点Radio */
-        #startPoi0 { position: absolute; top: 120px; left: 243px; height: 30px; }
-        #startPoi1 { position: absolute; top: 150px; left: 243px; height: 30px; }
-        #startPoi2 { position: absolute; top: 190px; left: 243px; height: 30px; }
-        #startPoi3 { position: absolute; top: 230px; left: 243px; height: 30px; }
-        #startPoi4 { position: absolute; top: 270px; left: 243px; height: 30px; }
-        #startPoi5 { position: absolute; top: 310px; left: 243px; height: 30px; }
-        #startPoi6 { position: absolute; top: 350px; left: 243px; height: 30px; }
-        #startPoi7 { position: absolute; top: 390px; left: 243px; height: 30px; }
-        #startPoi8 { position: absolute; top: 430px; left: 243px; height: 30px; }
-        #startPoi9 { position: absolute; top: 470px; left: 243px; height: 30px; }
+        #startPoi0 { position: absolute; top: 120px; left: 243px; height: 30px; outline:none;}
+        #startPoi1 { position: absolute; top: 150px; left: 243px; height: 30px; outline:none;}
+        #startPoi2 { position: absolute; top: 190px; left: 243px; height: 30px; outline:none;}
+        #startPoi3 { position: absolute; top: 230px; left: 243px; height: 30px; outline:none;}
+        #startPoi4 { position: absolute; top: 270px; left: 243px; height: 30px; outline:none;}
+        #startPoi5 { position: absolute; top: 310px; left: 243px; height: 30px; outline:none;}
+        #startPoi6 { position: absolute; top: 350px; left: 243px; height: 30px; outline:none;}
+        #startPoi7 { position: absolute; top: 390px; left: 243px; height: 30px; outline:none;}
+        #startPoi8 { position: absolute; top: 430px; left: 243px; height: 30px; outline:none;}
+        #startPoi9 { position: absolute; top: 470px; left: 243px; height: 30px; outline:none;}
 
         /* 9 终点Radio */
-        #endPoi0 { position: absolute; top: 120px; left: 293px; height: 30px; }
-        #endPoi1 { position: absolute; top: 150px; left: 293px; height: 30px; }
-        #endPoi2 { position: absolute; top: 190px; left: 293px; height: 30px; }
-        #endPoi3 { position: absolute; top: 230px; left: 293px; height: 30px; }
-        #endPoi4 { position: absolute; top: 270px; left: 293px; height: 30px; }
-        #endPoi5 { position: absolute; top: 310px; left: 293px; height: 30px; }
-        #endPoi6 { position: absolute; top: 350px; left: 293px; height: 30px; }
-        #endPoi7 { position: absolute; top: 390px; left: 293px; height: 30px; }
-        #endPoi8 { position: absolute; top: 430px; left: 293px; height: 30px; }
-        #endPoi9 { position: absolute; top: 470px; left: 293px; height: 30px; }
+        #endPoi0 { position: absolute; top: 120px; left: 293px; height: 30px; outline:none;}
+        #endPoi1 { position: absolute; top: 150px; left: 293px; height: 30px; outline:none;}
+        #endPoi2 { position: absolute; top: 190px; left: 293px; height: 30px; outline:none;}
+        #endPoi3 { position: absolute; top: 230px; left: 293px; height: 30px; outline:none;}
+        #endPoi4 { position: absolute; top: 270px; left: 293px; height: 30px; outline:none;}
+        #endPoi5 { position: absolute; top: 310px; left: 293px; height: 30px; outline:none;}
+        #endPoi6 { position: absolute; top: 350px; left: 293px; height: 30px; outline:none;}
+        #endPoi7 { position: absolute; top: 390px; left: 293px; height: 30px; outline:none;}
+        #endPoi8 { position: absolute; top: 430px; left: 293px; height: 30px; outline:none;}
+        #endPoi9 { position: absolute; top: 470px; left: 293px; height: 30px; outline:none;}
 
-        #startText { position: absolute; top: 100px; left: 236px; font-weight:bold }
-        #endText   { position: absolute; top: 100px; left: 287px; font-weight:bold }
-        #startNull { position: absolute; top: 119px; left: 226px; line-height: 30px; }
-        #endNull   { position: absolute; top: 119px; left: 276px; line-height: 30px; }
+        #startText { position: absolute; top: 100px; left: 236px; font-weight:bold; outline:none;}
+        #endText   { position: absolute; top: 100px; left: 287px; font-weight:bold; outline:none;}
+        #startNull { position: absolute; top: 119px; left: 226px; line-height: 30px; outline:none;}
+        #endNull   { position: absolute; top: 119px; left: 276px; line-height: 30px; outline:none;}
 
-        #hiddenButtonLeft {position: fixed; top: 35%; height:30%; width:20px; left: 375px; display:none;}
+        #hiddenButtonLeft {position: fixed; top: 35%; height:30%; width:20px; left: 375px; display:none; outline:none;}
 
-        #left_Part { background:#fbf9f2; position: absolute; top: 0px; height: 100%; width: 375px; display: true;}
-        #left_Part_right { background:none; position: absolute; top: 10%; height: 80%; width: 20px; left: 375px; display: true;}
-        #left_Part_total { background:none; position: absolute; top: 0px; height: 100%; width: 395px; display: block;}
+        #left_Part { background:#fbf9f2; position: absolute; top: 0px; height: 100%; width: 375px; display: true; outline:none;}
+        #left_Part_right { background:none; position: absolute; top: 10%; height: 80%; width: 20px; left: 375px; display: true; outline:none;}
+        #left_Part_total { background:none; position: absolute; top: 0px; height: 100%; width: 395px; display: block; outline:none;}
 
-        #left_Part_right:hover #hiddenButtonLeft { display:block; }
+        #left_Part_right:hover #hiddenButtonLeft { display:block; outline:none;}
 
-        #left_Part_thin_right { background:none; position: absolute; top: 10%; height: 80%; width: 40px; left:0px; display: none;}
-        #showButtonLeft {position: fixed; top: 35%; left: 0px; height:30%; width:20px;}
+        #left_Part_thin_right { background:none; position: absolute; top: 10%; height: 80%; width: 40px; left:0px; display: none; outline:none;}
+        #showButtonLeft {position: fixed; top: 35%; left: 0px; height:30%; width:20px; outline:none;}
+
+        #start_end_div { background:none; display:block; outline:none;}
     </style>
 </head>
 
@@ -192,7 +242,9 @@ Structure:
     <div id="poiInfo"></div>
 </div>
 <!-- 2.1 清空搜索框 -->
-<button id="clearSearchBox" onclick="clearSearchBox()" style="width:34px;height:34px;background-color:#e1f2f5;border:none;border-bottom-style:solid; border-right-style:solid; border-bottom-width:thin; border-bottom-color:#e6ffff; border-right-width:thin; border-right-color:#e6ffff; border-top-width:thin; border-top-color:#e6ffff; border-left-width:thin; border-left-color:#e6ffff;"><i style="font-style:normal;font-size:15pt;line-height:20px;">×</i></button>
+<button id="clearSearchBox" onclick="clearSearchBox()" ><i style="font-style:normal;font-size:15pt;line-height:20px;">×</i></button>
+<!-- 2.2 搜索框 -->
+<button id="goSearchButton" onclick="goSearchFor()"><i style="font-style:normal;font-size:15pt;line-height:27px;">&#128269;</i></button>
 
 <!-- 3 添加按钮容器 -->
 <!--<button id="addButton" onclick="addPoi()"><i>添加该地点</i></button>-->
@@ -219,14 +271,15 @@ Structure:
 <button id="deleteButton8" onclick="deletePoi(8)" hidden style="background: none; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
 <button id="deleteButton9" onclick="deletePoi(9)" hidden style="background: none; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
 
-<!-- 6 搜索按钮容器 -->
-<button id="searchButton" onclick="search()"><i style="font-style:normal;font-size:8pt">&#128269;&nbsp;省时路径</i></button>
-<!-- 6.5 聚类搜索路径-->
-<button id="searchButtonCluster" onclick="alertCluster()"><i style="font-style:normal;font-size:8pt">&#128269;&nbsp;地点分组</i></button>
+<!-- 6 搜索按钮容器 / 切换至省时路径模式-->
+<button id="searchButton" onclick="nextMode()" style="display:none;"><i style="font-style:normal;font-size:8pt;">切换至省时路径模式</i></button>
+<!-- 6.5 切换至聚类搜索路径-->
+<button id="searchButtonCluster" onclick="nextMode()"><i style="font-style:normal;font-size:8pt;">切换至地点分组模式</i></button>
 
 <!-- 7 清空地点 -->
-<button id="clearButton" onclick="clearPois()"><i style="font-style:normal;">重置</i></button>
+<button id="clearButton" onclick="clearPois()"><i style="font-style:normal;font-size:12px;">重置</i></button>
 
+<div id="start_end_div">
 <!-- 8.1 Start Poi -->
 <div>
     <input type="radio" id="startPoi0" name="startPoi" value=0 checked>
@@ -263,6 +316,7 @@ Structure:
     <i id="endNull" style="font-style:normal;">无</i>
 </div>
 </div>
+</div>
 
 <div id="left_Part_right">
 <button id="hiddenButtonLeft" onclick="hideLeftParttotal()"  style="background: #606b7d; border:none; color:#ffffff;"><i style="font-style:normal;font-size:14pt;"></i>&lt;</button>
@@ -292,6 +346,8 @@ Structure:
                                        -3:    Start +    End */
     var start_index_var = 0;        // Index of Start Position (0 for DNE)
     var end_index_var = 0;          // Index of End   Position (0 for DNE)
+    var cur_mode = 0;               /* 0 --> shortest path
+                                       1 --> cluster */
 
 
 
@@ -800,15 +856,39 @@ Structure:
     }
     // 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST
 
-    // Click and show left part
+    // Click and shows left part
     function showLeftPart() {
         document.getElementById("left_Part_thin_right").style.display = "none";
         document.getElementById("left_Part_total").style.display = "block";
     }
 
+    // Click and hides left part
     function hideLeftParttotal () {
         document.getElementById("left_Part_total").style.display = "none";
         document.getElementById("left_Part_thin_right").style.display = "block";
+    }
+
+    // search button
+    function goSearchFor() {
+        if (cur_mode == 0) {
+            search();
+        } else if (cur_mode == 1) {
+            alertCluster();
+        }
+    }
+
+    // Next mode
+    function nextMode() {
+        cur_mode = (cur_mode + 1) % 2;
+        if (cur_mode == 0) {
+          document.getElementById("searchButtonCluster").style.display = "block";
+          document.getElementById("searchButton").style.display = "none";
+          document.getElementById("start_end_div").style.display = "block";
+        } else if (cur_mode == 1) {
+          document.getElementById("searchButtonCluster").style.display = "none";
+          document.getElementById("searchButton").style.display = "block";
+          document.getElementById("start_end_div").style.display = "none";
+        }
     }
 </script>
 
