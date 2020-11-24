@@ -72,7 +72,7 @@ Structure:
         body,
 
         /* 1: Map */
-        #container { width: 100%; height: 100%; left: 375px; font-size: 13px; user-select: none;}
+        #container { width: 100%; height: 100%; font-size: 13px; user-select: none;}
 
         /*6：搜索按钮*/
         #searchButton        { position: absolute; top: 25px; left: 30px; height: 25px; width: 100px; background:#4994fc; border:none; color:#ffffff; }
@@ -148,6 +148,17 @@ Structure:
         #endText   { position: absolute; top: 100px; left: 287px; font-weight:bold }
         #startNull { position: absolute; top: 119px; left: 226px; line-height: 30px; }
         #endNull   { position: absolute; top: 119px; left: 276px; line-height: 30px; }
+
+        #hiddenButtonLeft {position: fixed; top: 35%; height:30%; width:20px; left: 375px; display:none;}
+
+        #left_Part { background:#fbf9f2; position: absolute; top: 0px; height: 100%; width: 375px; display: true;}
+        #left_Part_right { background:none; position: absolute; top: 10%; height: 80%; width: 20px; left: 375px; display: true;}
+        #left_Part_total { background:none; position: absolute; top: 0px; height: 100%; width: 395px; display: block;}
+
+        #left_Part_right:hover #hiddenButtonLeft { display:block; }
+
+        #left_Part_thin_right { background:none; position: absolute; top: 10%; height: 80%; width: 40px; left:0px; display: none;}
+        #showButtonLeft {position: fixed; top: 35%; left: 0px; height:30%; width:20px;}
     </style>
 </head>
 
@@ -173,6 +184,8 @@ Structure:
 <!--    </div>-->
 <!--</div>-->
 
+<div id="left_Part_total">
+<div id="left_Part">
 <!-- 2 搜索框容器 -->
 <div id="pickerBox">
     <input id="pickerInput" placeholder="输入关键字选取地点" value="" style="width:150pt;height:25pt"/>
@@ -249,8 +262,15 @@ Structure:
     <i id="startNull" style="font-style:normal;">无</i>
     <i id="endNull" style="font-style:normal;">无</i>
 </div>
+</div>
 
-
+<div id="left_Part_right">
+<button id="hiddenButtonLeft" onclick="hideLeftParttotal()"  style="background: #606b7d; border:none; color:#ffffff;"><i style="font-style:normal;font-size:14pt;"></i>&lt;</button>
+</div>
+</div>
+<div id="left_Part_thin_right">
+  <button id="showButtonLeft" onclick="showLeftPart()"  style="background: #606b7d; border:none; color:#ffffff;"><i style="font-style:normal;font-size:14pt;"></i>&gt;</button>
+</div>
 
 
 
@@ -541,14 +561,18 @@ Structure:
 
     // 3.2.3.2 Search Cluster
     function alertCluster() {
-        cluster = prompt("请输入分组的个数：");
-        // cluster > 0, cluster <= totalPoiNum
-        if (cluster > 0 && cluster <= totalPoiNum) {
-            search();
-        }
-        else {
-            alert("请输入大于零且不大于地点总数的整数！")
-            alertCluster();
+        if (totalPoiNum != 0) {
+            cluster = prompt("请输入分组的个数：");
+            // cluster > 0, cluster <= totalPoiNum
+            if (cluster > 0 && cluster <= totalPoiNum) {
+                search();
+            }
+            else {
+                alert("请输入大于零且不大于地点总数的整数！")
+                alertCluster();
+            }
+        } else {
+            alert("请输入至少两个地点后查询～");
         }
     }
 
@@ -583,14 +607,16 @@ Structure:
             // alert("Successful!!! This should be removed after TESTING");
         } else if (func_INFO == -1) {
             // alert("Error!!! This should be removed after TESTING");
-            alert("Errcode: a000001，请到该网站留言。");
+            // window.history.go(-1);
+            setTimeout("javascript:location.href='test'", 0);
         } else if (func_INFO == 1) {
             shortestPathDisplay();
         } else if (func_INFO == 2) {
             clusteringDisplay();
         } else {
             // alert("ERRORING IN FUNC INFO This should be removed after TESTING");
-            alert("Errcode: a000002，请到该网站留言。");
+            alert("Errcode: a000001，即将跳转。");
+            setTimeout("javascript:location.href='404'", 0);
         }
     }
 
@@ -770,6 +796,17 @@ Structure:
         }
     }
     // 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST
+
+    // Click and show left part
+    function showLeftPart() {
+        document.getElementById("left_Part_thin_right").style.display = "none";
+        document.getElementById("left_Part_total").style.display = "block";
+    }
+
+    function hideLeftParttotal () {
+        document.getElementById("left_Part_total").style.display = "none";
+        document.getElementById("left_Part_thin_right").style.display = "block";
+    }
 </script>
 
 
