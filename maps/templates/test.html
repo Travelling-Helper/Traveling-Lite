@@ -114,30 +114,10 @@ Structure:
           outline:none;
           background-color:#e8e8c5;
           border:none;
-          /* border-bottom-style:solid;
-          border-right-style:solid;
-          border-bottom-width:thin;
-          border-bottom-color:#e6ffff;
-          border-right-width:thin;
-          border-right-color:#e6ffff;
-          border-top-width:thin;
-          border-top-color:#e6ffff;
-          border-left-width:thin;
-          border-left-color:#e6ffff; */
         }
 
         /*7：Clear All Pois */
         #clearButton { position: absolute; top: 120px; left: 30px; height: 25px;
-          /* border-bottom-style:solid;
-          border-right-style:solid;
-          border-bottom-width:thin;
-          border-bottom-color:#ffcccc;
-          border-right-width:thin;
-          border-right-color:#ffcccc;
-          border-top-width:thin;
-          border-top-color:#ffcccc;
-          border-left-width:thin;
-          border-left-color:#ffcccc; */
           background:#fadede;
           border:none;
           outline:none;
@@ -242,7 +222,7 @@ Structure:
     <div id="poiInfo"></div>
 </div>
 <!-- 2.1 清空搜索框 -->
-<button id="clearSearchBox" onclick="clearSearchBox()" ><i style="font-style:normal;font-size:15pt;line-height:20px;">×</i></button>
+<button id="clearSearchBox" onclick="clearSearchBox()"><i style="font-style:normal;font-size:15pt;line-height:20px;">×</i></button>
 <!-- 2.2 搜索框 -->
 <button id="goSearchButton" onclick="goSearchFor()"><i style="font-style:normal;font-size:15pt;line-height:27px;">&#128269;</i></button>
 
@@ -272,9 +252,9 @@ Structure:
 <button id="deleteButton9" onclick="deletePoi(9)" hidden style="background: none; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
 
 <!-- 6 搜索按钮容器 / 切换至省时路径模式-->
-<button id="searchButton" onclick="nextMode()" style="display:none;"><i style="font-style:normal;font-size:8pt;">切换至省时路径模式</i></button>
+<button id="searchButton" onclick="nextMode()" style="display:none;"><i style="font-style:normal;font-size:8pt;">切换至省时路径</i></button>
 <!-- 6.5 切换至聚类搜索路径-->
-<button id="searchButtonCluster" onclick="nextMode()"><i style="font-style:normal;font-size:8pt;">切换至地点分组模式</i></button>
+<button id="searchButtonCluster" onclick="nextMode()"><i style="font-style:normal;font-size:8pt;">切换至地点分组</i></button>
 
 <!-- 7 清空地点 -->
 <button id="clearButton" onclick="clearPois()"><i style="font-style:normal;font-size:12px;">重置</i></button>
@@ -621,6 +601,9 @@ Structure:
             cluster = prompt("请输入分组的个数：");
             // cluster > 0, cluster <= totalPoiNum
             if (cluster > 0 && cluster <= totalPoiNum) {
+                cluster = '' + cluster;
+                cluster = cluster.substring(0, 1);
+                cluster = eval(cluster);
                 search();
             }
             else {
@@ -667,7 +650,7 @@ Structure:
         } else if (func_INFO == -1) {
             // alert("Error!!! This should be removed after TESTING");
             // window.history.go(-1);
-            setTimeout("javascript:location.href='test'", 0);
+            setTimeout("javascript:location.href='search'", 0);
         } else if (func_INFO == 1) {
             shortestPathDisplay();
         } else if (func_INFO == 2) {
@@ -893,7 +876,7 @@ Structure:
 </script>
 
 
-<form action="tested" method="post" id="pois">{% csrf_token %}
+<form action="result" method="post" id="pois">{% csrf_token %}
     <input type="hidden" id="positionsToReturn" name="positionsToReturn" value="">
     <input type="hidden" id="cluster" name="cluster" value="">
     <!-- ❓ ❓ ❓ Code here to make start&end index ❓ ❓ ❓ -->
