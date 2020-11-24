@@ -16,18 +16,37 @@ def gaodeMap(request):
 
 def test(request):
     return render(request, "test.html", {
-        'FUNC' : 0
+        'FUNC' : 0,
+        'cluster_prev': 0,
+        'positionsToReturn': {},
     }) #测试
 
 def anything_to_string(something):
     return str(something)
+
+def stringJsonListToListOfJson(stringElement):
+    if stringElement:
+        tempdic = {}
+        temp = stringElement.split('{')
+        temp.pop(0)
+        temp = [eval(('{'+i)) for i in temp]
+        for i in range(0, len(temp)):
+            tempdic.update({anything_to_string(i):temp[i]})
+        result = anything_to_string(tempdic).replace("'", "\"")
+
+        return result
+    else:
+        return {}
+
 
 def tested(request):
     paths = [None, None]
     locs = None
     guides = None
     guides = None
-    
+    cluster = 0
+    positionsToReturn = ""
+
     FUNC_indicator = [0]
     if request.method == 'POST':
         long_str = request.POST.get('positionsToReturn')
@@ -133,10 +152,11 @@ def tested(request):
                     print("Clustering函数报错 file: view.py line 107-112")
 
             return render(request, "test.html", {
-                'positionsToReturn': request.POST.get('positionsToReturn'),
+                'positionsToReturn': stringJsonListToListOfJson(request.POST.get('positionsToReturn')),
                 'Paths': paths,
                 'Locs': locs,
-                'FUNC': FUNC_indicator[0]
+                'FUNC': FUNC_indicator[0],
+                'cluster_prev': cluster,
             })
 
     try:
@@ -158,11 +178,13 @@ def tested(request):
         FUNC_indicator[0] = -1
         print("高德地图POI信息不含location key OR 无法interpret预期为double类型的string。file: view.py line 125 or 132")
 
+    print(stringJsonListToListOfJson(request.POST.get('positionsToReturn')));
     return render(request, "test.html", {
-        'positionsToReturn': request.POST.get('positionsToReturn'),
+        'positionsToReturn': stringJsonListToListOfJson(request.POST.get('positionsToReturn')),
         'Paths': paths[0],
         'Locs': locs, # [lst_of_loc[i] for i in paths[0]],
         'Time': paths[1],
         'Guides': guides,
-        'FUNC' : FUNC_indicator[0]
+        'FUNC' : FUNC_indicator[0],
+        'cluster_prev': cluster,
     })

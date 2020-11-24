@@ -615,6 +615,7 @@ Structure:
                 positionsInfo += currentNode.info;
             }
             document.getElementById("positionsToReturn").value = positionsInfo;
+            // alert(positionsInfo);
             document.getElementById("cluster").value = cluster;
             // ❓ ❓ ❓ Your code here to make start&end index ❓ ❓ ❓
             start_index_var = $('input[name="startPoi"]:checked').val() - 1;
@@ -672,6 +673,7 @@ Structure:
             }
         }
 
+        // 接受返回后的分类函数
         function separationDisplay() {
             var func_INFO = {{ FUNC }};
             if (func_INFO == 0) {
@@ -681,8 +683,26 @@ Structure:
                 // window.history.go(-1);
                 setTimeout("javascript:location.href='search'", 0);
             } else if (func_INFO == 1) {
+                var diomondtemp = '{{ positionsToReturn }}';
+                diomondtemp = diomondtemp.replace(/(&quot;)/gm,'\"');
+                diomondtemp = JSON.parse(diomondtemp);
+                // alert(diomondtemp["0"]);
+
+                var clubtemp = {{ cluster_prev }};
+                document.getElementById("clusterNumber").value = clubtemp;
+                regexCheckForNum();
+
                 shortestPathDisplay();
             } else if (func_INFO == 2) {
+                var diomondtemp = '{{ positionsToReturn }}';
+                diomondtemp = diomondtemp.replace(/(&quot;)/gm,'\"');
+                diomondtemp = JSON.parse(diomondtemp);
+                // alert(diomondtemp["0"]);
+
+                var clubtemp = {{ cluster_prev }};
+                document.getElementById("clusterNumber").value = clubtemp;
+                regexCheckForNum();
+
                 clusteringDisplay();
             } else {
                 // alert("ERRORING IN FUNC INFO This should be removed after TESTING");
