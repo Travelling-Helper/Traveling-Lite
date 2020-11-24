@@ -221,713 +221,715 @@ Structure:
 
 
 <body style="background:#fbf9f2;">
-<!--PART 2 CONTAINERS-->
+    <!--PART 2 CONTAINERS-->
 
-<!-- 1 地图容器 -->
-<div id="container" class="map" tabindex="0"></div>
-<!-- 1.1 选择地图语言 -->
-<!--<div class="input-card" style="width:15rem">-->
-<!--    <h4>底图语言切换</h4>-->
-<!--    <div id="lang">-->
-<!--        <div class="input-item"><input id="zh_cn" name="language" type="radio"  checked="checked"><span class="input-text">中文地图</span></div>-->
-<!--        <div class="input-item"><input id="zh_en" name="language" type="radio"><span class="input-text">中文-English 对照</span></div>-->
-<!--        <div class="input-item"><input id="en" name="language" type="radio"><span class="input-text">English Map</span></div>-->
-<!--    </div>-->
-<!--</div>-->
+    <!-- 1 地图容器 -->
+    <div id="container" class="map" tabindex="0"></div>
+    <!-- 1.1 选择地图语言 -->
+    <!--<div class="input-card" style="width:15rem">-->
+    <!--    <h4>底图语言切换</h4>-->
+    <!--    <div id="lang">-->
+    <!--        <div class="input-item"><input id="zh_cn" name="language" type="radio"  checked="checked"><span class="input-text">中文地图</span></div>-->
+    <!--        <div class="input-item"><input id="zh_en" name="language" type="radio"><span class="input-text">中文-English 对照</span></div>-->
+    <!--        <div class="input-item"><input id="en" name="language" type="radio"><span class="input-text">English Map</span></div>-->
+    <!--    </div>-->
+    <!--</div>-->
 
-<div id="left_Part_total">
-<div id="left_Part">
-<!-- 2 搜索框容器 -->
-<div id="pickerBox">
-    <input id="pickerInput" placeholder="输入关键字选取地点" value="" style="width:150pt;height:25pt"/>
-    <div id="poiInfo"></div>
-</div>
-<!-- 2.1 清空搜索框 -->
-<button id="clearSearchBox" onclick="clearSearchBox()"><i style="font-style:normal;font-size:15pt;line-height:20px;">×</i></button>
-<!-- 2.2 搜索框 -->
-<button id="goSearchButton" onclick="goSearchFor()"><i style="font-style:normal;font-size:15pt;line-height:27px;">&#128269;</i></button>
+    <div id="left_Part_total">
+        <div id="left_Part">
+            <!-- 2 搜索框容器 -->
+            <div id="pickerBox">
+                <input id="pickerInput" placeholder="输入关键字选取地点" value="" style="width:150pt;height:25pt"/>
+                <div id="poiInfo"></div>
+            </div>
+            <!-- 2.1 清空搜索框 -->
+            <button id="clearSearchBox" onclick="clearSearchBox()"><i style="font-style:normal;font-size:15pt;line-height:20px;">×</i></button>
+            <!-- 2.2 搜索框 -->
+            <button id="goSearchButton" onclick="goSearchFor()"><i style="font-style:normal;font-size:15pt;line-height:27px;">&#128269;</i></button>
 
-<!-- 3 添加按钮容器 -->
-<!--<button id="addButton" onclick="addPoi()"><i>添加该地点</i></button>-->
+            <!-- 3 添加按钮容器 -->
+            <!--<button id="addButton" onclick="addPoi()"><i>添加该地点</i></button>-->
 
-<!-- 4 九个地址栏容器 -->
-<div><i id="poiContainer1" hidden style="font-style:normal;"></i></div>
-<div><i id="poiContainer2" hidden style="font-style:normal;"></i></div>
-<div><i id="poiContainer3" hidden style="font-style:normal;"></i></div>
-<div><i id="poiContainer4" hidden style="font-style:normal;"></i></div>
-<div><i id="poiContainer5" hidden style="font-style:normal;"></i></div>
-<div><i id="poiContainer6" hidden style="font-style:normal;"></i></div>
-<div><i id="poiContainer7" hidden style="font-style:normal;"></i></div>
-<div><i id="poiContainer8" hidden style="font-style:normal;"></i></div>
-<div><i id="poiContainer9" hidden style="font-style:normal;"></i></div>
+            <!-- 4 九个地址栏容器 -->
+            <div><i id="poiContainer1" hidden style="font-style:normal;"></i></div>
+            <div><i id="poiContainer2" hidden style="font-style:normal;"></i></div>
+            <div><i id="poiContainer3" hidden style="font-style:normal;"></i></div>
+            <div><i id="poiContainer4" hidden style="font-style:normal;"></i></div>
+            <div><i id="poiContainer5" hidden style="font-style:normal;"></i></div>
+            <div><i id="poiContainer6" hidden style="font-style:normal;"></i></div>
+            <div><i id="poiContainer7" hidden style="font-style:normal;"></i></div>
+            <div><i id="poiContainer8" hidden style="font-style:normal;"></i></div>
+            <div><i id="poiContainer9" hidden style="font-style:normal;"></i></div>
 
-<!-- 5 九个删除按钮容器 -->
-<button id="deleteButton1" onclick="deletePoi(1)" hidden style="background: none; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
-<button id="deleteButton2" onclick="deletePoi(2)" hidden style="background: none; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
-<button id="deleteButton3" onclick="deletePoi(3)" hidden style="background: none; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
-<button id="deleteButton4" onclick="deletePoi(4)" hidden style="background: none; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
-<button id="deleteButton5" onclick="deletePoi(5)" hidden style="background: none; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
-<button id="deleteButton6" onclick="deletePoi(6)" hidden style="background: none; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
-<button id="deleteButton7" onclick="deletePoi(7)" hidden style="background: none; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
-<button id="deleteButton8" onclick="deletePoi(8)" hidden style="background: none; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
-<button id="deleteButton9" onclick="deletePoi(9)" hidden style="background: none; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
+            <!-- 5 九个删除按钮容器 -->
+            <button id="deleteButton1" onclick="deletePoi(1)" hidden style="background: none; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
+            <button id="deleteButton2" onclick="deletePoi(2)" hidden style="background: none; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
+            <button id="deleteButton3" onclick="deletePoi(3)" hidden style="background: none; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
+            <button id="deleteButton4" onclick="deletePoi(4)" hidden style="background: none; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
+            <button id="deleteButton5" onclick="deletePoi(5)" hidden style="background: none; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
+            <button id="deleteButton6" onclick="deletePoi(6)" hidden style="background: none; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
+            <button id="deleteButton7" onclick="deletePoi(7)" hidden style="background: none; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
+            <button id="deleteButton8" onclick="deletePoi(8)" hidden style="background: none; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
+            <button id="deleteButton9" onclick="deletePoi(9)" hidden style="background: none; border:none"><i style="font-style:normal;font-size:12pt;">&#128465;</i></button>
 
-<!-- 6 搜索按钮容器 / 切换至省时路径模式-->
-<button id="searchButton" onclick="nextMode()" style="display:none;"><i style="font-style:normal;font-size:8pt;">当前地点分组模式 切换至省时路径模式</i></button>
-<!-- 6.5 切换至聚类搜索路径-->
-<button id="searchButtonCluster" onclick="nextMode()"><i style="font-style:normal;font-size:8pt;">当前省时路径模式 切换至地点分组模式</i></button>
+            <!-- 6 搜索按钮容器 / 切换至省时路径模式-->
+            <button id="searchButton" onclick="nextMode()" style="display:none;"><i style="font-style:normal;font-size:8pt;">当前地点分组模式 切换至省时路径模式</i></button>
+            <!-- 6.5 切换至聚类搜索路径-->
+            <button id="searchButtonCluster" onclick="nextMode()"><i style="font-style:normal;font-size:8pt;">当前省时路径模式 切换至地点分组模式</i></button>
 
-<!-- 7 清空地点 -->
-<button id="clearButton" onclick="clearPois()"><i style="font-style:normal;font-size:12px;">重置</i></button>
+            <!-- 7 清空地点 -->
+            <button id="clearButton" onclick="clearPois()"><i style="font-style:normal;font-size:12px;">重置</i></button>
 
-<div id="start_end_div">
-<!-- 8.1 Start Poi -->
-<div>
-    <input type="radio" id="startPoi0" name="startPoi" value=0 checked>
-    <input type="radio" id="startPoi1" name="startPoi" value=1 hidden>
-    <input type="radio" id="startPoi2" name="startPoi" value=2 hidden>
-    <input type="radio" id="startPoi3" name="startPoi" value=3 hidden>
-    <input type="radio" id="startPoi4" name="startPoi" value=4 hidden>
-    <input type="radio" id="startPoi5" name="startPoi" value=5 hidden>
-    <input type="radio" id="startPoi6" name="startPoi" value=6 hidden>
-    <input type="radio" id="startPoi7" name="startPoi" value=7 hidden>
-    <input type="radio" id="startPoi8" name="startPoi" value=8 hidden>
-    <input type="radio" id="startPoi9" name="startPoi" value=9 hidden>
-</div>
+            <div id="start_end_div">
+                <!-- 8.1 Start Poi -->
+                <div>
+                    <input type="radio" id="startPoi0" name="startPoi" value=0 checked>
+                    <input type="radio" id="startPoi1" name="startPoi" value=1 hidden>
+                    <input type="radio" id="startPoi2" name="startPoi" value=2 hidden>
+                    <input type="radio" id="startPoi3" name="startPoi" value=3 hidden>
+                    <input type="radio" id="startPoi4" name="startPoi" value=4 hidden>
+                    <input type="radio" id="startPoi5" name="startPoi" value=5 hidden>
+                    <input type="radio" id="startPoi6" name="startPoi" value=6 hidden>
+                    <input type="radio" id="startPoi7" name="startPoi" value=7 hidden>
+                    <input type="radio" id="startPoi8" name="startPoi" value=8 hidden>
+                    <input type="radio" id="startPoi9" name="startPoi" value=9 hidden>
+                </div>
 
-<!-- 8.2 End Poi Radio -->
-<div>
-    <input type="radio" id="endPoi0" name="endPoi" value=0 checked>
-    <input type="radio" id="endPoi1" name="endPoi" value=1 hidden>
-    <input type="radio" id="endPoi2" name="endPoi" value=2 hidden>
-    <input type="radio" id="endPoi3" name="endPoi" value=3 hidden>
-    <input type="radio" id="endPoi4" name="endPoi" value=4 hidden>
-    <input type="radio" id="endPoi5" name="endPoi" value=5 hidden>
-    <input type="radio" id="endPoi6" name="endPoi" value=6 hidden>
-    <input type="radio" id="endPoi7" name="endPoi" value=7 hidden>
-    <input type="radio" id="endPoi8" name="endPoi" value=8 hidden>
-    <input type="radio" id="endPoi9" name="endPoi" value=9 hidden>
-</div>
+                <!-- 8.2 End Poi Radio -->
+                <div>
+                    <input type="radio" id="endPoi0" name="endPoi" value=0 checked>
+                    <input type="radio" id="endPoi1" name="endPoi" value=1 hidden>
+                    <input type="radio" id="endPoi2" name="endPoi" value=2 hidden>
+                    <input type="radio" id="endPoi3" name="endPoi" value=3 hidden>
+                    <input type="radio" id="endPoi4" name="endPoi" value=4 hidden>
+                    <input type="radio" id="endPoi5" name="endPoi" value=5 hidden>
+                    <input type="radio" id="endPoi6" name="endPoi" value=6 hidden>
+                    <input type="radio" id="endPoi7" name="endPoi" value=7 hidden>
+                    <input type="radio" id="endPoi8" name="endPoi" value=8 hidden>
+                    <input type="radio" id="endPoi9" name="endPoi" value=9 hidden>
+                </div>
 
-<!-- 8.3 Start & End Text-->
-<div>
-    <i id="startText" style="font-style:normal;">起点</i>
-    <i id="endText" style="font-style:normal;">终点</i>
-    <i id="startNull" style="font-style:normal;">无</i>
-    <i id="endNull" style="font-style:normal;">无</i>
-</div>
-</div>
+                <!-- 8.3 Start & End Text-->
+                <div>
+                    <i id="startText" style="font-style:normal;">起点</i>
+                    <i id="endText" style="font-style:normal;">终点</i>
+                    <i id="startNull" style="font-style:normal;">无</i>
+                    <i id="endNull" style="font-style:normal;">无</i>
+                </div>
+            </div>
 
-<div id="clusterNumberDiv">
-    <input id="clusterNumber" type="number" min="1" max="9" step="1" value="1" onBlur="regexCheckForNum()"></input>
-    <i id="inputforNumhint1" style="font-style:normal;" disabled>将地点分为</i>
-    <i id="inputforNumhint2" style="font-style:normal;" disabled>组</i>
-</div>
-</div>
+            <div id="clusterNumberDiv">
+                <input id="clusterNumber" type="number" min="1" max="9" step="1" value="1" onBlur="regexCheckForNum()"></input>
+                <i id="inputforNumhint1" style="font-style:normal;" disabled>将地点分为</i>
+                <i id="inputforNumhint2" style="font-style:normal;" disabled>组</i>
+            </div>
+        </div>
 
-<div id="left_Part_right">
-<button id="hiddenButtonLeft" onclick="hideLeftParttotal()"  style="background: #606b7d; border:none; color:#ffffff;"><i style="font-style:normal;font-size:14pt;"></i>&lt;</button>
-</div>
-</div>
-<div id="left_Part_thin_right">
-  <button id="showButtonLeft" onclick="showLeftPart()"  style="background: #606b7d; border:none; color:#ffffff;"><i style="font-style:normal;font-size:14pt;"></i>&gt;</button>
-</div>
+        <div id="left_Part_right">
+            <button id="hiddenButtonLeft" onclick="hideLeftParttotal()"  style="background: #606b7d; border:none; color:#ffffff;"><i style="font-style:normal;font-size:14pt;"></i>&lt;</button>
+        </div>
+    </div>
 
 
-
-
-
-
-<!-- PART 3 FUNCTIONS (JS) -->
-<script type="text/javascript">
-
-    /* 3.1 VARIABLES */
-    var totalPoiNum = 0;            // Total # of Positions Have Added (0 to 9)
-    var currentPoiInfo = "";        // Current Position Information
-    var currentPoiInfoDisplay = ""; // Current Position Information (Shortened)
-    var positionsInfo = "";         // Concatenated String of Positions to RETURN
-    var cluster = 0;                /* >0: Cluster
-                                        0: No Start + No End
-                                       -1:    Start + No End
-                                       -2: No Start +    End
-                                       -3:    Start +    End */
-    var start_index_var = 0;        // Index of Start Position (0 for DNE)
-    var end_index_var = 0;          // Index of End   Position (0 for DNE)
-    var cur_mode = 0;               /* 0 --> shortest path
-                                       1 --> cluster */
+    <div id="left_Part_thin_right">
+        <button id="showButtonLeft" onclick="showLeftPart()"  style="background: #606b7d; border:none; color:#ffffff;"><i style="font-style:normal;font-size:14pt;"></i>&gt;</button>
+    </div>
 
 
 
 
 
-    /* 3.2 FUNCTIONS */
 
-    /* 3.2.0 Constructor of Position Information Boxes */
-    function createNode () {
-        this.info = null;
-        this.infoDisplay = null;
-        this.nextNode = null;
-        this.prevNode = null;
-    }
-    // Construct Position Information Box Objects in Node Data-structure
-    var dummyFirstNode = new createNode();
-    var lastNode = dummyFirstNode;
+    <!-- PART 3 FUNCTIONS (JS) -->
+    <script type="text/javascript">
 
-
-
-    /* 3.2.1 Basic Map Construction */
-    // 3.2.1.0 生成地图
-    var map = new AMap.Map('container', {
-        zoom: 10,
-        lang: "zh_cn",
-        resizeEnable: true
-    });
-
-
-    // 3.2.1.1 Switch Languages (REMOVED)
-    var radios = document.querySelectorAll("#lang input");
-    radios.forEach(function(ratio) {
-        ratio.onclick = setLang;
-    });
-    function setLang() {
-        map.setLang(this.id);
-    }
+        /* 3.1 VARIABLES */
+        var totalPoiNum = 0;            // Total # of Positions Have Added (0 to 9)
+        var currentPoiInfo = "";        // Current Position Information
+        var currentPoiInfoDisplay = ""; // Current Position Information (Shortened)
+        var positionsInfo = "";         // Concatenated String of Positions to RETURN
+        var cluster = 0;                /* >0: Cluster
+                                            0: No Start + No End
+                                           -1:    Start + No End
+                                           -2: No Start +    End
+                                           -3:    Start +    End */
+        var start_index_var = 0;        // Index of Start Position (0 for DNE)
+        var end_index_var = 0;          // Index of End   Position (0 for DNE)
+        var cur_mode = 0;               /* 0 --> shortest path
+                                           1 --> cluster */
 
 
 
-    /* 3.2.2 Search & Add & Remove Positions */
-    // 3.2.2.0 Search a position
-    AMapUI.loadUI(['misc/PoiPicker'], function(PoiPicker) {
 
-        var poiPicker = new PoiPicker({
-            //city:'北京',
-            input: 'pickerInput'
+
+        /* 3.2 FUNCTIONS */
+
+        /* 3.2.0 Constructor of Position Information Boxes */
+        function createNode () {
+            this.info = null;
+            this.infoDisplay = null;
+            this.nextNode = null;
+            this.prevNode = null;
+        }
+        // Construct Position Information Box Objects in Node Data-structure
+        var dummyFirstNode = new createNode();
+        var lastNode = dummyFirstNode;
+
+
+
+        /* 3.2.1 Basic Map Construction */
+        // 3.2.1.0 生成地图
+        var map = new AMap.Map('container', {
+            zoom: 10,
+            lang: "zh_cn",
+            resizeEnable: true
         });
 
-        //初始化poiPicker
-        poiPickerReady(poiPicker);
-    });
-    function poiPickerReady(poiPicker) {
 
-        window.poiPicker = poiPicker;
-
-        var marker = new AMap.Marker();
-
-        var infoWindow = new AMap.InfoWindow({
-            offset: new AMap.Pixel(0, -20)
+        // 3.2.1.1 Switch Languages (REMOVED)
+        var radios = document.querySelectorAll("#lang input");
+        radios.forEach(function(ratio) {
+            ratio.onclick = setLang;
         });
-
-        //选取了某个POI
-        poiPicker.on('poiPicked', function(poiResult) {
-
-            var source = poiResult.source,
-                poi = poiResult.item,
-                // POI information
-                info = {
-                    id: poi.id,
-                    name: poi.name,
-                    location: poi.location.toString(),
-                    address: poi.address
-                };
-            info2 = {
-                name: poi.name,
-                location: poi.location,
-                address: poi.address
-            }
-
-            marker.setMap(map);
-            marker.setPosition(poi.location); // 图钉
-            infoWindow.setMap(map);
-            infoWindow.setPosition(poi.location); // POI信息框
-
-            // 打印信息
-            //infoWindow.setContent('POI信息: <pre>' + JSON.stringify(info, null, 2) + '</pre>');
-            infoWindow.open(map, marker.getPosition());
-
-            // current POI info
-            currentPoiInfo = JSON.stringify(info, null);
-            var name = info2.name;
-            var address = info2.address;
-            currentPoiInfoDisplay = name;
-            document.getElementById("pickerInput").value = name; // fill poi name to search box
-
-            map.setZoomAndCenter(14, info2.location); // reset map center & scale
-            addPoi();
-        });
-
-        //搜索推荐
-        poiPicker.onCityReady(function() {
-            //poiPicker.suggest('美食');
-        });
-    }
-
-
-    // 3.2.2.1 Add a position
-    function addPoi () {
-        // Null Case
-        if (totalPoiNum >= 9) {alert("请勿超过九个点！"); return;}
-        if (currentPoiInfo == "") {return;}
-
-        // Null Case: 重复地点
-        var currentNode = dummyFirstNode;
-        for (var index = 1; index <= totalPoiNum; index++) {
-            currentNode = currentNode.nextNode;
-            if (currentNode.infoDisplay == currentPoiInfoDisplay) {
-                alert ("请勿输入相同地点！");
-                return;
-            }
+        function setLang() {
+            map.setLang(this.id);
         }
 
-        // Regular Case: js
-        var newNode = new createNode();
-        newNode.info = currentPoiInfo;
-        newNode.infoDisplay = currentPoiInfoDisplay;
-        newNode.prevNode = lastNode;
-        lastNode.nextNode = newNode;
-        lastNode = newNode;
-        totalPoiNum++;
-
-        // Regular Case: html
-        connectPois();
-    }
 
 
-    // 3.2.2.2 Delete a position
-    function deletePoi (idxToDelete) {
-        // Null Case: no poi info
-        if (idxToDelete > totalPoiNum) {return;}
+        /* 3.2.2 Search & Add & Remove Positions */
+        // 3.2.2.0 Search a position
+        AMapUI.loadUI(['misc/PoiPicker'], function(PoiPicker) {
 
-        // Regular Case
-        totalPoiNum--;
-        var currentNode = dummyFirstNode;
-        for (var index = 1; index <= idxToDelete; index++) {
-            currentNode = currentNode.nextNode;
-        }
-        currentNode.prevNode.nextNode = currentNode.nextNode;
-        if (currentNode.nextNode != null) {
-            currentNode.nextNode.prevNode = currentNode.prevNode;
-        }
-        // update HTML
-        connectPois();
-        updateStart(idxToDelete);
-        updateEnd(idxToDelete);
-
-        // Update last node
-        lastNode = dummyFirstNode;
-        while (lastNode.nextNode != null) {
-            lastNode = lastNode.nextNode;
-        }
-
-        // Update cluternumber
-        updateClusterNum(eval(document.getElementById("clusterNumber").value));
-    }
-
-
-    // 3.2.2.H Clear search box
-    function clearSearchBox() {
-        document.getElementById("pickerInput").value = "";
-    }
-
-
-    // 3.2.2.H Put poi info in linked node to poiContainer1~9 by traverse
-    function connectPois () {
-        // clear poiContainer1~9
-        for (var index=1; index<10; index++) {
-            document.getElementById("poiContainer" + index).innerText = "";
-        }
-        // start copy poi infos
-        var currentNode = dummyFirstNode;
-        var index = 1;
-        // section 1: poiContainers with info
-        while (index <= totalPoiNum) {
-            currentNode = currentNode.nextNode;
-            document.getElementById("poiContainer" + index).innerText = currentNode.infoDisplay; // poi info
-            document.getElementById("poiContainer" + index).removeAttribute("hidden"); // not hide blue box
-            document.getElementById("deleteButton" + index).removeAttribute("hidden"); // not hide delete button
-            document.getElementById("startPoi"     + index).removeAttribute("hidden"); // not hide start poi radio
-            document.getElementById("endPoi"       + index).removeAttribute("hidden"); // not hide end poi radio
-            index++;
-        }
-        // section 2: poiContainers without info
-        while (index <= 9) {
-            document.getElementById("poiContainer" + index).innerText = ""; // no poi info
-            document.getElementById("poiContainer" + index).setAttribute("hidden", true); // hide blue box
-            document.getElementById("deleteButton" + index).setAttribute("hidden", true); // hide delete button
-            document.getElementById("startPoi"     + index).setAttribute("hidden", true); // hind start poi radio
-            document.getElementById("endPoi"       + index).setAttribute("hidden", true); // hind end poi radio
-            index++;
-        }
-    }
-
-
-
-    // 3.2.2.H Update start poi check box when a poi is deleted
-    function updateStart (idxToDelete) {
-        var startPoiInt = $('input[name="startPoi"]:checked').val();
-
-        // case 1: no start poi: startPoiInt = 0
-        if (startPoiInt == 0) {return;}
-
-        // case 2: startPoiInt < idxToDelete
-        if (startPoiInt < idxToDelete) {return;}
-
-        // case 3: startPoiInt > idxToDelete
-        if (startPoiInt > idxToDelete) {document.getElementById("startPoi"+(startPoiInt-1)).checked = true;}
-
-        // case 4: startPoiInt = idxToDelete
-        if (startPoiInt == idxToDelete) {document.getElementById("startPoi0").checked = true;}
-    }
-
-    // 3.2.2.H Update end poi check box when a poi is deleted
-    function updateEnd (idxToDelete) {
-        var endPoiInt = $('input[name="endPoi"]:checked').val();
-
-        // case 1: no start poi: startPoiInt = 0
-        if (endPoiInt == 0) {return;}
-
-        // case 2: startPoiInt < idxToDelete
-        if (endPoiInt < idxToDelete) {return;}
-
-        // case 3: startPoiInt > idxToDelete
-        if (endPoiInt > idxToDelete) {document.getElementById("endPoi"+(endPoiInt-1)).checked = true;}
-
-        // case 4: startPoiInt = idxToDelete
-        if (endPoiInt == idxToDelete) {document.getElementById("endPoi0").checked = true;}
-    }
-
-
-
-
-    /* 3.2.3 Search All Pois */
-
-    // 3.2.3.1 Search quickest route
-    function search() {
-        positionsInfo = "";
-        // Null Case: 0/1 poi
-        if (totalPoiNum < 2) {alert("请输入至少两个地点！"); return;}
-
-        // Regular Case: concatenate infos
-        var currentNode = dummyFirstNode;
-        while (currentNode.nextNode != null) {
-            currentNode = currentNode.nextNode;
-            positionsInfo += currentNode.info;
-        }
-        document.getElementById("positionsToReturn").value = positionsInfo;
-        document.getElementById("cluster").value = cluster;
-        // ❓ ❓ ❓ Your code here to make start&end index ❓ ❓ ❓
-        start_index_var = $('input[name="startPoi"]:checked').val() - 1;
-        end_index_var = $('input[name="endPoi"]:checked').val() - 1;
-        document.getElementById("start_index").value = start_index_var;
-        document.getElementById("end_index").value = end_index_var;
-
-        var form = document.getElementById("pois");
-        form.submit();
-    }
-
-
-    // 3.2.3.2 Search Cluster
-    function alertCluster() {
-        if (totalPoiNum >= 2) {
-            cluster = eval(document.getElementById("clusterNumber").value);
-            // cluster > 0, cluster <= totalPoiNum
-            if (cluster <= totalPoiNum && cluster > 0) {
-                search();
-            }
-            else {
-                alert("请输入大于零且不大于地点总数的整数！")
-            }
-        } else {
-            alert("请输入至少两个地点后查询～");
-        }
-    }
-
-
-
-
-
-    /* 3.2.4 清空所有地点 */
-    function clearPois() {
-        totalPoiNum = 0;
-        dummyFirstNode.nextNode = null;
-        lastNode = dummyFirstNode;
-        connectPois();
-        document.getElementById("startPoi0").checked = true;
-        document.getElementById("endPoi0").checked = true;
-        document.getElementById("clusterNumber").value = 1;
-        clearSearchBox();
-    }
-
-
-
-
-
-    /* 3.2.X 测试用的函数 */
-    function alertPoi() {
-        var currentNode = dummyFirstNode;
-        while (currentNode.nextNode != null) {
-            currentNode = currentNode.nextNode;
-            alert(currentNode.info);
-        }
-    }
-
-    function separationDisplay() {
-        var func_INFO = {{ FUNC }};
-        if (func_INFO == 0) {
-            // alert("Successful!!! This should be removed after TESTING");
-        } else if (func_INFO == -1) {
-            // alert("Error!!! This should be removed after TESTING");
-            // window.history.go(-1);
-            setTimeout("javascript:location.href='search'", 0);
-        } else if (func_INFO == 1) {
-            shortestPathDisplay();
-        } else if (func_INFO == 2) {
-            clusteringDisplay();
-        } else {
-            // alert("ERRORING IN FUNC INFO This should be removed after TESTING");
-            alert("Errcode: a000001，即将跳转。");
-            setTimeout("javascript:location.href='404'", 0);
-        }
-    }
-
-    window.onload = separationDisplay();
-
-    //  👇 CLUSTER 👇 CLUSTER 👇 CLUSTER 👇 CLUSTER 👇 CLUSTER 👇 CLUSTER 👇 CLUSTER 👇 CLUSTER 👇 CLUSTER
-    var center = null;
-    var centerText = null;
-    var setFitViewBtn = null;
-    function clusteringDisplay() {
-
-        var pic1 = "{% static 'img/map_icon/1.png' %}";
-        var pic2 = "{% static 'img/map_icon/2.png' %}";
-        var pic3 = "{% static 'img/map_icon/3.png' %}";
-        var pic4 = "{% static 'img/map_icon/4.png' %}";
-        var pic5 = "{% static 'img/map_icon/5.png' %}";
-        var pic6 = "{% static 'img/map_icon/6.png' %}";
-        var pic7 = "{% static 'img/map_icon/7.png' %}";
-        var pic8 = "{% static 'img/map_icon/8.png' %}";
-        var pic9 = "{% static 'img/map_icon/9.png' %}";
-        var icon_lst = [pic1, pic2, pic3, pic4, pic5, pic6, pic7, pic8, pic9];
-
-        // Location List
-        var loc_lst = '{{ Locs }}';
-        loc_lst = eval(loc_lst);
-        // Result Diction
-        var result_diction = '{{ Paths }}';
-        result_diction = JSON.parse(result_diction.replace(/&quot;/g,'"'));
-
-        function cluster_test() {
-            map.clearMap();  // 清除地图覆盖物
-            var markers = [];
-            for (i = 0; i < Object.keys(result_diction).length; i++) {
-                for (j = 0; j < result_diction[i].length; j++) {
-                    markers.push({
-                        icon: icon_lst[i],
-                        position: loc_lst[result_diction[i][j]]
-                    });
-                };
-            };
-            // 添加一些分布不均的点到地图上,地图上添加n个点标记，作为参照
-            markers.forEach(function(marker) {
-                new AMap.Marker({
-                    map: map,
-                    icon: marker.icon,
-                    position: [marker.position[0], marker.position[1]],
-                    offset: new AMap.Pixel(-13, -30)
-                });
+            var poiPicker = new PoiPicker({
+                //city:'北京',
+                input: 'pickerInput'
             });
-            center = map.getCenter();
-            centerText = '当前中心点坐标：' + center.getLng() + ',' + center.getLat();
-            document.getElementById('centerCoord').innerHTML = centerText;
-            document.getElementById('tips').innerHTML = '成功添加三个点标记，其中有两个在当前地图视野外！';
 
-            setFitViewBtn = document.getElementById('setFitView');
+            //初始化poiPicker
+            poiPickerReady(poiPicker);
+        });
+        function poiPickerReady(poiPicker) {
+
+            window.poiPicker = poiPicker;
+
+            var marker = new AMap.Marker();
+
+            var infoWindow = new AMap.InfoWindow({
+                offset: new AMap.Pixel(0, -20)
+            });
+
+            //选取了某个POI
+            poiPicker.on('poiPicked', function(poiResult) {
+
+                var source = poiResult.source,
+                    poi = poiResult.item,
+                    // POI information
+                    info = {
+                        id: poi.id,
+                        name: poi.name,
+                        location: poi.location.toString(),
+                        address: poi.address
+                    };
+                info2 = {
+                    name: poi.name,
+                    location: poi.location,
+                    address: poi.address
+                }
+
+                marker.setMap(map);
+                marker.setPosition(poi.location); // 图钉
+                infoWindow.setMap(map);
+                infoWindow.setPosition(poi.location); // POI信息框
+
+                // 打印信息
+                //infoWindow.setContent('POI信息: <pre>' + JSON.stringify(info, null, 2) + '</pre>');
+                infoWindow.open(map, marker.getPosition());
+
+                // current POI info
+                currentPoiInfo = JSON.stringify(info, null);
+                var name = info2.name;
+                var address = info2.address;
+                currentPoiInfoDisplay = name;
+                document.getElementById("pickerInput").value = name; // fill poi name to search box
+
+                map.setZoomAndCenter(14, info2.location); // reset map center & scale
+                addPoi();
+            });
+
+            //搜索推荐
+            poiPicker.onCityReady(function() {
+                //poiPicker.suggest('美食');
+            });
         }
-        cluster_test();
-        fit_view_quick();
-    }
 
-    // 添加事件监听, 使地图自适应显示到合适的范围
-    function fit_view_quick() {
-        // 第一个参数为空，表明用图上所有覆盖物 setFitview
-        // 第二个参数为false, 非立即执行
-        // 第三个参数设置上左下右的空白
-        map.setFitView(null, false, [150, 60, 100, 60]);
-        var newCenter = map.getCenter();
-        document.getElementById('centerCoord').innerHTML = '当前中心点坐标：' + newCenter.toString();
-        document.getElementById('tips').innerHTML = '通过setFitView，地图自适应显示到合适的范围内,点标记已全部显示在视野中！';
-    };
-    //  👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER
 
-    // 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST
-    function shortestPathDisplay(){
-        var location_lst = eval('{{ Locs }}'); // TEST CASE: [[90.427281, 30.865042], [110.427281, 30.865042], [80.379028, 30.865042], [80.379028, 39.903719], [79.379028, 39.903719], [79.379028, 40.903719]]
-        var order_lst = eval('{{ Paths }}'); // TEST CASE: [0, 1, 2, 3, 4, 5];
+        // 3.2.2.1 Add a position
+        function addPoi () {
+            // Null Case
+            if (totalPoiNum >= 9) {alert("请勿超过九个点！"); return;}
+            if (currentPoiInfo == "") {return;}
 
-        var drivingOption = {
-            policy: AMap.DrivingPolicy.LEAST_TIME, // 其它policy参数请参考 https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingPolicy
-            ferry: 1, // 是否可以使用轮渡
-            province: '京', // 车牌省份的汉字缩写
-        }
-
-        // 构造路线导航类
-        var driving = new AMap.Driving(drivingOption)
-
-        var pre_order_lst = [];
-        for (var order_lst_i = 0; order_lst_i < order_lst.length - 1; order_lst_i++) {
-            pre_order_lst.push([location_lst[order_lst[order_lst_i]][0], location_lst[order_lst[order_lst_i]][1], location_lst[order_lst[order_lst_i + 1]][0], location_lst[order_lst[order_lst_i + 1]][1]]);
-        }
-
-        // If the start is the end, then the icon is noted as a start icon, here are the conditions
-        var flagStartIsEnd = order_lst[0] == order_lst[order_lst.length - 1];
-        var order_length_total = order_lst.length;
-
-        function return_index(json_result) {
-            var result_tuple = [json_result.origin.lng, json_result.origin.lat, json_result.destination.lng, json_result.destination.lat];
-            var order_x = 0;
-            for (var order_i = 0; order_i < pre_order_lst.length; order_i++) {
-                if (pre_order_lst[order_i][0] == result_tuple[0] && pre_order_lst[order_i][1] == result_tuple[1] && pre_order_lst[order_i][2] == result_tuple[2] && pre_order_lst[order_i][3] == result_tuple[3]) {
-                    order_x = order_i;
-                    break;
+            // Null Case: 重复地点
+            var currentNode = dummyFirstNode;
+            for (var index = 1; index <= totalPoiNum; index++) {
+                currentNode = currentNode.nextNode;
+                if (currentNode.infoDisplay == currentPoiInfoDisplay) {
+                    alert ("请勿输入相同地点！");
+                    return;
                 }
             }
-            return order_x
+
+            // Regular Case: js
+            var newNode = new createNode();
+            newNode.info = currentPoiInfo;
+            newNode.infoDisplay = currentPoiInfoDisplay;
+            newNode.prevNode = lastNode;
+            lastNode.nextNode = newNode;
+            lastNode = newNode;
+            totalPoiNum++;
+
+            // Regular Case: html
+            connectPois();
         }
 
-        for (var order_i = 1; order_i < order_lst.length; order_i++) {
-            // 根据起终点经纬度规划驾车导航路线
-            var func_status = function(status, result) {
-                // result即是对应的驾车导航信息，相关数据结构文档请参考 https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingResult
-                if (status === 'complete') {
-                    if (result.routes && result.routes.length) {
-                        // 绘制第一条路线，也可以按需求绘制其它几条路线
-                        var color_number = return_index(result);
-                        drawRoute(result.routes[0], color_number);
-                        log.success('绘制驾车路线完成');
-                    }
-                } else {
-                    log.error('获取驾车数据失败：' + result)
+
+        // 3.2.2.2 Delete a position
+        function deletePoi (idxToDelete) {
+            // Null Case: no poi info
+            if (idxToDelete > totalPoiNum) {return;}
+
+            // Regular Case
+            totalPoiNum--;
+            var currentNode = dummyFirstNode;
+            for (var index = 1; index <= idxToDelete; index++) {
+                currentNode = currentNode.nextNode;
+            }
+            currentNode.prevNode.nextNode = currentNode.nextNode;
+            if (currentNode.nextNode != null) {
+                currentNode.nextNode.prevNode = currentNode.prevNode;
+            }
+            // update HTML
+            connectPois();
+            updateStart(idxToDelete);
+            updateEnd(idxToDelete);
+
+            // Update last node
+            lastNode = dummyFirstNode;
+            while (lastNode.nextNode != null) {
+                lastNode = lastNode.nextNode;
+            }
+
+            // Update cluternumber
+            updateClusterNum(eval(document.getElementById("clusterNumber").value));
+        }
+
+
+        // 3.2.2.H Clear search box
+        function clearSearchBox() {
+            document.getElementById("pickerInput").value = "";
+        }
+
+
+        // 3.2.2.H Put poi info in linked node to poiContainer1~9 by traverse
+        function connectPois () {
+            // clear poiContainer1~9
+            for (var index=1; index<10; index++) {
+                document.getElementById("poiContainer" + index).innerText = "";
+            }
+            // start copy poi infos
+            var currentNode = dummyFirstNode;
+            var index = 1;
+            // section 1: poiContainers with info
+            while (index <= totalPoiNum) {
+                currentNode = currentNode.nextNode;
+                document.getElementById("poiContainer" + index).innerText = currentNode.infoDisplay; // poi info
+                document.getElementById("poiContainer" + index).removeAttribute("hidden"); // not hide blue box
+                document.getElementById("deleteButton" + index).removeAttribute("hidden"); // not hide delete button
+                document.getElementById("startPoi"     + index).removeAttribute("hidden"); // not hide start poi radio
+                document.getElementById("endPoi"       + index).removeAttribute("hidden"); // not hide end poi radio
+                index++;
+            }
+            // section 2: poiContainers without info
+            while (index <= 9) {
+                document.getElementById("poiContainer" + index).innerText = ""; // no poi info
+                document.getElementById("poiContainer" + index).setAttribute("hidden", true); // hide blue box
+                document.getElementById("deleteButton" + index).setAttribute("hidden", true); // hide delete button
+                document.getElementById("startPoi"     + index).setAttribute("hidden", true); // hind start poi radio
+                document.getElementById("endPoi"       + index).setAttribute("hidden", true); // hind end poi radio
+                index++;
+            }
+        }
+
+
+
+        // 3.2.2.H Update start poi check box when a poi is deleted
+        function updateStart (idxToDelete) {
+            var startPoiInt = $('input[name="startPoi"]:checked').val();
+
+            // case 1: no start poi: startPoiInt = 0
+            if (startPoiInt == 0) {return;}
+
+            // case 2: startPoiInt < idxToDelete
+            if (startPoiInt < idxToDelete) {return;}
+
+            // case 3: startPoiInt > idxToDelete
+            if (startPoiInt > idxToDelete) {document.getElementById("startPoi"+(startPoiInt-1)).checked = true;}
+
+            // case 4: startPoiInt = idxToDelete
+            if (startPoiInt == idxToDelete) {document.getElementById("startPoi0").checked = true;}
+        }
+
+        // 3.2.2.H Update end poi check box when a poi is deleted
+        function updateEnd (idxToDelete) {
+            var endPoiInt = $('input[name="endPoi"]:checked').val();
+
+            // case 1: no start poi: startPoiInt = 0
+            if (endPoiInt == 0) {return;}
+
+            // case 2: startPoiInt < idxToDelete
+            if (endPoiInt < idxToDelete) {return;}
+
+            // case 3: startPoiInt > idxToDelete
+            if (endPoiInt > idxToDelete) {document.getElementById("endPoi"+(endPoiInt-1)).checked = true;}
+
+            // case 4: startPoiInt = idxToDelete
+            if (endPoiInt == idxToDelete) {document.getElementById("endPoi0").checked = true;}
+        }
+
+
+
+
+        /* 3.2.3 Search All Pois */
+
+        // 3.2.3.1 Search quickest route
+        function search() {
+            positionsInfo = "";
+            // Null Case: 0/1 poi
+            if (totalPoiNum < 2) {alert("请输入至少两个地点！"); return;}
+
+            // Regular Case: concatenate infos
+            var currentNode = dummyFirstNode;
+            while (currentNode.nextNode != null) {
+                currentNode = currentNode.nextNode;
+                positionsInfo += currentNode.info;
+            }
+            document.getElementById("positionsToReturn").value = positionsInfo;
+            document.getElementById("cluster").value = cluster;
+            // ❓ ❓ ❓ Your code here to make start&end index ❓ ❓ ❓
+            start_index_var = $('input[name="startPoi"]:checked').val() - 1;
+            end_index_var = $('input[name="endPoi"]:checked').val() - 1;
+            document.getElementById("start_index").value = start_index_var;
+            document.getElementById("end_index").value = end_index_var;
+
+            var form = document.getElementById("pois");
+            form.submit();
+        }
+
+
+        // 3.2.3.2 Search Cluster
+        function alertCluster() {
+            if (totalPoiNum >= 2) {
+                cluster = eval(document.getElementById("clusterNumber").value);
+                // cluster > 0, cluster <= totalPoiNum
+                if (cluster <= totalPoiNum && cluster > 0) {
+                    search();
                 }
-            }
-            driving.search(new AMap.LngLat(location_lst[order_lst[order_i-1]][0], location_lst[order_lst[order_i-1]][1]), new AMap.LngLat(location_lst[order_lst[order_i]][0], location_lst[order_lst[order_i]][1]), func_status);
-        }
-
-        function drawRoute (route, color_num) {
-            var path_color_lst = [['#ef4136', '#f7acbc'], ['#2b4490', '#33a3dc'], ['#f58220', '#fab27b'], ['#84bf96', '#cde6c7'], ['#ef5b9c', '#feeeed'], ['#33a3dc', '#90d7ec'], ['#ffd400', '#fcf16e'], ['#8552a1', '#afb4db'], ['#005831', '#45b97c']];
-
-            // 解析DrivingRoute对象，构造成AMap.Polyline的path参数需要的格式
-            // DrivingResult对象结构参考文档 https://lbs.amap.com/api/javascript-api/reference/route-search#m_DriveRoute
-            function parseRouteToPath(route) {
-                var path = []
-                for (var i = 0, l = route.steps.length; i < l; i++) {
-                    var step = route.steps[i]
-                    for (var j = 0, n = step.path.length; j < n; j++) {
-                        path.push(step.path[j])
-                    }
+                else {
+                    alert("请输入大于零且不大于地点总数的整数！")
                 }
-                return path
+            } else {
+                alert("请输入至少两个地点后查询～");
             }
-
-            var path = parseRouteToPath(route)
-
-            var icon_start_http = 'https://webapi.amap.com/theme/v1.3/markers/' + (color_num + 1) + '.png';
-            var icon_end_http = 'https://webapi.amap.com/theme/v1.3/markers/' + (color_num + 2) + '.png';
-
-            // If the start is the end, then the icon is noted as a start icon
-            if (flagStartIsEnd && order_length_total == color_num + 2){
-                icon_end_http = 'https://webapi.amap.com/theme/v1.3/markers/1.png';
-            }
-
-            var startMarker = new AMap.Marker({
-                position: path[0],
-                icon: icon_start_http, // 'https://webapi.amap.com/theme/v1.3/markers/n/start.png',
-                map: map
-            })
-
-            var endMarker = new AMap.Marker({
-                position: path[path.length - 1],
-                icon: icon_end_http, // https://webapi.amap.com/theme/v1.3/markers/n/end.png',
-                map: map
-            })
-
-            var routeLine = new AMap.Polyline({
-                path: path,
-                isOutline: true,
-                outlineColor: path_color_lst[color_num][1],
-                borderWeight: 2,
-                strokeWeight: 5,
-                strokeColor: path_color_lst[color_num][0],
-                lineJoin: 'round'
-            })
-
-            routeLine.setMap(map)
-            // 调整视野达到最佳显示区域
-            map.setFitView([ startMarker, endMarker, routeLine ])
         }
-    }
-    // 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST
 
-    // Click and shows left part
-    function showLeftPart() {
-        document.getElementById("left_Part_thin_right").style.display = "none";
-        document.getElementById("left_Part_total").style.display = "block";
-    }
 
-    // Click and hides left part
-    function hideLeftParttotal () {
-        document.getElementById("left_Part_total").style.display = "none";
-        document.getElementById("left_Part_thin_right").style.display = "block";
-    }
 
-    // search button
-    function goSearchFor() {
-        if (cur_mode == 0) {
-            search();
-        } else if (cur_mode == 1) {
-            alertCluster();
-        }
-    }
 
-    // Next mode
-    function nextMode() {
-        cur_mode = (cur_mode + 1) % 2;
-        if (cur_mode == 0) {
-            document.getElementById("searchButtonCluster").style.display = "block";
-            document.getElementById("searchButton").style.display = "none";
-            document.getElementById("start_end_div").style.display = "block";
-            document.getElementById("clusterNumberDiv").style.display = "none";
-        } else if (cur_mode == 1) {
-            document.getElementById("searchButtonCluster").style.display = "none";
-            document.getElementById("searchButton").style.display = "block";
-            document.getElementById("start_end_div").style.display = "none";
-            document.getElementById("clusterNumberDiv").style.display = "block";
-        }
-    }
 
-    function regexCheckForNum() {
-        var judging = typeof(eval(document.getElementById("clusterNumber").value)) != "number" ||
-        eval(document.getElementById("clusterNumber").value) <= 0 ||
-        (totalPoiNum == 0 && eval(document.getElementById("clusterNumber").value) != 1) ||
-        (totalPoiNum >= 1 && eval(document.getElementById("clusterNumber").value) > totalPoiNum);
-        if (judging) {
+        /* 3.2.4 清空所有地点 */
+        function clearPois() {
+            totalPoiNum = 0;
+            dummyFirstNode.nextNode = null;
+            lastNode = dummyFirstNode;
+            connectPois();
+            document.getElementById("startPoi0").checked = true;
+            document.getElementById("endPoi0").checked = true;
             document.getElementById("clusterNumber").value = 1;
+            clearSearchBox();
         }
-    }
 
-    function updateClusterNum(curNum) {
-        if (curNum > totalPoiNum) {
-            document.getElementById("clusterNumber").value = 1;
+
+
+
+
+        /* 3.2.X 测试用的函数 */
+        function alertPoi() {
+            var currentNode = dummyFirstNode;
+            while (currentNode.nextNode != null) {
+                currentNode = currentNode.nextNode;
+                alert(currentNode.info);
+            }
         }
-    }
-</script>
+
+        function separationDisplay() {
+            var func_INFO = {{ FUNC }};
+            if (func_INFO == 0) {
+                // alert("Successful!!! This should be removed after TESTING");
+            } else if (func_INFO == -1) {
+                // alert("Error!!! This should be removed after TESTING");
+                // window.history.go(-1);
+                setTimeout("javascript:location.href='search'", 0);
+            } else if (func_INFO == 1) {
+                shortestPathDisplay();
+            } else if (func_INFO == 2) {
+                clusteringDisplay();
+            } else {
+                // alert("ERRORING IN FUNC INFO This should be removed after TESTING");
+                alert("Errcode: a000001，即将跳转。");
+                setTimeout("javascript:location.href='404'", 0);
+            }
+        }
+
+        window.onload = separationDisplay();
+
+        //  👇 CLUSTER 👇 CLUSTER 👇 CLUSTER 👇 CLUSTER 👇 CLUSTER 👇 CLUSTER 👇 CLUSTER 👇 CLUSTER 👇 CLUSTER
+        var center = null;
+        var centerText = null;
+        var setFitViewBtn = null;
+        function clusteringDisplay() {
+
+            var pic1 = "{% static 'img/map_icon/1.png' %}";
+            var pic2 = "{% static 'img/map_icon/2.png' %}";
+            var pic3 = "{% static 'img/map_icon/3.png' %}";
+            var pic4 = "{% static 'img/map_icon/4.png' %}";
+            var pic5 = "{% static 'img/map_icon/5.png' %}";
+            var pic6 = "{% static 'img/map_icon/6.png' %}";
+            var pic7 = "{% static 'img/map_icon/7.png' %}";
+            var pic8 = "{% static 'img/map_icon/8.png' %}";
+            var pic9 = "{% static 'img/map_icon/9.png' %}";
+            var icon_lst = [pic1, pic2, pic3, pic4, pic5, pic6, pic7, pic8, pic9];
+
+            // Location List
+            var loc_lst = '{{ Locs }}';
+            loc_lst = eval(loc_lst);
+            // Result Diction
+            var result_diction = '{{ Paths }}';
+            result_diction = JSON.parse(result_diction.replace(/&quot;/g,'"'));
+
+            function cluster_test() {
+                map.clearMap();  // 清除地图覆盖物
+                var markers = [];
+                for (i = 0; i < Object.keys(result_diction).length; i++) {
+                    for (j = 0; j < result_diction[i].length; j++) {
+                        markers.push({
+                            icon: icon_lst[i],
+                            position: loc_lst[result_diction[i][j]]
+                        });
+                    };
+                };
+                // 添加一些分布不均的点到地图上,地图上添加n个点标记，作为参照
+                markers.forEach(function(marker) {
+                    new AMap.Marker({
+                        map: map,
+                        icon: marker.icon,
+                        position: [marker.position[0], marker.position[1]],
+                        offset: new AMap.Pixel(-13, -30)
+                    });
+                });
+                center = map.getCenter();
+                centerText = '当前中心点坐标：' + center.getLng() + ',' + center.getLat();
+                document.getElementById('centerCoord').innerHTML = centerText;
+                document.getElementById('tips').innerHTML = '成功添加三个点标记，其中有两个在当前地图视野外！';
+
+                setFitViewBtn = document.getElementById('setFitView');
+            }
+            cluster_test();
+            fit_view_quick();
+        }
+
+        // 添加事件监听, 使地图自适应显示到合适的范围
+        function fit_view_quick() {
+            // 第一个参数为空，表明用图上所有覆盖物 setFitview
+            // 第二个参数为false, 非立即执行
+            // 第三个参数设置上左下右的空白
+            map.setFitView(null, false, [150, 60, 100, 60]);
+            var newCenter = map.getCenter();
+            document.getElementById('centerCoord').innerHTML = '当前中心点坐标：' + newCenter.toString();
+            document.getElementById('tips').innerHTML = '通过setFitView，地图自适应显示到合适的范围内,点标记已全部显示在视野中！';
+        };
+        //  👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER 👆 CLUSTER
+
+        // 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST 👇 SHORTEST
+        function shortestPathDisplay(){
+            var location_lst = eval('{{ Locs }}'); // TEST CASE: [[90.427281, 30.865042], [110.427281, 30.865042], [80.379028, 30.865042], [80.379028, 39.903719], [79.379028, 39.903719], [79.379028, 40.903719]]
+            var order_lst = eval('{{ Paths }}'); // TEST CASE: [0, 1, 2, 3, 4, 5];
+
+            var drivingOption = {
+                policy: AMap.DrivingPolicy.LEAST_TIME, // 其它policy参数请参考 https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingPolicy
+                ferry: 1, // 是否可以使用轮渡
+                province: '京', // 车牌省份的汉字缩写
+            }
+
+            // 构造路线导航类
+            var driving = new AMap.Driving(drivingOption)
+
+            var pre_order_lst = [];
+            for (var order_lst_i = 0; order_lst_i < order_lst.length - 1; order_lst_i++) {
+                pre_order_lst.push([location_lst[order_lst[order_lst_i]][0], location_lst[order_lst[order_lst_i]][1], location_lst[order_lst[order_lst_i + 1]][0], location_lst[order_lst[order_lst_i + 1]][1]]);
+            }
+
+            // If the start is the end, then the icon is noted as a start icon, here are the conditions
+            var flagStartIsEnd = order_lst[0] == order_lst[order_lst.length - 1];
+            var order_length_total = order_lst.length;
+
+            function return_index(json_result) {
+                var result_tuple = [json_result.origin.lng, json_result.origin.lat, json_result.destination.lng, json_result.destination.lat];
+                var order_x = 0;
+                for (var order_i = 0; order_i < pre_order_lst.length; order_i++) {
+                    if (pre_order_lst[order_i][0] == result_tuple[0] && pre_order_lst[order_i][1] == result_tuple[1] && pre_order_lst[order_i][2] == result_tuple[2] && pre_order_lst[order_i][3] == result_tuple[3]) {
+                        order_x = order_i;
+                        break;
+                    }
+                }
+                return order_x
+            }
+
+            for (var order_i = 1; order_i < order_lst.length; order_i++) {
+                // 根据起终点经纬度规划驾车导航路线
+                var func_status = function(status, result) {
+                    // result即是对应的驾车导航信息，相关数据结构文档请参考 https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingResult
+                    if (status === 'complete') {
+                        if (result.routes && result.routes.length) {
+                            // 绘制第一条路线，也可以按需求绘制其它几条路线
+                            var color_number = return_index(result);
+                            drawRoute(result.routes[0], color_number);
+                            log.success('绘制驾车路线完成');
+                        }
+                    } else {
+                        log.error('获取驾车数据失败：' + result)
+                    }
+                }
+                driving.search(new AMap.LngLat(location_lst[order_lst[order_i-1]][0], location_lst[order_lst[order_i-1]][1]), new AMap.LngLat(location_lst[order_lst[order_i]][0], location_lst[order_lst[order_i]][1]), func_status);
+            }
+
+            function drawRoute (route, color_num) {
+                var path_color_lst = [['#ef4136', '#f7acbc'], ['#2b4490', '#33a3dc'], ['#f58220', '#fab27b'], ['#84bf96', '#cde6c7'], ['#ef5b9c', '#feeeed'], ['#33a3dc', '#90d7ec'], ['#ffd400', '#fcf16e'], ['#8552a1', '#afb4db'], ['#005831', '#45b97c']];
+
+                // 解析DrivingRoute对象，构造成AMap.Polyline的path参数需要的格式
+                // DrivingResult对象结构参考文档 https://lbs.amap.com/api/javascript-api/reference/route-search#m_DriveRoute
+                function parseRouteToPath(route) {
+                    var path = []
+                    for (var i = 0, l = route.steps.length; i < l; i++) {
+                        var step = route.steps[i]
+                        for (var j = 0, n = step.path.length; j < n; j++) {
+                            path.push(step.path[j])
+                        }
+                    }
+                    return path
+                }
+
+                var path = parseRouteToPath(route)
+
+                var icon_start_http = 'https://webapi.amap.com/theme/v1.3/markers/' + (color_num + 1) + '.png';
+                var icon_end_http = 'https://webapi.amap.com/theme/v1.3/markers/' + (color_num + 2) + '.png';
+
+                // If the start is the end, then the icon is noted as a start icon
+                if (flagStartIsEnd && order_length_total == color_num + 2){
+                    icon_end_http = 'https://webapi.amap.com/theme/v1.3/markers/1.png';
+                }
+
+                var startMarker = new AMap.Marker({
+                    position: path[0],
+                    icon: icon_start_http, // 'https://webapi.amap.com/theme/v1.3/markers/n/start.png',
+                    map: map
+                })
+
+                var endMarker = new AMap.Marker({
+                    position: path[path.length - 1],
+                    icon: icon_end_http, // https://webapi.amap.com/theme/v1.3/markers/n/end.png',
+                    map: map
+                })
+
+                var routeLine = new AMap.Polyline({
+                    path: path,
+                    isOutline: true,
+                    outlineColor: path_color_lst[color_num][1],
+                    borderWeight: 2,
+                    strokeWeight: 5,
+                    strokeColor: path_color_lst[color_num][0],
+                    lineJoin: 'round'
+                })
+
+                routeLine.setMap(map)
+                // 调整视野达到最佳显示区域
+                map.setFitView([ startMarker, endMarker, routeLine ])
+            }
+        }
+        // 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST 👆 SHORTEST
+
+        // Click and shows left part
+        function showLeftPart() {
+            document.getElementById("left_Part_thin_right").style.display = "none";
+            document.getElementById("left_Part_total").style.display = "block";
+        }
+
+        // Click and hides left part
+        function hideLeftParttotal () {
+            document.getElementById("left_Part_total").style.display = "none";
+            document.getElementById("left_Part_thin_right").style.display = "block";
+        }
+
+        // search button
+        function goSearchFor() {
+            if (cur_mode == 0) {
+                search();
+            } else if (cur_mode == 1) {
+                alertCluster();
+            }
+        }
+
+        // Next mode
+        function nextMode() {
+            cur_mode = (cur_mode + 1) % 2;
+            if (cur_mode == 0) {
+                document.getElementById("searchButtonCluster").style.display = "block";
+                document.getElementById("searchButton").style.display = "none";
+                document.getElementById("start_end_div").style.display = "block";
+                document.getElementById("clusterNumberDiv").style.display = "none";
+            } else if (cur_mode == 1) {
+                document.getElementById("searchButtonCluster").style.display = "none";
+                document.getElementById("searchButton").style.display = "block";
+                document.getElementById("start_end_div").style.display = "none";
+                document.getElementById("clusterNumberDiv").style.display = "block";
+            }
+        }
+
+        function regexCheckForNum() {
+            var judging = typeof(eval(document.getElementById("clusterNumber").value)) != "number" ||
+            eval(document.getElementById("clusterNumber").value) <= 0 ||
+            (totalPoiNum == 0 && eval(document.getElementById("clusterNumber").value) != 1) ||
+            (totalPoiNum >= 1 && eval(document.getElementById("clusterNumber").value) > totalPoiNum);
+            if (judging) {
+                document.getElementById("clusterNumber").value = 1;
+            }
+        }
+
+        function updateClusterNum(curNum) {
+            if (curNum > totalPoiNum) {
+                document.getElementById("clusterNumber").value = 1;
+            }
+        }
+    </script>
 
 
-<form action="result" method="post" id="pois">{% csrf_token %}
-    <input type="hidden" id="positionsToReturn" name="positionsToReturn" value="">
-    <input type="hidden" id="cluster" name="cluster" value="">
-    <!-- ❓ ❓ ❓ Code here to make start&end index ❓ ❓ ❓ -->
-    <input type="hidden" id="start_index" name="start_index" value="">
-    <input type="hidden" id="end_index" name="end_index" value="">
-</form>
+    <form action="result" method="post" id="pois">{% csrf_token %}
+        <input type="hidden" id="positionsToReturn" name="positionsToReturn" value="">
+        <input type="hidden" id="cluster" name="cluster" value="">
+        <!-- ❓ ❓ ❓ Code here to make start&end index ❓ ❓ ❓ -->
+        <input type="hidden" id="start_index" name="start_index" value="">
+        <input type="hidden" id="end_index" name="end_index" value="">
+    </form>
 
 </body>
 
